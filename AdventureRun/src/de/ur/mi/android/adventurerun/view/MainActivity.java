@@ -1,4 +1,4 @@
-package de.ur.mi.android.adventurerun.controll;
+package de.ur.mi.android.adventurerun.view;
 
 import com.example.adventurerun.R;
 
