@@ -1,4 +1,6 @@
-package com.example.adventurerun;
+package de.ur.mi.android.adventurerun.controll;
+
+import com.example.adventurerun.R;
 
 import android.app.Activity;
 import android.app.ActionBar;
