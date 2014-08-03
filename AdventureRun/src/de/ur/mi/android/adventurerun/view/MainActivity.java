@@ -1,5 +1,10 @@
 package de.ur.mi.android.adventurerun.view;
 
+
+
+// Die MainActivity dient als Einstiegspunkt, soll aber direkt auf CreateView übergehen.
+
+
 import com.example.adventurerun.R;
 
 import android.app.Activity;
