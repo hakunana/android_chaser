@@ -10,6 +10,8 @@ public class Track {
 	// Vorerst zwei Konstruktoren, abhängig davon, wie wir die Streckenbenennung
 	// implementieren. Sobald wir uns da entschieden haben, kann man einen
 	// Konstruktor ggf. entfernen
+	
+	// Ich würde sagen, der Nutzer kann einen Namen vergeben.
 	public Track(ArrayList<Checkpoint> checkpoints) {
 		this.checkpoints = checkpoints;
 	}
@@ -39,6 +41,10 @@ public class Track {
 			this.name = name;
 		}
 		name = "Unnamed";
+	}
+	
+	public String getName() {
+		return name;
 	}
 
 }

@@ -16,6 +16,10 @@ public class Checkpoint {
 
 	// Gibt Richtung zurück - ACHTUNG: Richtung VOM CHECKPOINT aus gesehen zur
 	// angegebenen Location dest
+	
+	/* Chris: Ist diese Methode nicht redundant? Entscheidend ist doch die Richtung von der aktuellen
+	 * Position des Läufers zum nächstgelegenen Checkpoint.
+	*/
 	public float getBearing(Location dest) {
 		return location.bearingTo(dest);
 	}
