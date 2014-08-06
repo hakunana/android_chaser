@@ -4,5 +4,12 @@
     <string name="app_name">Adventure Run</string>
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    
+    <string-array name="drawer_items">
+        <item>Create track</item>
+        <item>Run track</item>
+        <item>My tracks</item>
+        <item>Statistics</item>
+    </string-array>
 
 </resources>
