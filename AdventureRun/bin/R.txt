@@ -92,8 +92,11 @@ int drawable ic_plusone_standard_off_client 0x7f02001c
 int drawable ic_plusone_tall_off_client 0x7f02001d
 int drawable powered_by_google_dark 0x7f02001e
 int drawable powered_by_google_light 0x7f02001f
-int id action_settings 0x7f070015
+int id action_settings 0x7f070018
 int id book_now 0x7f070010
+int id button_add_checkpoint 0x7f070016
+int id button_finish_track 0x7f070017
+int id button_start_create_track 0x7f070015
 int id buyButton 0x7f07000a
 int id buy_now 0x7f07000f
 int id buy_with_google 0x7f07000e
@@ -123,6 +126,9 @@ int layout raceview 0x7f030004
 int menu main 0x7f0b0000
 int string action_settings 0x7f06001c
 int string app_name 0x7f06001a
+int string button_add_checkpoint 0x7f06001e
+int string button_finish_track 0x7f06001f
+int string button_start_create_track 0x7f06001d
 int string common_google_play_services_enable_button 0x7f06000b
 int string common_google_play_services_enable_text 0x7f06000a
 int string common_google_play_services_enable_title 0x7f060009

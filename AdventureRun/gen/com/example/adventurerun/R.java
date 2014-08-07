@@ -411,8 +411,11 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f02001f;
     }
     public static final class id {
-        public static final int action_settings=0x7f070015;
+        public static final int action_settings=0x7f070018;
         public static final int book_now=0x7f070010;
+        public static final int button_add_checkpoint=0x7f070016;
+        public static final int button_finish_track=0x7f070017;
+        public static final int button_start_create_track=0x7f070015;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
@@ -450,6 +453,9 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001a;
+        public static final int button_add_checkpoint=0x7f06001e;
+        public static final int button_finish_track=0x7f06001f;
+        public static final int button_start_create_track=0x7f06001d;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 

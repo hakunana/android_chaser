@@ -11,5 +11,9 @@
         <item>My tracks</item>
         <item>Statistics</item>
     </string-array>
+    
+    <string name="button_start_create_track">Start creating track</string>
+    <string name="button_add_checkpoint">Set checkpoint</string>
+    <string name="button_finish_track">Finish track</string>
 
 </resources>

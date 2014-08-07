@@ -1,11 +1,11 @@
 package de.ur.mi.android.adventurerun.database;
 
-import de.ur.mi.android.adventurerun.data.Track;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import de.ur.mi.android.adventurerun.data.Track;
 
 public class PrivateDatabaseTracks {
 	

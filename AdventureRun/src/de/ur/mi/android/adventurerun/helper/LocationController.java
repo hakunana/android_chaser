@@ -20,6 +20,8 @@ public class LocationController implements LocationListener {
 	private LocationManager locationManager;
 
 	private String provider;
+	
+	private boolean isActive;
 
 	public LocationController(Context context, PositionListener positionListener) {
 		this.context = context;
@@ -43,12 +45,18 @@ public class LocationController implements LocationListener {
 	}
 
 	public void start() {
-		locationManager.requestLocationUpdates(provider, UPDATE_TIME,
-				UPDATE_DISTANCE, this);
+		if (!isActive) {
+			isActive = true;
+			locationManager.requestLocationUpdates(provider, UPDATE_TIME,
+					UPDATE_DISTANCE, this);
+		}
 	}
 
 	public void stop() {
-		locationManager.removeUpdates(this);
+		if (isActive) {
+			isActive = false;
+			locationManager.removeUpdates(this);
+		}
 	}
 
 	public Location getLastKnownLocation() {
