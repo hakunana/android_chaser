@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import android.location.Location;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
-import de.ur.mi.android.adventurerun.helper.LocationController;
-import de.ur.mi.android.adventurerun.helper.PositionListener;
 
 public class RaceControl {
 
