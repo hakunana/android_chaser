@@ -62,10 +62,14 @@ public class Track {
 		return name;
 	}
 	
+	public ArrayList<Checkpoint> getAllCheckpoints() {
+		return checkpoints;
+	}
+	
 	//Noch nicht implementiert!!! Mit JSON arbeiten.
-	public String getAllCheckpoints() {
+	public String getAllCheckpointsJSON() {
 		return null;
 		
-	}
+	}	
 
 }

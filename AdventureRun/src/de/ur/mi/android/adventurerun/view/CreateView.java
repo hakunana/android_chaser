@@ -13,6 +13,7 @@ import de.ur.mi.android.adventurerun.control.CreateControl;
 import de.ur.mi.android.adventurerun.helper.LocationController;
 import de.ur.mi.android.adventurerun.helper.PositionListener;
 
+
 public class CreateView extends Activity implements PositionListener {
 
 	private CreateControl control;
