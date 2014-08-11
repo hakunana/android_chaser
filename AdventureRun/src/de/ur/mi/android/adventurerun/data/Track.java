@@ -1,10 +1,15 @@
 package de.ur.mi.android.adventurerun.data;
 
 import java.util.ArrayList;
+import java.util.Date;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 public class Track {
 
 	private String name;
+	private Date creationDate;
 	private ArrayList<Checkpoint> checkpoints;
 
 	// Vorerst zwei Konstruktoren, abhängig davon, wie wir die Streckenbenennung
@@ -18,6 +23,7 @@ public class Track {
 
 	public Track(ArrayList<Checkpoint> checkpoints, String name) {
 		this.checkpoints = checkpoints;
+		creationDate = new Date();
 		setName(name);
 	}
 
@@ -66,9 +72,23 @@ public class Track {
 		return checkpoints;
 	}
 	
-	//Noch nicht implementiert!!! Mit JSON arbeiten.
+	public String getAllCheckpointsString () {
+		return checkpoints.toString();
+	}
+	
+	public Date getTimestamp() {
+		return creationDate;
+	}
+	
+	
 	public String getAllCheckpointsJSON() {
-		return null;
+		JSONObject checkpointsJSON = new JSONObject();
+		try {
+			checkpointsJSON.put("allCheckpoints", checkpoints);
+		} catch (JSONException e) {
+			e.printStackTrace();
+		}
+		return checkpointsJSON.toString();
 		
 	}	
 

@@ -1,5 +1,7 @@
 package de.ur.mi.android.adventurerun.database;
 
+import java.util.ArrayList;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.SQLException;
@@ -46,19 +48,29 @@ public class PrivateDatabaseTracks {
 	
 	public long insertTrack (Track currentTrack) {
 		ContentValues currentValues = new ContentValues();
-		currentValues.put(KEY_DATA, currentTrack.getAllCheckpoints());
+		currentValues.put(KEY_ID, currentTrack.getTimestamp().getTime());
+		currentValues.put(KEY_DATA, currentTrack.getAllCheckpointsJSON());
 		
 		return privateDB.insert(DB_TABLE, null, currentValues);
 	}
 	
 	public void deleteTrack (Track currentTrack) {
+		String deleteClause = KEY_ID + "=?";
+		String [] deleteArgs = new String [] {String.valueOf(currentTrack.getTimestamp())};
 		
+		privateDB.delete(DB_TABLE, deleteClause, deleteArgs);
 	}
 	
-	//KEY ÄNDERN!!!
+	// Hier ansetzen!
+	public ArrayList<Track> allTracks() {
+		
+		return null;
+	}
+	
+	
 	public class PrivateDBOpenHelper extends SQLiteOpenHelper {
 		private static final String DATABASE_CREATE = "create table "
-				+ DB_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " 
+				+ DB_TABLE + " (" + KEY_ID + " integer primary key, " 
 				+ KEY_DATA + " text not null);";
 
 		public PrivateDBOpenHelper(Context context, String name,
