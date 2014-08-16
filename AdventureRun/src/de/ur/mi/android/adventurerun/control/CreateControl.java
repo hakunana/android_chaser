@@ -16,6 +16,9 @@ public class CreateControl {
 	// die Checkpoint Liste fortlaufend bzw. am Ende aktualisiert werden? Da mir
 	// spontan kein Fall eingefallen wäre, wieso das Track Objekt schon vor
 	// Vollendung existieren sollte, hab ich es jetzt erst mal so gelöst.
+	
+	// Chris: Ich sehe das ähnlich. Zumal es wesentlich einfacher ist, einmal in die DB zu schreiben,
+	// als alter Bestände ständig zu überschreiben.
 	public CreateControl() {
 		checkpoints = new ArrayList<Checkpoint>();
 	}

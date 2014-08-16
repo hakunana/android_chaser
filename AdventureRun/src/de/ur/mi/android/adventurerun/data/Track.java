@@ -10,6 +10,7 @@ public class Track {
 
 	private String name;
 	private Date creationDate;
+	private long timestamp;
 	private ArrayList<Checkpoint> checkpoints;
 
 	// Vorerst zwei Konstruktoren, abhängig davon, wie wir die Streckenbenennung
@@ -21,9 +22,16 @@ public class Track {
 		this.checkpoints = checkpoints;
 	}
 
-	public Track(ArrayList<Checkpoint> checkpoints, String name) {
+	public Track(ArrayList<Checkpoint> checkpoints, String name, long timestamp) {
 		this.checkpoints = checkpoints;
-		creationDate = new Date();
+		
+		if (timestamp == 0) {
+			creationDate = new Date();
+			this.timestamp = creationDate.getTime();
+		} else {
+			this.timestamp = timestamp;
+		}
+
 		setName(name);
 	}
 
@@ -72,15 +80,19 @@ public class Track {
 		return checkpoints;
 	}
 	
+	// Methode ist deprecated, bitte getAllCheckpoints als JSON verwenden.
 	public String getAllCheckpointsString () {
 		return checkpoints.toString();
 	}
 	
-	public Date getTimestamp() {
-		return creationDate;
+	public long getTimestamp() {
+		return timestamp;
 	}
 	
-	
+	/**
+	 * Creates a JSONObject from all checkpoints and returns the Object as a String (--> Database).
+	 * @return JSONObject as a String.
+	 */
 	public String getAllCheckpointsJSON() {
 		JSONObject checkpointsJSON = new JSONObject();
 		try {
@@ -88,7 +100,7 @@ public class Track {
 		} catch (JSONException e) {
 			e.printStackTrace();
 		}
-		return checkpointsJSON.toString();
+		return checkpointsJSON.toString().toString();
 		
 	}	
 
