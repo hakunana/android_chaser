@@ -18,7 +18,7 @@ public class CreateControl {
 	// Vollendung existieren sollte, hab ich es jetzt erst mal so gelöst.
 	
 	// Chris: Ich sehe das ähnlich. Zumal es wesentlich einfacher ist, einmal in die DB zu schreiben,
-	// als alter Bestände ständig zu überschreiben.
+	// als alte Bestände ständig zu überschreiben.
 	public CreateControl() {
 		checkpoints = new ArrayList<Checkpoint>();
 	}
@@ -29,7 +29,7 @@ public class CreateControl {
 	}
 
 	public void finishTrack() {
-		track = new Track(checkpoints);
+		track = new Track(checkpoints, name, timestamp);
 		// TRACK ZU DATENBANK HINZUFÜGEN
 	}
 }

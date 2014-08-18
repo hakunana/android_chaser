@@ -1,10 +1,7 @@
 package de.ur.mi.android.adventurerun.database;
 
 import java.util.ArrayList;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
+import java.util.Scanner;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -12,13 +9,10 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.location.Location;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 
 public class PrivateDatabaseTracks {
-	
-
 
 	private static final String DB_NAME = "privateDatabaseTracks.db";
 	private static final int DB_VERSION = 1;
@@ -57,6 +51,7 @@ public class PrivateDatabaseTracks {
 	public long insertTrack (Track currentTrack) {
 		ContentValues currentValues = new ContentValues();
 		currentValues.put(KEY_ID, currentTrack.getTimestamp());
+		currentValues.put(KEY_NAME, currentTrack.getName());
 		currentValues.put(KEY_CHECKPOINTS, currentTrack.getAllCheckpointsJSON());
 		
 		return privateDB.insert(DB_TABLE, null, currentValues);
@@ -70,10 +65,16 @@ public class PrivateDatabaseTracks {
 	}
 	
 
-	// Noch nicht abgeschlossen: Reichen latitude und altitude als Daten für den Checkpoint aus?
+	/**
+	 * This method returns an ArrayList with all tracks, stored as Track. The whole database
+	 * will be read and every latitude and longitude will be connected and a new Checkpoint created.
+	 * @return ArrayList <Track>
+	 */
 	public ArrayList<Track> allTracks() {
 		ArrayList <Track> tracksArray = new ArrayList<Track>();
-		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_CHECKPOINTS}, null, null, null, null, null);
+		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_CHECKPOINTS}, null,
+				null, null, null, null);
+		
 		if (cursor.moveToFirst()) {
 			while (true) {
 				long timestamp = cursor.getLong(COLUMN_TIMESTAMP_INDEX);
@@ -81,13 +82,14 @@ public class PrivateDatabaseTracks {
 				String checkpoints = cursor.getString(COLUMN_CHECKPOINTS_INDEX);
 				
 				ArrayList <Checkpoint> checkpointList = parseCheckpointsOfDB (checkpoints);
+				
 				Track currentTrack = new Track (checkpointList, name, timestamp);
 				tracksArray.add(currentTrack);
+				
 				if (cursor.moveToNext() == false) {
 					break;
 				}
 			}
-			
 		}
 		return tracksArray;
 	}
@@ -95,18 +97,29 @@ public class PrivateDatabaseTracks {
 	
 	private ArrayList<Checkpoint> parseCheckpointsOfDB(String checkpoints) {
 		ArrayList <Checkpoint> checkpointList = new ArrayList<Checkpoint>();
-		try {
-			JSONObject jsonString = new JSONObject(checkpoints);
-			JSONArray jsonArray =  jsonString.getJSONArray("allCheckpoints");
-			if (jsonArray != null) {
-				for (int i = 0; i < jsonArray.length(); i++) {
-					
-				}
-			}
+		
+		checkpointList = extractDoubles(checkpoints);
+		
+		return checkpointList;
+	}
+
+
+	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {
+		Scanner scanner = new Scanner (checkpoints);
+		
+		ArrayList <Checkpoint> checkpointList = new ArrayList <Checkpoint> ();
+		double latitude;
+		double longitude;
+
+		while (scanner.hasNext()) {
+			latitude = scanner.nextDouble();
+			longitude = scanner.nextDouble();
 			
-		} catch (JSONException e) {
-			e.printStackTrace();
+			Checkpoint currentCheckpoint = new Checkpoint(latitude, longitude);
+			checkpointList.add(currentCheckpoint);
+			
 		}
+		scanner.close();
 		return checkpointList;
 	}
 

@@ -3,8 +3,7 @@ package de.ur.mi.android.adventurerun.data;
 import java.util.ArrayList;
 import java.util.Date;
 
-import org.json.JSONException;
-import org.json.JSONObject;
+import org.json.JSONArray;
 
 public class Track {
 
@@ -18,9 +17,9 @@ public class Track {
 	// Konstruktor ggf. entfernen
 	
 	// Ich würde sagen, der Nutzer kann einen Namen vergeben.
-	public Track(ArrayList<Checkpoint> checkpoints) {
-		this.checkpoints = checkpoints;
-	}
+	//public Track(ArrayList<Checkpoint> checkpoints) {
+	//	this.checkpoints = checkpoints;
+	//}
 
 	public Track(ArrayList<Checkpoint> checkpoints, String name, long timestamp) {
 		this.checkpoints = checkpoints;
@@ -80,10 +79,6 @@ public class Track {
 		return checkpoints;
 	}
 	
-	// Methode ist deprecated, bitte getAllCheckpoints als JSON verwenden.
-	public String getAllCheckpointsString () {
-		return checkpoints.toString();
-	}
 	
 	public long getTimestamp() {
 		return timestamp;
@@ -94,13 +89,20 @@ public class Track {
 	 * @return JSONObject as a String.
 	 */
 	public String getAllCheckpointsJSON() {
-		JSONObject checkpointsJSON = new JSONObject();
-		try {
-			checkpointsJSON.put("allCheckpoints", checkpoints);
-		} catch (JSONException e) {
-			e.printStackTrace();
+		ArrayList<Double> jsonArrayList = new ArrayList<Double> ();
+		fillArrayList(jsonArrayList);
+		JSONArray js = new JSONArray (jsonArrayList);
+		return js.toString();
+		
+	}
+
+	private void fillArrayList(ArrayList<Double> jsonArrayList) {
+		for (int i = 0; i < checkpoints.size() ; i++) {
+			double latitude = checkpoints.get(i).getLatitude();
+			double longitude = checkpoints.get(i).getLongitude();
+			jsonArrayList.add(latitude);
+			jsonArrayList.add(longitude);
 		}
-		return checkpointsJSON.toString().toString();
 		
 	}	
 
