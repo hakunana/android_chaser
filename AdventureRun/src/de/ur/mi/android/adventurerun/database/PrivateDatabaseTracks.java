@@ -24,11 +24,13 @@ public class PrivateDatabaseTracks {
 	
 	private static final String KEY_ID = "_id";
 	private static final String KEY_NAME = "name";
+	private static final String KEY_TIMESTAMP = "timestamp";
 	private static final String KEY_CHECKPOINTS = "checkpoints";
 	
-	private static final int COLUMN_TIMESTAMP_INDEX = 0;
+	private static final int COLUMN_ID_INDEX = 0;
 	private static final int COLUMN_NAME_INDEX = 1;
-	private static final int COLUMN_CHECKPOINTS_INDEX = 2;
+	private static final int COLUMN_TIMESTAMP_INDEX = 2;
+	private static final int COLUMN_CHECKPOINTS_INDEX = 3;
 	
 	private PrivateDBOpenHelper dbHelper;
 	
@@ -53,8 +55,9 @@ public class PrivateDatabaseTracks {
 	
 	public long insertTrack (Track currentTrack) {
 		ContentValues currentValues = new ContentValues();
-		currentValues.put(KEY_ID, currentTrack.getTimestamp());
+
 		currentValues.put(KEY_NAME, currentTrack.getName());
+		currentValues.put(KEY_TIMESTAMP, currentTrack.getTimestamp());
 		currentValues.put(KEY_CHECKPOINTS, currentTrack.getAllCheckpointsJSON());
 		
 		return privateDB.insert(DB_TABLE, null, currentValues);
@@ -75,7 +78,7 @@ public class PrivateDatabaseTracks {
 	 */
 	public ArrayList<Track> allTracks() {
 		ArrayList <Track> tracksArray = new ArrayList<Track>();
-		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_CHECKPOINTS}, null,
+		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_TIMESTAMP, KEY_CHECKPOINTS}, null,
 				null, null, null, null);
 		
 		if (cursor.moveToFirst()) {
@@ -138,8 +141,8 @@ public class PrivateDatabaseTracks {
 
 	public class PrivateDBOpenHelper extends SQLiteOpenHelper {
 		private static final String DATABASE_CREATE = "create table "
-				+ DB_TABLE + " (" + KEY_ID + " integer primary key, " 
-				+ KEY_NAME + " text, " + KEY_CHECKPOINTS + " blob);";
+				+ DB_TABLE + " (" + KEY_ID + " integer primary key autoincrement, " 
+				+ KEY_NAME + " text, " + KEY_TIMESTAMP + " integer, " + KEY_CHECKPOINTS + " blob);";
 
 		public PrivateDBOpenHelper(Context context, String name,
 				SQLiteDatabase.CursorFactory factory, int version) {
