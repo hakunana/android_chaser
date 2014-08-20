@@ -41,7 +41,7 @@ public class TrackView extends Activity {
 		db = new PrivateDatabaseTracks(this);
 		db.open();
 		
-		Checkpoint checkpoint1 = new Checkpoint(123.0, 123.0);
+		Checkpoint checkpoint1 = new Checkpoint(123.5, 123.5);
 		ArrayList<Checkpoint> checkpoints = new ArrayList<Checkpoint>();
 		checkpoints.add(checkpoint1);
 		

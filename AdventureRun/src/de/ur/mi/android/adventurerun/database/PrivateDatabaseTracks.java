@@ -3,6 +3,9 @@ package de.ur.mi.android.adventurerun.database;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -104,22 +107,31 @@ public class PrivateDatabaseTracks {
 	}
 
 
-	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {
-		Scanner scanner = new Scanner(checkpoints);
-		
+	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {	
 		ArrayList <Checkpoint> checkpointList = new ArrayList <Checkpoint> ();
 		double latitude;
 		double longitude;
 
-		while (scanner.hasNext()) {
-			latitude = scanner.nextDouble();
-			longitude = scanner.nextDouble();
+		try {
+			JSONArray js = new JSONArray(checkpoints);
+			int i = 0;
 			
-			Checkpoint currentCheckpoint = new Checkpoint(latitude, longitude);
-			checkpointList.add(currentCheckpoint);
+			while (true) {
+				latitude = js.getDouble(i);
+				i++;
+				longitude = js.getDouble(i);
+				
+				checkpointList.add(new Checkpoint(latitude, longitude));
+				if (i == (js.length() - 1)) {
+					break;
+				}
+			}
 			
+		} catch (JSONException e) {
+			e.printStackTrace();
 		}
-		scanner.close();
+		
+
 		return checkpointList;
 	}
 
@@ -127,7 +139,7 @@ public class PrivateDatabaseTracks {
 	public class PrivateDBOpenHelper extends SQLiteOpenHelper {
 		private static final String DATABASE_CREATE = "create table "
 				+ DB_TABLE + " (" + KEY_ID + " integer primary key, " 
-				+ KEY_NAME + " text, " + KEY_CHECKPOINTS + " text not null);";
+				+ KEY_NAME + " text, " + KEY_CHECKPOINTS + " blob);";
 
 		public PrivateDBOpenHelper(Context context, String name,
 				SQLiteDatabase.CursorFactory factory, int version) {
