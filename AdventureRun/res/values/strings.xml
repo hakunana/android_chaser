@@ -15,5 +15,9 @@
     <string name="button_start_create_track">Start creating track</string>
     <string name="button_add_checkpoint">Set checkpoint</string>
     <string name="button_finish_track">Finish track</string>
+    
+    <string name="button_open_create_view">Create track</string>
+    <string name="button_open_race_view">Play track</string>
+    <string name="button_open_track_view">View tracks</string>
 
 </resources>

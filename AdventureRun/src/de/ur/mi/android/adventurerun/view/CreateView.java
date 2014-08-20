@@ -28,7 +28,7 @@ public class CreateView extends Activity implements PositionListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
 
-		control = new CreateControl();
+		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
 
 		initButtons();
