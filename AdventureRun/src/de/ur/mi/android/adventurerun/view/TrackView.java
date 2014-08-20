@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 
 import com.example.adventurerun.R;
@@ -47,7 +48,9 @@ public class TrackView extends Activity {
 		
 		Track track1 = new Track(checkpoints, "Track 1", 0);
 		Track track2 = new Track(checkpoints, "Track 2", 0);
+		Track track3 = new Track(checkpoints, "Track 3", 0);
 		
+		db.insertTrack(track3);
 		db.insertTrack(track1);
 		db.insertTrack(track2);
 	}

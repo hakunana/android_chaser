@@ -1,5 +1,6 @@
 package de.ur.mi.android.adventurerun.helper;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
@@ -38,9 +39,16 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 		
 		if (track != null) {
 			TextView trackName = (TextView) v.findViewById(R.id.track_name);
+			trackName.setText(track.getName());
+			
 			TextView timestamp = (TextView) v.findViewById(R.id.track_timestamp);
+			timestamp.setText(formatTimestamp(track.getTimestamp()));
 		}
 		
 		return v;
+	}
+
+	private String formatTimestamp(long timestamp) {
+		return new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(timestamp);
 	}
 }
