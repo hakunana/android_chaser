@@ -10,15 +10,8 @@ public class CreateControl {
 
 	private Track track;
 	private ArrayList<Checkpoint> checkpoints;
-
-	// Zu klären: Reicht es, wenn das Track Objekt erst mit Abschluss der
-	// Strecke erzeugt wird, oder soll es direkt am Anfang erstellt werden und
-	// die Checkpoint Liste fortlaufend bzw. am Ende aktualisiert werden? Da mir
-	// spontan kein Fall eingefallen wäre, wieso das Track Objekt schon vor
-	// Vollendung existieren sollte, hab ich es jetzt erst mal so gelöst.
+	private String name;
 	
-	// Chris: Ich sehe das ähnlich. Zumal es wesentlich einfacher ist, einmal in die DB zu schreiben,
-	// als alte Bestände ständig zu überschreiben.
 	public CreateControl() {
 		checkpoints = new ArrayList<Checkpoint>();
 	}
@@ -27,9 +20,13 @@ public class CreateControl {
 		Checkpoint checkpoint = new Checkpoint(location);
 		checkpoints.add(checkpoint);
 	}
+	
+	public void setName(String name) {
+		this.name = name;
+	}
 
 	public void finishTrack() {
-		track = new Track(checkpoints, name, timestamp);
+		track = new Track(checkpoints, name, 0);
 		// TRACK ZU DATENBANK HINZUFÜGEN
 	}
 }

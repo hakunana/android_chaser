@@ -12,26 +12,20 @@ public class Track {
 	private long timestamp;
 	private ArrayList<Checkpoint> checkpoints;
 
-	// Vorerst zwei Konstruktoren, abhängig davon, wie wir die Streckenbenennung
-	// implementieren. Sobald wir uns da entschieden haben, kann man einen
-	// Konstruktor ggf. entfernen
-	
-	// Ich würde sagen, der Nutzer kann einen Namen vergeben.
-	//public Track(ArrayList<Checkpoint> checkpoints) {
-	//	this.checkpoints = checkpoints;
-	//}
-
 	public Track(ArrayList<Checkpoint> checkpoints, String name, long timestamp) {
 		this.checkpoints = checkpoints;
-		
+	
+		setName(name);
+		setTimestamp(timestamp);
+	}
+
+	private void setTimestamp(long timestamp) {
 		if (timestamp == 0) {
 			creationDate = new Date();
 			this.timestamp = creationDate.getTime();
 		} else {
 			this.timestamp = timestamp;
 		}
-
-		setName(name);
 	}
 
 	/**

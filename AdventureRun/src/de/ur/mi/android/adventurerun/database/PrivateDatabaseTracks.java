@@ -105,7 +105,7 @@ public class PrivateDatabaseTracks {
 
 
 	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {
-		Scanner scanner = new Scanner (checkpoints);
+		Scanner scanner = new Scanner(checkpoints);
 		
 		ArrayList <Checkpoint> checkpointList = new ArrayList <Checkpoint> ();
 		double latitude;
