@@ -23,7 +23,7 @@ public class CreateView extends Activity implements PositionListener {
 
 	private Location currentLocation;
 	
-	private boolean createStarted = false;
+	private boolean createStarted;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,8 +73,11 @@ public class CreateView extends Activity implements PositionListener {
 	}
 
 	private void addCheckpoint() {
-		currentLocation = locationController.getLastKnownLocation();
-		control.addCheckpoint(currentLocation);
+		if (createStarted == true) {
+			currentLocation = locationController.getLastKnownLocation();
+			control.addCheckpoint(currentLocation);	
+		}
+
 	}
 
 	private void finishTrack() {
