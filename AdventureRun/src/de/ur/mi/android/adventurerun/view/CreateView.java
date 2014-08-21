@@ -22,6 +22,8 @@ public class CreateView extends Activity implements PositionListener {
 	private Button buttonStart, buttonAddCheckpoint, buttonFinishTrack;
 
 	private Location currentLocation;
+	
+	private boolean createStarted = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,20 +69,20 @@ public class CreateView extends Activity implements PositionListener {
 
 	private void startNewTrack() {
 		locationController.start();
+		createStarted = true;
 	}
 
 	private void addCheckpoint() {
+		currentLocation = locationController.getLastKnownLocation();
 		control.addCheckpoint(currentLocation);
 	}
 
 	private void finishTrack() {
-		locationController.stop();
-
-		// Muss noch implementiert werden: Track kann nur abgeschlossen werden,
-		// wenn zuvor auch gestartet wurde. Problem ggf. überflüssig, wenn wir
-		// das Interface anpassen (das 3-Button Interface ist nur zur
-		// Implementierung der Funktionsweise)
-		control.finishTrack();
+		if (createStarted == true) {
+			locationController.stop();
+			control.finishTrack();
+		}
+		
 	}
 
 	@Override
