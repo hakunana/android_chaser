@@ -2,6 +2,7 @@ package de.ur.mi.android.adventurerun.view;
 
 import android.app.Activity;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -32,6 +33,7 @@ public class CreateView extends Activity implements PositionListener {
 
 		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
+		
 
 		initButtons();
 	}
@@ -68,12 +70,13 @@ public class CreateView extends Activity implements PositionListener {
 	}
 
 	private void startNewTrack() {
-		locationController.start();
+		//locationController.start();
 		createStarted = true;
 	}
 
 	private void addCheckpoint() {
 		if (createStarted == true) {
+			locationController.start();
 			currentLocation = locationController.getLastKnownLocation();
 			control.addCheckpoint(currentLocation);	
 		}

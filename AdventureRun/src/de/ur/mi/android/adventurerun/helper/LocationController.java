@@ -35,6 +35,7 @@ public class LocationController implements LocationListener {
 
 		locationManager = (LocationManager) context.getSystemService(service);
 		location = locationManager.getLastKnownLocation(provider);
+		isActive = false;
 	}
 
 	// Location Provider festlegen - im Moment wird der Standardprovider
@@ -60,7 +61,7 @@ public class LocationController implements LocationListener {
 	}
 
 	public Location getLastKnownLocation() {
-		return location;
+		return locationManager.getLastKnownLocation(provider);
 	}
 
 	@Override
