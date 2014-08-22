@@ -32,9 +32,7 @@ public class LocationController implements LocationListener {
 	private void init() {
 		setProvider();
 		String service = Context.LOCATION_SERVICE;
-
 		locationManager = (LocationManager) context.getSystemService(service);
-		location = locationManager.getLastKnownLocation(provider);
 		isActive = false;
 	}
 
@@ -64,6 +62,8 @@ public class LocationController implements LocationListener {
 		return locationManager.getLastKnownLocation(provider);
 	}
 
+	// Funktioniert nur, wenn die Position tatsächlich geändert wurde. --> Wird nicht in einem
+	// bestimmten Intervall aufgerufen.
 	@Override
 	public void onLocationChanged(Location newLocation) {
 		location = newLocation;

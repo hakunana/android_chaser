@@ -7,24 +7,35 @@
         android:id="@+id/button_start_create_track"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="176dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
         android:text="@string/button_start_create_track" />
-    
-    <Button
-        android:id="@+id/button_add_checkpoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:text="@string/button_add_checkpoint" />
-    
+
     <Button
         android:id="@+id/button_finish_track"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/button_start_create_track"
+        android:text="@string/button_finish_track" />
+
+    <Button
+        android:id="@+id/button_add_checkpoint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/button_finish_track"
+        android:layout_alignBottom="@+id/button_finish_track"
+        android:layout_alignParentLeft="true"
+        android:text="@string/button_add_checkpoint" />
+
+    <TextView
+        android:id="@+id/textView_checkpointNum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="15dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:text="@string/button_finish_track" />
-    
+        android:textStyle="bold"
+        android:text="@string/textView_checkpointNum" />
+
 </RelativeLayout>

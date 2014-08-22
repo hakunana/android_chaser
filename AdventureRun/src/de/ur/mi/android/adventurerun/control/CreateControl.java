@@ -28,6 +28,10 @@ public class CreateControl {
 		checkpoints.add(checkpoint);
 	}
 	
+	public int getCheckpointNum() {
+		return checkpoints.size();
+	}
+	
 	public void setName(String name) {
 		this.name = name;
 	}
