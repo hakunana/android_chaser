@@ -8,23 +8,26 @@
     <TextView
         android:id="@+id/track_name"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentBottom="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-	    android:gravity="center_vertical"
 	    android:singleLine="true"
-        android:ellipsize="marquee"
-        android:padding="5dp"
+        android:padding="2dp"
 	    android:textSize="16sp" />
     
     <TextView
-        android:padding="5dp"
+        android:padding="2dp"
 	    android:id="@+id/track_timestamp"
-	    android:layout_width="85dp"
+	    android:layout_width="wrap_content"
 	    android:layout_height="fill_parent"
-	    android:layout_alignParentBottom="true"
-	    android:layout_alignParentRight="true"
-	    android:gravity="center_vertical"
-	    android:textSize="14sp" />
+	    android:layout_below="@id/track_name"
+	    android:textSize="13sp" />
+    
+    <Button 
+        android:id="@+id/button_remove_track"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:textSize="12sp"
+        android:text="@string/button_remove_track" />
 
 </RelativeLayout>

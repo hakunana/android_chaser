@@ -32,5 +32,8 @@
     
     <string name="button_ok">OK</string>
     <string name="button_cancel">Abbrechen</string>
+    
+    
+    <string name="button_remove_track">X</string>
 
 </resources>
