@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -16,6 +17,7 @@ import com.example.adventurerun.R;
 
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
+import de.ur.mi.android.adventurerun.view.TrackDetailView;
 
 public class TrackAdapter extends ArrayAdapter<Track> {
 	
@@ -61,6 +63,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 				}
 				
 			});
+			
 		}
 		
 		return v;
