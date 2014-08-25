@@ -463,19 +463,20 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001a;
-        public static final int button_add_checkpoint=0x7f060021;
-        public static final int button_cancel=0x7f06002b;
-        public static final int button_finish_track=0x7f060022;
-        public static final int button_ok=0x7f06002a;
-        public static final int button_open_create_view=0x7f060023;
-        public static final int button_open_race_view=0x7f060024;
-        public static final int button_open_track_view=0x7f060025;
-        public static final int button_remove_track=0x7f06002c;
-        public static final int button_set_track_name_message=0x7f060029;
-        public static final int button_set_track_name_title=0x7f060028;
+        public static final int button_abort_track=0x7f060022;
+        public static final int button_add_checkpoint=0x7f060023;
+        public static final int button_cancel=0x7f06002c;
+        public static final int button_finish_track=0x7f060021;
+        public static final int button_ok=0x7f06002b;
+        public static final int button_open_create_view=0x7f060024;
+        public static final int button_open_race_view=0x7f060025;
+        public static final int button_open_track_view=0x7f060026;
+        public static final int button_remove_track=0x7f06002d;
+        public static final int button_set_track_name_message=0x7f06002a;
+        public static final int button_set_track_name_title=0x7f060029;
         public static final int button_start_create_track=0x7f060020;
-        public static final int button_track_finished_message=0x7f060027;
-        public static final int button_track_finished_title=0x7f060026;
+        public static final int button_track_finished_message=0x7f060028;
+        public static final int button_track_finished_title=0x7f060027;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 

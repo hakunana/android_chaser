@@ -26,12 +26,16 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 	
 	private TrackListListener listener;
 	
-	public TrackAdapter(Context context, ArrayList<Track> tracks, TrackListListener listener) {
+	private PrivateDatabaseTracks db;
+	
+	public TrackAdapter(Context context, ArrayList<Track> tracks, TrackListListener listener, PrivateDatabaseTracks db) {
 		super(context, R.id.track_list, tracks);
 		
 		this.context = context;
 		this.tracks = tracks;
 		this.listener = listener;
+		
+		this.db = db;
 	}
 	
 	@Override
@@ -57,7 +61,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 
 				@Override
 				public void onClick(View v) {
-					PrivateDatabaseTracks.deleteTrack(track);
+					db.deleteTrack(track);
 					notifyDataSetChanged();
 					listener.onTrackDeleted();
 				}

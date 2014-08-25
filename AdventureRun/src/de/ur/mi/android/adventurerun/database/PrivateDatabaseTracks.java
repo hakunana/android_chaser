@@ -11,69 +11,64 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 
 public class PrivateDatabaseTracks {
 
-	private static final String DB_NAME = "privateDatabaseTracks.db";
-	private static final int DB_VERSION = 1;
+	private final String DB_NAME = "privateDatabaseTracks.db";
+	private final int DB_VERSION = 1;
 
-	private static final String DB_TABLE = "tracks";
+	private final String DB_TABLE = "tracks";
 
-	private static final String KEY_ID = "_id";
-	private static final String KEY_NAME = "name";
-	private static final String KEY_TIMESTAMP = "timestamp";
-	private static final String KEY_CHECKPOINTS = "checkpoints";
+	private final String KEY_ID = "_id";
+	private final String KEY_NAME = "name";
+	private final String KEY_TIMESTAMP = "timestamp";
+	private final String KEY_CHECKPOINTS = "checkpoints";
 
-	private static final int COLUMN_ID_INDEX = 0;
-	private static final int COLUMN_NAME_INDEX = 1;
-	private static final int COLUMN_TIMESTAMP_INDEX = 2;
-	private static final int COLUMN_CHECKPOINTS_INDEX = 3;
+	private final int COLUMN_ID_INDEX = 0;
+	private final int COLUMN_NAME_INDEX = 1;
+	private final int COLUMN_TIMESTAMP_INDEX = 2;
+	private final int COLUMN_CHECKPOINTS_INDEX = 3;
 
-	// static, damit keine Instanz der Klasse benötigt wird zum löschen -> ggf.
-	// anpassen
-	private static PrivateDBOpenHelper dbHelper;
+	private PrivateDBOpenHelper dbHelper;
 
-	// static, damit keine Instanz der Klasse benötigt wird zum löschen -> ggf.
-	// anpassen
-	private static SQLiteDatabase privateDB;
+	private SQLiteDatabase privateDB;
 
 	public PrivateDatabaseTracks(Context context) {
 		dbHelper = new PrivateDBOpenHelper(context, DB_NAME, null, DB_VERSION);
 	}
 
-	public static void open() throws SQLException {
+	public void open() throws SQLException {
 		try {
 			privateDB = dbHelper.getWritableDatabase();
 		} catch (SQLException e) {
 			privateDB = dbHelper.getReadableDatabase();
 		}
-
 	}
 
-	public static void close() {
+	public void close() {
 		privateDB.close();
 	}
 
-	public static long insertTrack(Track currentTrack) {
+	public long insertTrack(Track currentTrack) {
+		Log.e("DEBUG", "insert called...");
+		
 		ContentValues currentValues = new ContentValues();
 
 		currentValues.put(KEY_NAME, currentTrack.getName());
 		currentValues.put(KEY_TIMESTAMP, currentTrack.getTimestamp());
 		currentValues
 				.put(KEY_CHECKPOINTS, currentTrack.getAllCheckpointsJSON());
-
+		
 		return privateDB.insert(DB_TABLE, null, currentValues);
 	}
 
-	// static, damit keine Instanz der Klasse benötigt wird zum löschen -> ggf.
-	// anpassen
-	// -----------------
-	// außerdem: ID ist aus Track selbst ja nicht abrufbar - gelöscht werden
+	// ID ist aus Track selbst ja nicht abrufbar - gelöscht werden
 	// muss deshalb über den Timestamp. Andere Idee? Ggf. Name UND Timestamp zur
 	// Sicherheit?
-	public static void deleteTrack(Track currentTrack) {
+	public void deleteTrack(Track currentTrack) {
 		String deleteClause = KEY_TIMESTAMP + "=?";
 		String[] deleteArgs = new String[] { String.valueOf(currentTrack
 				.getTimestamp()) };
@@ -88,7 +83,7 @@ public class PrivateDatabaseTracks {
 	 * 
 	 * @return ArrayList <Track>
 	 */
-	public static ArrayList<Track> allTracks() {
+	public ArrayList<Track> allTracks() {
 		ArrayList<Track> tracksArray = new ArrayList<Track>();
 		Cursor cursor = privateDB.query(DB_TABLE, new String[] { KEY_ID,
 				KEY_NAME, KEY_TIMESTAMP, KEY_CHECKPOINTS }, null, null, null,
@@ -113,7 +108,7 @@ public class PrivateDatabaseTracks {
 		return tracksArray;
 	}
 
-	private static ArrayList<Checkpoint> parseCheckpointsOfDB(String checkpoints) {
+	private ArrayList<Checkpoint> parseCheckpointsOfDB(String checkpoints) {
 		ArrayList<Checkpoint> checkpointList = new ArrayList<Checkpoint>();
 
 		checkpointList = extractDoubles(checkpoints);
@@ -121,7 +116,7 @@ public class PrivateDatabaseTracks {
 		return checkpointList;
 	}
 
-	private static ArrayList<Checkpoint> extractDoubles(String checkpoints) {
+	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {
 		ArrayList<Checkpoint> checkpointList = new ArrayList<Checkpoint>();
 		double latitude;
 		double longitude;
@@ -149,7 +144,7 @@ public class PrivateDatabaseTracks {
 	}
 
 	public class PrivateDBOpenHelper extends SQLiteOpenHelper {
-		private static final String DATABASE_CREATE = "create table "
+		private final String DATABASE_CREATE = "create table "
 				+ DB_TABLE + " (" + KEY_ID
 				+ " integer primary key autoincrement, " + KEY_NAME + " text, "
 				+ KEY_TIMESTAMP + " integer, " + KEY_CHECKPOINTS + " blob);";
@@ -162,12 +157,10 @@ public class PrivateDatabaseTracks {
 		@Override
 		public void onCreate(SQLiteDatabase db) {
 			db.execSQL(DATABASE_CREATE);
-
 		}
 
 		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
 		}
 
 	}

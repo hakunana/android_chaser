@@ -13,10 +13,11 @@
 
     <Button
         android:id="@+id/button_add_checkpoint"
-        android:layout_width="wrap_content"
+        android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_below="@id/button_start_finish_create_track"
         android:layout_centerHorizontal="true"
+        android:visibility="invisible"
         android:text="@string/button_add_checkpoint" />
 
     <TextView

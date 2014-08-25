@@ -1,3 +1,12 @@
+/* TODO
+ * - Button zum Löschen des letzten Checkpoints
+ * - Karte mit aktueller Position und Checkpoints
+ * - Anzahl Checkpoint Anzeige ist noch verbuggt
+ * - Statistiken
+ * - Strecke erstellen abbrechen
+ */
+
+
 package de.ur.mi.android.adventurerun.view;
 
 import android.app.Activity;
@@ -5,6 +14,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -26,15 +36,16 @@ public class CreateView extends Activity implements PositionListener {
 
 	private Location currentLocation;
 
-	private boolean createStarted;
-	private boolean gpsAvailable;
+	private boolean createStarted = false;
+	private boolean gpsAvailable = false;
+	private boolean enoughCheckpoints = false;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
 
-		control = new CreateControl();
+		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
 
 		initButtons();
@@ -77,6 +88,8 @@ public class CreateView extends Activity implements PositionListener {
 			public void onClick(View v) {
 				if (!createStarted) {
 					startNewTrack();
+				} else if (enoughCheckpoints) {
+					abortTrack();
 				} else {
 					finishTrack();
 				}
@@ -94,16 +107,20 @@ public class CreateView extends Activity implements PositionListener {
 
 	private void startNewTrack() {
 		createStarted = true;
-		buttonStartFinish.setText(R.string.button_finish_track);
+		Log.e("DEBUG", "Setting text to " + R.string.button_abort_track);
+		buttonStartFinish.setText(R.string.button_abort_track);
 		locationController.startUpdates();
 	}
 
 	private void addCheckpoint() {
-		if (createStarted) {
+		if (createStarted && gpsAvailable) {
 			control.addCheckpoint(currentLocation);
 			updateCheckpointNum();
 		}
-
+		
+		if (control.getCheckpointNum() > 1) {
+			buttonStartFinish.setText(R.string.button_finish_track);
+		}
 	}
 
 	private void updateCheckpointNum() {
@@ -119,7 +136,10 @@ public class CreateView extends Activity implements PositionListener {
 		if (createStarted == true && control.getCheckpointNum() > 1) {
 			isTrackFinished();
 		}
-
+	}
+	
+	private void abortTrack() {
+		// Strecke erstellen abbrechen
 	}
 
 	/**
@@ -177,6 +197,9 @@ public class CreateView extends Activity implements PositionListener {
 						control.setName(name);
 						control.finishTrack();
 						locationController.stopUpdates();
+						
+						createStarted = false;
+						gpsAvailable = false;
 
 						goToMenu();
 					}
@@ -191,6 +214,11 @@ public class CreateView extends Activity implements PositionListener {
 
 	@Override
 	public void onNewLocation(Location location) {
+		if (!gpsAvailable) {
+			gpsAvailable = true;
+			buttonAddCheckpoint.setVisibility(View.VISIBLE);
+		}
+		
 		currentLocation = location;
 	}
 

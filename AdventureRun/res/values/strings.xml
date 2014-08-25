@@ -20,8 +20,9 @@
         in fünf Minuten erneut.</string>
     
     <string name="button_start_create_track">Strecke beginnen</string>
-    <string name="button_add_checkpoint">Checkpoint setzen</string>
     <string name="button_finish_track">Strecke fertig</string>
+    <string name="button_abort_track">Erstellen abbrechen</string>
+    <string name="button_add_checkpoint">Checkpoint setzen</string>
     
     <string name="button_open_create_view">Strecke erstellen</string>
     <string name="button_open_race_view">Strecke laufen</string>

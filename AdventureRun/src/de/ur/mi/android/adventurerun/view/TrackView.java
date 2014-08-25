@@ -47,7 +47,7 @@ public class TrackView extends Activity implements TrackListListener {
 
 	private void initUI() {
 		ListView list = (ListView) findViewById(R.id.track_list);
-		track_adapter = new TrackAdapter(this, tracks, this);
+		track_adapter = new TrackAdapter(this, tracks, this, db);
 		list.setAdapter(track_adapter);
 	}
 
