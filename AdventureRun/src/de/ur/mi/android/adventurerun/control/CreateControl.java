@@ -14,13 +14,11 @@ public class CreateControl {
 	private ArrayList<Checkpoint> checkpoints;
 	private String name;
 	private Context context;
-	private PrivateDatabaseTracks db;
-	
+
 	public CreateControl(Context context) {
 		this.context = context;
 		checkpoints = new ArrayList<Checkpoint>();
 		
-		db = new PrivateDatabaseTracks(context);
 	}
 
 	public void addCheckpoint(Location location) {
@@ -39,8 +37,8 @@ public class CreateControl {
 	public void finishTrack() {
 		track = new Track(checkpoints, name, 0);
 		
-		db.open();
-		db.insertTrack(track);
-		db.close();
+		PrivateDatabaseTracks.open();
+		PrivateDatabaseTracks.insertTrack(track);
+		PrivateDatabaseTracks.close();
 	}
 }

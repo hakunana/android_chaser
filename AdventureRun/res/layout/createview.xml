@@ -23,10 +23,10 @@
         android:id="@+id/textView_checkpointNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:padding="15dp"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:textStyle="bold"
-        android:text="@string/textView_checkpointNum" />
+        android:layout_centerHorizontal="true"
+        android:padding="15dp"
+        android:text="@string/textView_checkpointNum"
+        android:textStyle="bold" />
 
 </RelativeLayout>

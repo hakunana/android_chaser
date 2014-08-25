@@ -27,6 +27,7 @@ public class CreateView extends Activity implements PositionListener {
 	private Location currentLocation;
 
 	private boolean createStarted;
+	private boolean gpsAvailable;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -68,13 +69,43 @@ public class CreateView extends Activity implements PositionListener {
 	}
 
 	private void startNewTrack() {
-		createStarted = true;
+		checkGPS();
+		if (gpsAvailable == true) {
+			createStarted = true;
+			buttonStartFinish.setText(R.string.button_finish_track);
+		}
+	}
 
-		buttonStartFinish.setText(R.string.button_finish_track);
+	private void checkGPS() {
+		Location location = locationController.getLastKnownLocation();
+		if (location == null) {
+			gpsAvailable = false;
+			setGPSInfo();
+		} else {
+			gpsAvailable = true;
+		}
+		
+	}
+
+	private void setGPSInfo() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.info_gps_title);
+		builder.setMessage(R.string.info_gps_message);
+
+		builder.setCancelable(false);
+		
+		builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		builder.show();
 	}
 
 	private void addCheckpoint() {
-		if (createStarted == true) {
+		if (createStarted == true && gpsAvailable == true) {
 			locationController.start();
 			currentLocation = locationController.getLastKnownLocation();
 			control.addCheckpoint(currentLocation);
@@ -86,14 +117,15 @@ public class CreateView extends Activity implements PositionListener {
 
 	private void updateCheckpointNum() {
 		int checkpointNum = control.getCheckpointNum();
+		Integer num = Integer.valueOf(checkpointNum);
 		TextView checkpointNumView = (TextView) findViewById(R.id.textView_checkpointNum);
 		checkpointNumView.setText(R.string.textView_checkpointNum
-				+ String.valueOf(checkpointNum));
+				+ num.toString());
 
 	}
 
 	private void finishTrack() {
-		if (createStarted == true) {
+		if (createStarted == true && control.getCheckpointNum() > 1) {
 			isTrackFinished();
 
 		}
@@ -119,10 +151,6 @@ public class CreateView extends Activity implements PositionListener {
 					public void onClick(DialogInterface dialog, int which) {
 						locationController.stop();
 						getName();
-						// finishTrack wird nun bei onClick im setName Dialog
-						// aufgerufen, da der Code nicht "wartet", bis getName()
-						// fertig durchgelaufen ist - ggf. anders lösen bzw im
-						// Code übersichtlicher implementieren
 					}
 				});
 

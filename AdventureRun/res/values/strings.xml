@@ -14,6 +14,11 @@
     
     <string name="textView_checkpointNum">Checkpoints:</string>
     
+    <string name="info_gps_title">GPS-Fehler</string>
+    <string name="info_gps_message">GPS ist entweder ausgeschaltet oder es gibt (noch) kein
+        gültiges Signal. Bitte schalten Sie Ihr GPS an und starten Sie die Anwendung
+        in fünf Minuten erneut.</string>
+    
     <string name="button_start_create_track">Strecke beginnen</string>
     <string name="button_add_checkpoint">Checkpoint setzen</string>
     <string name="button_finish_track">Strecke fertig</string>

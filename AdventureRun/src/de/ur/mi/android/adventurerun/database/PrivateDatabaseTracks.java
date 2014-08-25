@@ -43,7 +43,7 @@ public class PrivateDatabaseTracks {
 		dbHelper = new PrivateDBOpenHelper(context, DB_NAME, null, DB_VERSION);
 	}
 
-	public void open() throws SQLException {
+	public static void open() throws SQLException {
 		try {
 			privateDB = dbHelper.getWritableDatabase();
 		} catch (SQLException e) {
@@ -52,11 +52,11 @@ public class PrivateDatabaseTracks {
 
 	}
 
-	public void close() {
+	public static void close() {
 		privateDB.close();
 	}
 
-	public long insertTrack(Track currentTrack) {
+	public static long insertTrack(Track currentTrack) {
 		ContentValues currentValues = new ContentValues();
 
 		currentValues.put(KEY_NAME, currentTrack.getName());
@@ -88,7 +88,7 @@ public class PrivateDatabaseTracks {
 	 * 
 	 * @return ArrayList <Track>
 	 */
-	public ArrayList<Track> allTracks() {
+	public static ArrayList<Track> allTracks() {
 		ArrayList<Track> tracksArray = new ArrayList<Track>();
 		Cursor cursor = privateDB.query(DB_TABLE, new String[] { KEY_ID,
 				KEY_NAME, KEY_TIMESTAMP, KEY_CHECKPOINTS }, null, null, null,
@@ -113,7 +113,7 @@ public class PrivateDatabaseTracks {
 		return tracksArray;
 	}
 
-	private ArrayList<Checkpoint> parseCheckpointsOfDB(String checkpoints) {
+	private static ArrayList<Checkpoint> parseCheckpointsOfDB(String checkpoints) {
 		ArrayList<Checkpoint> checkpointList = new ArrayList<Checkpoint>();
 
 		checkpointList = extractDoubles(checkpoints);
@@ -121,7 +121,7 @@ public class PrivateDatabaseTracks {
 		return checkpointList;
 	}
 
-	private ArrayList<Checkpoint> extractDoubles(String checkpoints) {
+	private static ArrayList<Checkpoint> extractDoubles(String checkpoints) {
 		ArrayList<Checkpoint> checkpointList = new ArrayList<Checkpoint>();
 		double latitude;
 		double longitude;
