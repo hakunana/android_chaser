@@ -9,11 +9,15 @@
 
 package de.ur.mi.android.adventurerun.view;
 
-import android.app.Activity;
+
 import android.app.AlertDialog;
+
 import android.content.DialogInterface;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -22,12 +26,16 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.adventurerun.R;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import de.ur.mi.android.adventurerun.control.CreateControl;
 import de.ur.mi.android.adventurerun.helper.LocationController;
 import de.ur.mi.android.adventurerun.helper.PositionListener;
 
-public class CreateView extends Activity implements PositionListener {
+public class CreateView extends FragmentActivity implements PositionListener {
 
 	private CreateControl control;
 	private LocationController locationController;
@@ -49,8 +57,17 @@ public class CreateView extends Activity implements PositionListener {
 		locationController = new LocationController(this, this);
 
 		initButtons();
+		
+		setupMap();
 	}
-	
+
+	private void setupMap() {
+		FragmentManager fmanager = getSupportFragmentManager();
+		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
+		SupportMapFragment supportMapFragment = (SupportMapFragment) fragment;
+		GoogleMap map = supportMapFragment.getMap();
+	}
+
 	@Override
 	public void onStart() {
 		locationController.start();
@@ -221,5 +238,16 @@ public class CreateView extends Activity implements PositionListener {
 		
 		currentLocation = location;
 	}
+	
+
+	public static class MapFragment extends FragmentActivity {
+
+		
+		private void setupMap() {
+			GoogleMap map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
+			map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
+		}
+	}
+
 
 }
