@@ -93,45 +93,13 @@ public class CreateView extends Activity implements PositionListener {
 	}
 
 	private void startNewTrack() {
-		checkGPS();
-		if (gpsAvailable == true) {
-			createStarted = true;
-			buttonStartFinish.setText(R.string.button_finish_track);
-		}
+		createStarted = true;
+		buttonStartFinish.setText(R.string.button_finish_track);
 		locationController.startUpdates();
 	}
 
-	private void checkGPS() {
-		Location location = locationController.getLastKnownLocation();
-		if (location == null) {
-			gpsAvailable = false;
-			setGPSInfo();
-		} else {
-			gpsAvailable = true;
-		}
-		
-	}
-
-	private void setGPSInfo() {
-		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.info_gps_title);
-		builder.setMessage(R.string.info_gps_message);
-
-		builder.setCancelable(false);
-		
-		builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		});
-		builder.show();
-	}
-
 	private void addCheckpoint() {
-		if (createStarted == true && gpsAvailable == true) {
-			currentLocation = locationController.getLastKnownLocation();
+		if (createStarted) {
 			control.addCheckpoint(currentLocation);
 			updateCheckpointNum();
 		}
@@ -221,8 +189,6 @@ public class CreateView extends Activity implements PositionListener {
 		finish();
 	}
 
-	// Könnte überflüssig werden, da dieser im CreateModus bis jetzt nicht
-	// aufgerufen wird.
 	@Override
 	public void onNewLocation(Location location) {
 		currentLocation = location;

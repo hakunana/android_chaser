@@ -67,10 +67,12 @@ public class LocationController implements LocationListener,
 	}
 	
 	public void start() {
+		Log.e("DEBUG", "Connecting client");
 		locationClient.connect();
 	}
 	
 	public void stop() {
+		Log.e("DEBUG", "Sopping client");
 		if (locationClient.isConnected()) {
 			stopPeriodicUpdates();
 		}
@@ -78,6 +80,7 @@ public class LocationController implements LocationListener,
 	}
 	
 	public void pause() {
+		Log.e("DEBUG", "Paused");
 		editor.putBoolean("KEY_UPDATES_ON", isActive);
 		editor.commit();
 	}
@@ -93,6 +96,7 @@ public class LocationController implements LocationListener,
 	}
 
 	public Location getLastKnownLocation() {
+		Log.e("DEBUG", "Returning last location");
 		return locationClient.getLastLocation();
 	}
 	
@@ -102,6 +106,7 @@ public class LocationController implements LocationListener,
 	}
 	
 	public void stopPeriodicUpdates() {
+		Log.e("DEBUG", "Periodic Updates stopped");
 		locationClient.removeLocationUpdates(this);
 	}
 
@@ -128,9 +133,7 @@ public class LocationController implements LocationListener,
 	@Override
 	public void onConnected(Bundle connectionHint) {
 		Log.e("DEBUG", "Connected");
-		if (isActive) {
-			startPeriodicUpdates();
-		}
+		startPeriodicUpdates();
 	}
 
 	@Override
