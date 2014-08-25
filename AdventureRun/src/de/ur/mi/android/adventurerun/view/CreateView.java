@@ -34,10 +34,34 @@ public class CreateView extends Activity implements PositionListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
 
-		control = new CreateControl(this);
+		control = new CreateControl();
 		locationController = new LocationController(this, this);
 
 		initButtons();
+	}
+	
+	@Override
+	public void onStart() {
+		locationController.start();
+		super.onStart();
+	}
+	
+	@Override
+	public void onStop() {
+		locationController.stop();
+		super.onStop();
+	}
+	
+	@Override
+	public void onPause() {
+		locationController.pause();
+		super.onPause();
+	}
+	
+	@Override
+	public void onResume() {
+		locationController.resume();
+		super.onResume();
 	}
 
 	private void initButtons() {
@@ -74,6 +98,7 @@ public class CreateView extends Activity implements PositionListener {
 			createStarted = true;
 			buttonStartFinish.setText(R.string.button_finish_track);
 		}
+		locationController.startUpdates();
 	}
 
 	private void checkGPS() {
@@ -106,10 +131,8 @@ public class CreateView extends Activity implements PositionListener {
 
 	private void addCheckpoint() {
 		if (createStarted == true && gpsAvailable == true) {
-			locationController.start();
 			currentLocation = locationController.getLastKnownLocation();
 			control.addCheckpoint(currentLocation);
-			locationController.stop();
 			updateCheckpointNum();
 		}
 
@@ -127,7 +150,6 @@ public class CreateView extends Activity implements PositionListener {
 	private void finishTrack() {
 		if (createStarted == true && control.getCheckpointNum() > 1) {
 			isTrackFinished();
-
 		}
 
 	}
@@ -149,7 +171,6 @@ public class CreateView extends Activity implements PositionListener {
 
 					@Override
 					public void onClick(DialogInterface dialog, int which) {
-						locationController.stop();
 						getName();
 					}
 				});
@@ -186,8 +207,8 @@ public class CreateView extends Activity implements PositionListener {
 					public void onClick(DialogInterface dialog, int which) {
 						String name = textField.getText().toString();
 						control.setName(name);
-
 						control.finishTrack();
+						locationController.stopUpdates();
 
 						goToMenu();
 					}

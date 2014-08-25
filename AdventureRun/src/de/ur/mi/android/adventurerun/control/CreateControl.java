@@ -2,7 +2,6 @@ package de.ur.mi.android.adventurerun.control;
 
 import java.util.ArrayList;
 
-import android.content.Context;
 import android.location.Location;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
@@ -13,12 +12,9 @@ public class CreateControl {
 	private Track track;
 	private ArrayList<Checkpoint> checkpoints;
 	private String name;
-	private Context context;
 
-	public CreateControl(Context context) {
-		this.context = context;
+	public CreateControl() {
 		checkpoints = new ArrayList<Checkpoint>();
-		
 	}
 
 	public void addCheckpoint(Location location) {
