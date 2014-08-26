@@ -33,16 +33,6 @@ public class MainActivity extends Activity {
 			
 		});
 		
-		Button playTrack = (Button) findViewById(R.id.open_race_view);
-		playTrack.setOnClickListener(new OnClickListener() {
-
-			@Override
-			public void onClick(View v) {
-				Intent intent = new Intent(context, RaceView.class);
-				startActivity(intent);
-			}
-			
-		});
 		
 		Button viewTracks = (Button) findViewById(R.id.open_track_view);
 		viewTracks.setOnClickListener(new OnClickListener() {

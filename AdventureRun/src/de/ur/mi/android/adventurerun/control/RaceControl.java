@@ -14,6 +14,8 @@ import com.google.android.gms.common.ConnectionResult;
 
 import android.content.Context;
 import android.location.Location;
+import android.webkit.WebView.FindListener;
+import android.widget.ImageView;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.helper.LocationController;
@@ -101,9 +103,6 @@ public class RaceControl implements PositionListener {
 		return checkpoints.get(arrayIndex);
 	}
 	
-	public void adjustCompass(float bearing) {
-		
-	}
 	
 	
 	

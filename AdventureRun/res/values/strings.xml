@@ -41,5 +41,9 @@
     
     
     <string name="button_remove_track">X</string>
+    
+    
+    
+    <string name="description_compass">This is a compass</string>
 
 </resources>

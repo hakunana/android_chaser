@@ -1,7 +1,6 @@
 /* TODO
  * - Button zum Löschen des letzten Checkpoints
  * - Karte mit aktueller Position und Checkpoints
- * - Anzahl Checkpoint Anzeige ist noch verbuggt
  * - Statistiken
  * - Strecke erstellen abbrechen
  */

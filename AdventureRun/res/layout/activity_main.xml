@@ -12,19 +12,11 @@
         android:text="@string/button_open_create_view" />
     
     <Button
-        android:id="@+id/open_race_view"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_below="@id/open_create_view"
-        android:text="@string/button_open_race_view" />
-    
-    <Button
         android:id="@+id/open_track_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
-        android:layout_below="@id/open_race_view"
+        android:layout_below="@id/open_create_view"
         android:text="@string/button_open_track_view" />
     
     

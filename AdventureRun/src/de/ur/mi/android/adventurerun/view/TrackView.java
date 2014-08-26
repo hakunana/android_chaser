@@ -3,6 +3,8 @@ package de.ur.mi.android.adventurerun.view;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -19,11 +21,14 @@ public class TrackView extends Activity implements TrackListListener {
 	private ArrayList<Track> tracks;
 	private TrackAdapter track_adapter;
 	
+	Context context;
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trackview);
 		
+		this.context = this;
 		tracks = new ArrayList<Track>();
 		
 		initDB();
@@ -54,9 +59,17 @@ public class TrackView extends Activity implements TrackListListener {
 		track_adapter.notifyDataSetChanged();
 	}
 
+	
 	@Override
 	public void onTrackDeleted() {
 		initList();
+	}
+
+	@Override
+	public void onRaceViewStarted() {
+		Intent intent = new Intent(context, RaceView.class);
+		startActivity(intent);
+		
 	}
 	
 }

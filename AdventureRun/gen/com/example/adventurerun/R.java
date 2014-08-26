@@ -375,6 +375,7 @@ containing a value of this type.
          */
         public static final int activity_horizontal_margin=0x7f090000;
         public static final int activity_vertical_margin=0x7f090001;
+        public static final int textsize_buttons=0x7f090002;
     }
     public static final class drawable {
         public static final int common_signin_btn_icon_dark=0x7f020000;
@@ -401,14 +402,16 @@ containing a value of this type.
         public static final int common_signin_btn_text_normal_light=0x7f020015;
         public static final int common_signin_btn_text_pressed_dark=0x7f020016;
         public static final int common_signin_btn_text_pressed_light=0x7f020017;
-        public static final int ic_launcher=0x7f020018;
-        public static final int ic_launcherz=0x7f020019;
-        public static final int ic_plusone_medium_off_client=0x7f02001a;
-        public static final int ic_plusone_small_off_client=0x7f02001b;
-        public static final int ic_plusone_standard_off_client=0x7f02001c;
-        public static final int ic_plusone_tall_off_client=0x7f02001d;
-        public static final int powered_by_google_dark=0x7f02001e;
-        public static final int powered_by_google_light=0x7f02001f;
+        public static final int compass=0x7f020018;
+        public static final int ic_action_remove=0x7f020019;
+        public static final int ic_launcher=0x7f02001a;
+        public static final int ic_launcherz=0x7f02001b;
+        public static final int ic_plusone_medium_off_client=0x7f02001c;
+        public static final int ic_plusone_small_off_client=0x7f02001d;
+        public static final int ic_plusone_standard_off_client=0x7f02001e;
+        public static final int ic_plusone_tall_off_client=0x7f02001f;
+        public static final int powered_by_google_dark=0x7f020020;
+        public static final int powered_by_google_light=0x7f020021;
     }
     public static final class id {
         public static final int action_settings=0x7f070020;
@@ -424,22 +427,22 @@ containing a value of this type.
         public static final int holo_dark=0x7f070005;
         public static final int holo_light=0x7f070006;
         public static final int hybrid=0x7f070004;
+        public static final int imageView_compass=0x7f07001a;
         public static final int list_track_item=0x7f07001b;
-        public static final int map_fragment=0x7f070017;
+        public static final int map_fragment=0x7f070016;
         public static final int match_parent=0x7f07000c;
         public static final int monochrome=0x7f070013;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
         public static final int open_create_view=0x7f070014;
-        public static final int open_race_view=0x7f070015;
-        public static final int open_track_view=0x7f070016;
+        public static final int open_track_view=0x7f070015;
         public static final int production=0x7f070007;
         public static final int sandbox=0x7f070008;
         public static final int satellite=0x7f070002;
         public static final int selectionDetails=0x7f07000b;
         public static final int strict_sandbox=0x7f070009;
         public static final int terrain=0x7f070003;
-        public static final int textView_checkpointNum=0x7f07001a;
+        public static final int textView_checkpointNum=0x7f070017;
         public static final int track_list=0x7f07001f;
         public static final int track_name=0x7f07001c;
         public static final int track_timestamp=0x7f07001d;
@@ -567,6 +570,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060018;
+        public static final int description_compass=0x7f06002e;
         public static final int hello_world=0x7f06001b;
         public static final int info_gps_message=0x7f06001f;
         public static final int info_gps_title=0x7f06001e;

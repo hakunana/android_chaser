@@ -3,16 +3,19 @@
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:id="@+id/list_track_item"
-    android:padding="12dp" >
+    android:padding="12dp" > 
+    
     
     <TextView
         android:id="@+id/track_name"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
 	    android:singleLine="true"
         android:padding="2dp"
-	    android:textSize="16sp" />
+	    android:textSize="16sp"
+	    android:onClick="onClick"
+	    android:clickable="true" />
     
     <TextView
         android:padding="2dp"
@@ -21,13 +24,15 @@
 	    android:layout_height="fill_parent"
 	    android:layout_below="@id/track_name"
 	    android:textSize="13sp" />
+
     
-    <Button 
+    
+    <Button
         android:id="@+id/button_remove_track"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:textSize="12sp"
-        android:text="@string/button_remove_track" />
+        android:background="@drawable/ic_action_remove" />
 
 </RelativeLayout>

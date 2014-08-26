@@ -50,6 +50,15 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 		if (track != null) {
 			TextView trackName = (TextView) v.findViewById(R.id.track_name);
 			trackName.setText(track.getName());
+			trackName.setOnClickListener(new OnClickListener () {
+
+				@Override
+				public void onClick(View v) {
+					listener.onRaceViewStarted();
+					
+				}
+				
+			});
 			
 			TextView timestamp = (TextView) v.findViewById(R.id.track_timestamp);
 			timestamp.setText(formatTimestamp(track.getTimestamp()));
