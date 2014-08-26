@@ -243,7 +243,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	@Override
 	public void onNewLocation(Location location) {
-		if (!gpsAvailable) {
+		if (!gpsAvailable && (createStarted == true)) {
 			gpsAvailable = true;
 			buttonAddCheckpoint.setVisibility(View.VISIBLE);
 		}
@@ -316,6 +316,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			this.dialog = dialog;
 		}
 		
+		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			return dialog;
 		}
