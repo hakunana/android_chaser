@@ -2,6 +2,8 @@ package de.ur.mi.android.adventurerun.control;
 
 import java.util.ArrayList;
 
+import com.google.android.gms.common.ConnectionResult;
+
 import android.content.Context;
 import android.location.Location;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
@@ -67,6 +69,24 @@ public class RaceControl implements PositionListener {
 
 	@Override
 	public void onNewLocation(Location location) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnected() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onDisconnected() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
 		// TODO Auto-generated method stub
 		
 	}

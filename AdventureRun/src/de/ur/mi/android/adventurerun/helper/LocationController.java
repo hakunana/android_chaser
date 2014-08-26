@@ -114,9 +114,7 @@ public class LocationController implements LocationListener,
 	public void onLocationChanged(Location newLocation) {
 		location = newLocation;
 		
-		if (positionListener != null) {
-			positionListener.onNewLocation(location);
-		}
+		positionListener.onNewLocation(location);
 		
 		Log.e("DEBUG", "Location retrieved: " + location.getLatitude() + " - " + location.getLongitude());
 	}
@@ -125,6 +123,7 @@ public class LocationController implements LocationListener,
 	public void onConnectionFailed(ConnectionResult result) {
 		// Called by Location Services if the attempt to Location Services
 		// fails.
+		positionListener.onConnectionFailed(result);
 		Log.e("DEBUG", "Connection failed");
 
 	}
@@ -132,6 +131,7 @@ public class LocationController implements LocationListener,
 	// Aufgerufen, wenn mit GPS verbunden
 	@Override
 	public void onConnected(Bundle connectionHint) {
+		positionListener.onConnected();
 		Log.e("DEBUG", "Connected");
 		startPeriodicUpdates();
 	}
@@ -139,6 +139,7 @@ public class LocationController implements LocationListener,
 	@Override
 	public void onDisconnected() {
 		// Aufgerufen, wenn Verbindung zu Location Client einen Error ausgibt
+		positionListener.onDisconnected();
 		Log.e("DEBUG", "Disconnected");
 	}
 

@@ -10,11 +10,15 @@
 package de.ur.mi.android.adventurerun.view;
 
 
+import android.app.Activity;
 import android.app.AlertDialog;
-
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -24,8 +28,11 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.adventurerun.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
@@ -47,11 +54,16 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private boolean createStarted = false;
 	private boolean gpsAvailable = false;
 	private boolean enoughCheckpoints = false;
+	
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	 private static final String DIALOG_ERROR = "dialog_error";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
+		
+		checkForServices();
 
 		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
@@ -237,6 +249,86 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		}
 		
 		currentLocation = location;
+	}
+	
+	@Override
+	public void onConnected() {
+		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onDisconnected() {
+		Toast.makeText(this, "Disconnected", Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public void onConnectionFailed(ConnectionResult result) {
+		if (result.hasResolution()) {
+			try {
+				result.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			} catch (IntentSender.SendIntentException e) {
+				e.printStackTrace();
+			}
+		} else {
+			showErrorDialog(result.getErrorCode());
+		}
+	}
+	
+	private void showErrorDialog(int errorCode) {
+        // Create a fragment for the error dialog
+        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
+        // Pass the error that should be displayed
+        Bundle args = new Bundle();
+        args.putInt(DIALOG_ERROR, errorCode);
+        dialogFragment.setArguments(args);
+        dialogFragment.show(getSupportFragmentManager(), "errordialog");
+    }
+	
+	public static class ErrorDialogFragment extends DialogFragment {
+		private Dialog dialog;
+		public ErrorDialogFragment() {
+			super();
+			dialog = null;
+		}
+		
+		public void setDialog(Dialog dialog) {
+			this.dialog = dialog;
+		}
+		
+		public Dialog onCreateDialog(Bundle savedInstanceState) {
+			return dialog;
+		}
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		switch (requestCode) {
+		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
+			switch (resultCode) {
+			case Activity.RESULT_OK:
+				// TRY REQUEST AGAIN
+				break;
+			}
+		}
+	}
+	
+	private boolean checkForServices() {
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (resultCode == ConnectionResult.SUCCESS) {
+			Log.e("DEBUG", "Google Play Services available");
+			return true;
+		} else {
+			ConnectionResult connectionResult = new ConnectionResult(resultCode, null);
+			int errorCode = connectionResult.getErrorCode();
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+			
+			if (errorDialog != null) {
+				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
+				errorFragment.setDialog(errorDialog);
+				errorFragment.show(getSupportFragmentManager(), "Location Updates");
+			}
+			return false;
+		}
 	}
 	
 
