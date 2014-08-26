@@ -252,6 +252,27 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 	
 	@Override
+	public void onGPSDisabled() {
+		
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.info_gps_title);
+		builder.setMessage(R.string.info_gps_message);
+
+		builder.setCancelable(false);
+		
+		builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
+			
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				
+			}
+		});
+		builder.show();
+		
+	}
+
+	
+	@Override
 	public void onConnected() {
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
 	}
@@ -340,6 +361,5 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
 		}
 	}
-
 
 }

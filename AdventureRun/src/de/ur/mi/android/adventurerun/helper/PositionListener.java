@@ -9,5 +9,6 @@ public interface PositionListener {
 	public void onConnected();
 	public void onDisconnected();
 	public void onConnectionFailed(ConnectionResult result);
+	public void onGPSDisabled();
 	
 }

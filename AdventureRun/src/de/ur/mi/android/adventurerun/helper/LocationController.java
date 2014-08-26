@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -42,6 +43,8 @@ public class LocationController implements LocationListener,
 	}
 
 	private void init() {
+		checkIfGPSEnabled();
+		
 		locationRequest = LocationRequest.create();
 		locationRequest.setInterval(UPDATE_TIME);
 		locationRequest.setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY);
@@ -56,6 +59,14 @@ public class LocationController implements LocationListener,
 		locationClient = new LocationClient(context, this, this);
 	}
 
+	public void checkIfGPSEnabled() {
+		LocationManager manager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
+		
+		if (!manager.isProviderEnabled(LocationManager.GPS_PROVIDER)) {
+			positionListener.onGPSDisabled();
+		}	
+	}
+	
 	public void startUpdates() {
 		isActive = true;
 		startPeriodicUpdates();

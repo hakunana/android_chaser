@@ -91,4 +91,10 @@ public class RaceControl implements PositionListener {
 		
 	}
 
+	@Override
+	public void onGPSDisabled() {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
