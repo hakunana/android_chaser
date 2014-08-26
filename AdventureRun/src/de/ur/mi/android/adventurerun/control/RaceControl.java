@@ -1,6 +1,9 @@
 /* TODO
  * - Gleicher oder ähnlicher Fehlerdialog wie im CreateView bei Verbindungsproblemen.
  * - Dynamische Anpassung des Toleranzbereiches für das Erreichen eines Checkpoints
+ * - Auswahl der getBearing-Methode: In der letzten Studienleistung wurde einfach die
+ * 		bearingTo-Methode verwendet, übergeben wurde die Location aus der Methode
+ * 		getLastKnownLocation(). Hilfreich im Allgemeinen ist dazu das Handout bzgl. der Stud-Leistung.
  */
 
 package de.ur.mi.android.adventurerun.control;
@@ -73,6 +76,8 @@ public class RaceControl implements PositionListener {
 		}
 	}
 	
+	// Methode braucht die momentane Location (currentLocation):
+	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
 	public Checkpoint getNextCheckpoint (Location currentLocation) {
 		Checkpoint nextCheckpoint;
 		Location end = new Location ("end");
@@ -96,8 +101,43 @@ public class RaceControl implements PositionListener {
 		return checkpoints.get(arrayIndex);
 	}
 	
+	public void adjustCompass(float bearing) {
+		
+	}
 	
-
+	
+	
+	// Methode braucht die momentane Location (currentLocation) sowie den aktuellen Checkpoint:
+	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
+	// !!! Sollte die Funktion nichts taugen, können wir es auch mit der bearingTo-Methode
+	// versuchen. (Siehe weiter unten)
+	public double getBearing (Location currentLocation, Checkpoint currentCheckpoint) {
+		Location destination = new Location ("destination");
+		destination.setLatitude(currentCheckpoint.getLatitude());
+		destination.setLongitude(currentCheckpoint.getLongitude());
+		
+		return currentLocation.bearingTo(destination);
+	}
+	
+	// ALTERNATIVE zur Methode darüber:	
+	//public double getBearing (Location currentLocation, Checkpoint currentCheckpoint) {
+		//double bearing = 0;
+		
+		//double latLocation = Math.toRadians(currentLocation.getLatitude());
+		//double latCheckpoint = Math.toRadians(currentCheckpoint.getLatitude());
+		//double longLocation = currentLocation.getLongitude();
+		//double longCheckpoint = currentCheckpoint.getLongitude();
+		
+		//double longDifference = Math.toRadians(longCheckpoint - longLocation);
+		//double y = Math.sin(longDifference) * Math.cos(latCheckpoint);
+		//double x = Math.cos(latLocation) * Math.sin(latCheckpoint) -
+				//Math.sin(latLocation) * Math.cos(latCheckpoint) * Math.cos(longDifference);
+		//bearing = (Math.toDegrees(Math.atan2(y, x)) + 360 ) % 360;
+		
+		//return bearing;
+	//}
+	
+	
 	@Override
 	public void onNewLocation(Location location) {
 		// TODO Auto-generated method stub
