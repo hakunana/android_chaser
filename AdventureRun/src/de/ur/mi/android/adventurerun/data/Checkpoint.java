@@ -56,7 +56,7 @@ public class Checkpoint {
 	 */
 
 	//public float getBearing(Location dest) {
-	//	return location.bearingTo(dest);
+		//return location.bearingTo(dest);
 	//}
 
 }

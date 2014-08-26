@@ -155,9 +155,10 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private void updateCheckpointNum() {
 		int checkpointNum = control.getCheckpointNum();
 		Integer num = Integer.valueOf(checkpointNum);
+		String s = num.toString();
 		TextView checkpointNumView = (TextView) findViewById(R.id.textView_checkpointNum);
-		checkpointNumView.setText(R.string.textView_checkpointNum
-				+ num.toString());
+		checkpointNumView.setText(R.string.textView_checkpointNum);
+		checkpointNumView.append(s);
 
 	}
 
