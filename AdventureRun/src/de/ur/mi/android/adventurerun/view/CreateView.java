@@ -1,7 +1,6 @@
 /* TODO
- * - Button zum Löschen des letzten Checkpoints
  * - Karte mit aktueller Position und Checkpoints
- * - Statistiken
+ * - Statistiken --> September
  * - Strecke erstellen abbrechen
  */
 
@@ -46,7 +45,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private CreateControl control;
 	private LocationController locationController;
 
-	private Button buttonStartFinish, buttonAddCheckpoint;
+	private Button buttonStartFinish, buttonAddCheckpoint, buttonDeleteCheckpoint;
 
 	private Location currentLocation;
 
@@ -106,6 +105,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private void initButtons() {
 		buttonStartFinish = (Button) findViewById(R.id.button_start_finish_create_track);
 		buttonAddCheckpoint = (Button) findViewById(R.id.button_add_checkpoint);
+		buttonDeleteCheckpoint = (Button) findViewById(R.id.button_delete_checkpoint);
 
 		setOnClickListeners();
 	}
@@ -130,7 +130,57 @@ public class CreateView extends FragmentActivity implements PositionListener {
 				addCheckpoint();
 			}
 		});
+		
+		buttonDeleteCheckpoint.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				deleteLastCheckpoint();
+				
+			}
 
+
+		});
+
+	}
+	
+	
+	private void deleteLastCheckpoint() {
+		if (createStarted == true && control.getCheckpointNum() > 0) {
+			
+			confirmDelete();
+			
+		}
+	}
+	
+	
+	private void confirmDelete() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.button_track_delete_title);
+		builder.setMessage(R.string.button_track_delete_message);
+		builder.setCancelable(false);
+		
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						control.deleteLastCheckpoint();
+						updateCheckpointNum();
+					}
+				});
+
+		builder.setNegativeButton(R.string.button_cancel,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+
+		builder.show();
+		
 	}
 
 	private void startNewTrack() {

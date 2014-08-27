@@ -12,6 +12,7 @@ import com.example.adventurerun.R;
 
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
+import de.ur.mi.android.adventurerun.helper.Constants;
 import de.ur.mi.android.adventurerun.helper.TrackAdapter;
 import de.ur.mi.android.adventurerun.helper.TrackListListener;
 
@@ -66,8 +67,9 @@ public class TrackView extends Activity implements TrackListListener {
 	}
 
 	@Override
-	public void onRaceViewStarted() {
+	public void onRaceViewStarted(int trackIndex) {
 		Intent intent = new Intent(context, RaceView.class);
+		intent.putExtra(Constants.KEY_INTENT_TRACKVIEW, trackIndex);
 		startActivity(intent);
 		
 	}

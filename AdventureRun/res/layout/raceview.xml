@@ -5,11 +5,31 @@
 
     <ImageView
         android:id="@+id/imageView_compass"
-        android:contentDescription="@string/description_compass"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
+        android:contentDescription="@string/description_compass"
         android:src="@drawable/compass" />
+
+    <TextView
+        android:id="@+id/textView_trackName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="@dimen/textsize_buttons"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/button_start_run_track"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:text="@string/button_start_run_track"
+        android:textSize="@dimen/textsize_buttons" />
+    
 
 </RelativeLayout>

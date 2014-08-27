@@ -37,7 +37,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 	}
 	
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		
 		if (v == null) {
@@ -54,7 +54,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 
 				@Override
 				public void onClick(View v) {
-					listener.onRaceViewStarted();
+					listener.onRaceViewStarted(position);
 					
 				}
 				
