@@ -143,12 +143,13 @@ int layout trackview 0x7f030007
 int menu main 0x7f0b0000
 int string action_settings 0x7f06001c
 int string app_name 0x7f06001a
+int string button_abort_run_track 0x7f060031
 int string button_abort_track 0x7f060022
 int string button_add_checkpoint 0x7f060023
-int string button_cancel 0x7f060032
+int string button_cancel 0x7f060033
 int string button_delete_checkpoint 0x7f060024
 int string button_finish_track 0x7f060021
-int string button_ok 0x7f060031
+int string button_ok 0x7f060032
 int string button_open_create_view 0x7f060025
 int string button_open_race_view 0x7f060026
 int string button_open_track_view 0x7f060027
@@ -187,7 +188,7 @@ int string common_google_play_services_update_text 0x7f06000d
 int string common_google_play_services_update_title 0x7f06000c
 int string common_signin_button_text 0x7f060017
 int string common_signin_button_text_long 0x7f060018
-int string description_compass 0x7f060033
+int string description_compass 0x7f060034
 int string hello_world 0x7f06001b
 int string info_gps_message 0x7f06001f
 int string info_gps_title 0x7f06001e

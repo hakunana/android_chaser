@@ -470,12 +470,13 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001a;
+        public static final int button_abort_run_track=0x7f060031;
         public static final int button_abort_track=0x7f060022;
         public static final int button_add_checkpoint=0x7f060023;
-        public static final int button_cancel=0x7f060032;
+        public static final int button_cancel=0x7f060033;
         public static final int button_delete_checkpoint=0x7f060024;
         public static final int button_finish_track=0x7f060021;
-        public static final int button_ok=0x7f060031;
+        public static final int button_ok=0x7f060032;
         public static final int button_open_create_view=0x7f060025;
         public static final int button_open_race_view=0x7f060026;
         public static final int button_open_track_view=0x7f060027;
@@ -578,7 +579,7 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060018;
-        public static final int description_compass=0x7f060033;
+        public static final int description_compass=0x7f060034;
         public static final int hello_world=0x7f06001b;
         public static final int info_gps_message=0x7f06001f;
         public static final int info_gps_title=0x7f06001e;

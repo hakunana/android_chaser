@@ -21,7 +21,7 @@ import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.helper.LocationController;
 import de.ur.mi.android.adventurerun.helper.PositionListener;
 
-public class RaceControl implements PositionListener {
+public class RaceControl {
 
 	// Distanz in Metern, ab der ein Checkpoint als erreicht gewertet wird. Wird
 	// als Konstante gesetzt, sollte aber - falls sich das als zu ungenau
@@ -30,7 +30,6 @@ public class RaceControl implements PositionListener {
 	private static final float MIN_DISTANCE = 12;
 	
 	private RaceListener listener;
-	private LocationController locationController;
 
 	private Context context;
 	private Track track;
@@ -45,7 +44,6 @@ public class RaceControl implements PositionListener {
 		visitedCheckpoints = new ArrayList<Checkpoint>();
 		this.checkpoints = track.getAllCheckpoints();
 		
-		locationController = new LocationController(context, this);
 	}
 
 	public void startRace() {
@@ -110,7 +108,7 @@ public class RaceControl implements PositionListener {
 	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
 	// !!! Sollte die Funktion nichts taugen, können wir es auch mit der bearingTo-Methode
 	// versuchen. (Siehe weiter unten)
-	public double getBearing (Location currentLocation, Checkpoint currentCheckpoint) {
+	public float getBearing (Location currentLocation, Checkpoint currentCheckpoint) {
 		Location destination = new Location ("destination");
 		destination.setLatitude(currentCheckpoint.getLatitude());
 		destination.setLongitude(currentCheckpoint.getLongitude());
@@ -137,34 +135,6 @@ public class RaceControl implements PositionListener {
 	//}
 	
 	
-	@Override
-	public void onNewLocation(Location location) {
-		// TODO Auto-generated method stub
-		
-	}
 
-	@Override
-	public void onConnected() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onDisconnected() {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onConnectionFailed(ConnectionResult result) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void onGPSDisabled() {
-		// TODO Auto-generated method stub
-		
-	}
 
 }

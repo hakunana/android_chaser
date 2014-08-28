@@ -41,7 +41,8 @@
     <string name="button_track_started_dialog_title">Achtung, fertig, los!</string>
     <string name="button_track_started_dialog_message">Bereithalten! Rennen startet in 10 Sekunden.</string>
     
-    <string name="button_start_run_track">Start</string>
+    <string name="button_start_run_track">Rennen starten</string>
+    <string name="button_abort_run_track">Rennen abbrechen</string>
     
     
     
