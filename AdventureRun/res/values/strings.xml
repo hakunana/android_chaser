@@ -14,6 +14,8 @@
     
     <string name="textView_checkpointNum">Gesetzte Checkpoints:</string>
     
+    <string name="textView_raceInformation_checkpointReached">Checkpoint erreicht!</string>
+    
     <string name="info_gps_title">GPS-Fehler</string>
     <string name="info_gps_message">GPS ist entweder ausgeschaltet oder es gibt (noch) kein
         gültiges Signal. Bitte schalten Sie Ihr GPS an und starten Sie die Anwendung

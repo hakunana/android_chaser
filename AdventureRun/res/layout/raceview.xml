@@ -21,7 +21,6 @@
         android:text=""
         android:textSize="@dimen/textsize_buttons"
         android:textStyle="bold" />
-
     <Button
         android:id="@+id/button_start_run_track"
         android:layout_width="wrap_content"
@@ -30,6 +29,14 @@
         android:layout_centerHorizontal="true"
         android:text="@string/button_start_run_track"
         android:textSize="@dimen/textsize_buttons" />
-    
+
+    <TextView
+        android:id="@+id/textView_race_information"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/button_start_run_track"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textSize="@dimen/textsize_buttons" />
 
 </RelativeLayout>

@@ -9,7 +9,6 @@
 package de.ur.mi.android.adventurerun.view;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import com.example.adventurerun.R;
 import com.google.android.gms.common.ConnectionResult;
@@ -247,7 +246,8 @@ public class RaceView extends FragmentActivity implements RaceListener, Position
 
 	@Override
 	public void onCheckpointReached() {
-		// TODO Auto-generated method stub
+		TextView information = (TextView) findViewById(R.id.textView_race_information);
+		information.setText(R.string.textView_raceInformation_checkpointReached);
 		
 	}
 
@@ -302,6 +302,9 @@ public class RaceView extends FragmentActivity implements RaceListener, Position
 	public void onNewLocation(Location location) {
 		currentLocation = location;
 		currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
+		
+		// Hier tritt ein Fehler auf!
+		raceControl.checkCheckpoint(currentLocation);
 		adjustCompass();
 	}
 

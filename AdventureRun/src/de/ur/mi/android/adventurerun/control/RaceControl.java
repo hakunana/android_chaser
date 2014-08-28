@@ -59,7 +59,14 @@ public class RaceControl {
 
 	public void checkCheckpoint(Location location) {
 		for (Checkpoint c : checkpoints) {
-			if (c.getDistance(location) <= MIN_DISTANCE) {
+			
+			// Bereich ist noch fehlerhaft. Bitte testen!
+			double latitudeCheckpoint = c.getLatitude();
+			double longitudeCheckpoint = c.getLongitude();
+			Location locationCheckpoint = new Location ("Checkpoint");
+			locationCheckpoint.setLatitude(latitudeCheckpoint);
+			locationCheckpoint.setLongitude(longitudeCheckpoint);
+			if (locationCheckpoint.distanceTo(location) <= MIN_DISTANCE) {
 				visitedCheckpoints.add(c);
 				checkpoints.remove(c);
 				listener.onCheckpointReached();

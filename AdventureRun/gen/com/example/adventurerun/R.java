@@ -414,11 +414,11 @@ containing a value of this type.
         public static final int powered_by_google_light=0x7f020021;
     }
     public static final class id {
-        public static final int action_settings=0x7f070023;
+        public static final int action_settings=0x7f070024;
         public static final int book_now=0x7f070010;
         public static final int button_add_checkpoint=0x7f070019;
         public static final int button_delete_checkpoint=0x7f07001a;
-        public static final int button_remove_track=0x7f070021;
+        public static final int button_remove_track=0x7f070022;
         public static final int button_start_finish_create_track=0x7f070018;
         public static final int button_start_run_track=0x7f07001d;
         public static final int buyButton=0x7f07000a;
@@ -430,7 +430,7 @@ containing a value of this type.
         public static final int holo_light=0x7f070006;
         public static final int hybrid=0x7f070004;
         public static final int imageView_compass=0x7f07001b;
-        public static final int list_track_item=0x7f07001e;
+        public static final int list_track_item=0x7f07001f;
         public static final int map_fragment=0x7f070016;
         public static final int match_parent=0x7f07000c;
         public static final int monochrome=0x7f070013;
@@ -445,10 +445,11 @@ containing a value of this type.
         public static final int strict_sandbox=0x7f070009;
         public static final int terrain=0x7f070003;
         public static final int textView_checkpointNum=0x7f070017;
+        public static final int textView_race_information=0x7f07001e;
         public static final int textView_trackName=0x7f07001c;
-        public static final int track_list=0x7f070022;
-        public static final int track_name=0x7f07001f;
-        public static final int track_timestamp=0x7f070020;
+        public static final int track_list=0x7f070023;
+        public static final int track_name=0x7f070020;
+        public static final int track_timestamp=0x7f070021;
         public static final int wrap_content=0x7f07000d;
     }
     public static final class integer {
@@ -470,26 +471,26 @@ containing a value of this type.
     public static final class string {
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001a;
-        public static final int button_abort_run_track=0x7f060031;
-        public static final int button_abort_track=0x7f060022;
-        public static final int button_add_checkpoint=0x7f060023;
-        public static final int button_cancel=0x7f060033;
-        public static final int button_delete_checkpoint=0x7f060024;
-        public static final int button_finish_track=0x7f060021;
-        public static final int button_ok=0x7f060032;
-        public static final int button_open_create_view=0x7f060025;
-        public static final int button_open_race_view=0x7f060026;
-        public static final int button_open_track_view=0x7f060027;
-        public static final int button_set_track_name_message=0x7f06002d;
-        public static final int button_set_track_name_title=0x7f06002c;
-        public static final int button_start_create_track=0x7f060020;
-        public static final int button_start_run_track=0x7f060030;
-        public static final int button_track_delete_message=0x7f060029;
-        public static final int button_track_delete_title=0x7f060028;
-        public static final int button_track_finished_message=0x7f06002b;
-        public static final int button_track_finished_title=0x7f06002a;
-        public static final int button_track_started_dialog_message=0x7f06002f;
-        public static final int button_track_started_dialog_title=0x7f06002e;
+        public static final int button_abort_run_track=0x7f060032;
+        public static final int button_abort_track=0x7f060023;
+        public static final int button_add_checkpoint=0x7f060024;
+        public static final int button_cancel=0x7f060034;
+        public static final int button_delete_checkpoint=0x7f060025;
+        public static final int button_finish_track=0x7f060022;
+        public static final int button_ok=0x7f060033;
+        public static final int button_open_create_view=0x7f060026;
+        public static final int button_open_race_view=0x7f060027;
+        public static final int button_open_track_view=0x7f060028;
+        public static final int button_set_track_name_message=0x7f06002e;
+        public static final int button_set_track_name_title=0x7f06002d;
+        public static final int button_start_create_track=0x7f060021;
+        public static final int button_start_run_track=0x7f060031;
+        public static final int button_track_delete_message=0x7f06002a;
+        public static final int button_track_delete_title=0x7f060029;
+        public static final int button_track_finished_message=0x7f06002c;
+        public static final int button_track_finished_title=0x7f06002b;
+        public static final int button_track_started_dialog_message=0x7f060030;
+        public static final int button_track_started_dialog_title=0x7f06002f;
         /**  Button in confirmation dialog to enable Google Play services.  Clicking it
         will direct user to application settings of Google Play services where they
         can enable it [CHAR LIMIT=40] 
@@ -579,11 +580,12 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060018;
-        public static final int description_compass=0x7f060034;
+        public static final int description_compass=0x7f060035;
         public static final int hello_world=0x7f06001b;
-        public static final int info_gps_message=0x7f06001f;
-        public static final int info_gps_title=0x7f06001e;
+        public static final int info_gps_message=0x7f060020;
+        public static final int info_gps_title=0x7f06001f;
         public static final int textView_checkpointNum=0x7f06001d;
+        public static final int textView_raceInformation_checkpointReached=0x7f06001e;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */
