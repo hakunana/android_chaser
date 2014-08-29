@@ -226,6 +226,7 @@ public class RaceView extends FragmentActivity implements RaceListener, Position
 					// Ein Piepton o.Ä. wäre an der Stelle super! ;)
 					@Override
 					public void onFinish() {
+						buttonStart.setText(R.string.button_abort_run_track);
 						raceControl.startRace();
 						builder.dismiss();
 
@@ -246,18 +247,29 @@ public class RaceView extends FragmentActivity implements RaceListener, Position
 
 	@Override
 	public void onCheckpointReached() {
-		TextView information = (TextView) findViewById(R.id.textView_race_information);
-		information.setText(R.string.textView_raceInformation_checkpointReached);
+		//TextView information = (TextView) findViewById(R.id.textView_race_information);
+		//information.setText(R.string.textView_raceInformation_checkpointReached);
+		Toast.makeText(this, "Checkpoint erreicht!", Toast.LENGTH_SHORT).show();
 		
 	}
 
 
 	@Override
 	public void onRaceWon() {
-		// TODO Auto-generated method stub
+		raceStarted = false;
+		setWinnerView();
 		
 	}
 
+
+	private void setWinnerView() {
+		TextView information = (TextView) findViewById(R.id.textView_race_information);
+		information.setText(R.string.textView_raceInformation_raceWon);
+		Button startRace = (Button) findViewById(R.id.button_start_run_track);
+		startRace.setText(R.string.button_start_run_track);
+		startRace.setEnabled(false);
+		
+	}
 
 	@Override
 	public void onRaceStarted() {
@@ -300,12 +312,12 @@ public class RaceView extends FragmentActivity implements RaceListener, Position
 
 	@Override
 	public void onNewLocation(Location location) {
-		currentLocation = location;
-		currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
-		
-		// Hier tritt ein Fehler auf!
-		raceControl.checkCheckpoint(currentLocation);
-		adjustCompass();
+		if (raceStarted == true) {
+			currentLocation = location;
+			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
+			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
+			adjustCompass();
+		}
 	}
 
 

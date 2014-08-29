@@ -27,13 +27,15 @@ public class RaceControl {
 	// als Konstante gesetzt, sollte aber - falls sich das als zu ungenau
 	// herausstellen sollte - dynamisch geändert werden, basierend auf der GPS
 	// Genauigkeit
-	private static final float MIN_DISTANCE = 12;
+	private static final float MIN_DISTANCE = 8;
 	
 	private RaceListener listener;
 
 	private Context context;
 	private Track track;
 	private ArrayList<Checkpoint> checkpoints, visitedCheckpoints;
+	private int checkpointNum = 0;
+	private int visited = 0;
 
 	private boolean running = false;
 
@@ -43,6 +45,8 @@ public class RaceControl {
 		this.track = track;
 		visitedCheckpoints = new ArrayList<Checkpoint>();
 		this.checkpoints = track.getAllCheckpoints();
+		checkpointNum = checkpoints.size();
+		visited = 0;
 		
 	}
 
@@ -57,27 +61,26 @@ public class RaceControl {
 	}
 
 
-	public void checkCheckpoint(Location location) {
-		for (Checkpoint c : checkpoints) {
-			
-			// Bereich ist noch fehlerhaft. Bitte testen!
-			double latitudeCheckpoint = c.getLatitude();
-			double longitudeCheckpoint = c.getLongitude();
+	public void checkCheckpoint(Location location, Checkpoint currentCheckpoint) {
+
+			double latitudeCheckpoint = currentCheckpoint.getLatitude();
+			double longitudeCheckpoint = currentCheckpoint.getLongitude();
 			Location locationCheckpoint = new Location ("Checkpoint");
 			locationCheckpoint.setLatitude(latitudeCheckpoint);
 			locationCheckpoint.setLongitude(longitudeCheckpoint);
 			if (locationCheckpoint.distanceTo(location) <= MIN_DISTANCE) {
-				visitedCheckpoints.add(c);
-				checkpoints.remove(c);
+				visitedCheckpoints.add(currentCheckpoint);
+				checkpoints.remove(currentCheckpoint);
 				listener.onCheckpointReached();
+				visited++;
+				checkIfWon();
 			}
-		}
 		
-		checkIfWon();
+		
 	}
 	
 	private void checkIfWon() {
-		if (checkpoints.size() == 0) {
+		if (visited >= checkpointNum - 1) {
 			listener.onRaceWon();
 			stopRace();
 		}

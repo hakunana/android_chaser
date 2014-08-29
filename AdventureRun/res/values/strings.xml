@@ -15,6 +15,7 @@
     <string name="textView_checkpointNum">Gesetzte Checkpoints:</string>
     
     <string name="textView_raceInformation_checkpointReached">Checkpoint erreicht!</string>
+    <string name="textView_raceInformation_raceWon">Alle Checkpoints erreicht! Gewonnen!</string>
     
     <string name="info_gps_title">GPS-Fehler</string>
     <string name="info_gps_message">GPS ist entweder ausgeschaltet oder es gibt (noch) kein
