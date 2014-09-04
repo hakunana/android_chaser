@@ -1,3 +1,7 @@
+/* TODO
+ * - accuracy in Checkpoints mit abspeichern und auslesen
+ */
+
 package de.ur.mi.android.adventurerun.database;
 
 import java.util.ArrayList;
@@ -11,7 +15,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 
@@ -53,7 +56,6 @@ public class PrivateDatabaseTracks {
 	}
 
 	public long insertTrack(Track currentTrack) {
-		Log.e("DEBUG", "insert called...");
 		
 		ContentValues currentValues = new ContentValues();
 
@@ -74,6 +76,16 @@ public class PrivateDatabaseTracks {
 				.getTimestamp()) };
 
 		privateDB.delete(DB_TABLE, deleteClause, deleteArgs);
+	}
+	
+	public void updateName(Track currentTrack) {
+		String updateClause = KEY_TIMESTAMP + "=?";
+		String[] updateArgs = new String[] { String.valueOf(currentTrack.getTimestamp()) };
+		
+		ContentValues currentValues = new ContentValues();
+		currentValues.put(KEY_NAME, currentTrack.getName())
+		;
+		privateDB.update(DB_TABLE, currentValues, updateClause, updateArgs);
 	}
 
 	/**
@@ -144,10 +156,10 @@ public class PrivateDatabaseTracks {
 	}
 
 	public class PrivateDBOpenHelper extends SQLiteOpenHelper {
-		private final String DATABASE_CREATE = "create table "
-				+ DB_TABLE + " (" + KEY_ID
-				+ " integer primary key autoincrement, " + KEY_NAME + " text, "
-				+ KEY_TIMESTAMP + " integer, " + KEY_CHECKPOINTS + " blob);";
+		private final String DATABASE_CREATE = "create table " + DB_TABLE
+				+ " (" + KEY_ID + " integer primary key autoincrement, "
+				+ KEY_NAME + " text, " + KEY_TIMESTAMP + " integer, "
+				+ KEY_CHECKPOINTS + " blob);";
 
 		public PrivateDBOpenHelper(Context context, String name,
 				SQLiteDatabase.CursorFactory factory, int version) {

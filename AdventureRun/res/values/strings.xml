@@ -38,8 +38,21 @@
     <string name="button_track_finished_title">Strecke fertig?</string>
     <string name="button_track_finished_message">Strecke fertig und abspeichern?</string>
     
+    <string name="button_track_abort_title">Erstellen abbrechen?</string>
+    <string name="button_track_abort_message">Strecke abbrechen und alle Checkpoints löschen?</string>
+    
     <string name="button_set_track_name_title">Strecke benennen</string>
     <string name="button_set_track_name_message">Bitte benenne die Strecke:</string>
+    
+    <string name="button_play_track">Spielen</string>
+    <string name="button_rename_track">Umbenennen</string>
+    <string name="button_delete_track">Löschen</string>
+    
+    <string name="button_rename_track_title">Strecke umbenennen</string>
+    <string name="button_rename_track_message">Bitte gib den neuen Namen der Strecke ein:</string>
+    
+    <string name="button_get_user_name_title">Profilname</string>
+    <string name="button_get_user_name_message">Gib einen Namen für dein Profil ein:</string>
     
     <string name="button_track_started_dialog_title">Achtung, fertig, los!</string>
     <string name="button_track_started_dialog_message">Bereithalten! Rennen startet in 10 Sekunden.</string>
@@ -54,5 +67,8 @@
     
     
     <string name="description_compass">This is a compass</string>
+    
+    <string name="track_name_default">Unnamed</string>
+    <string name="number_of_checkpoints">Number of checkpoints: </string>
 
 </resources>

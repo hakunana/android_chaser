@@ -1,12 +1,13 @@
 /* TODO
- * - Karte mit aktueller Position und Checkpoints
  * - Statistiken --> September
- * - Strecke erstellen abbrechen
+ * - eigener Button für Strecke zurücksetzen
  */
 
 
 package de.ur.mi.android.adventurerun.view;
 
+
+import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
@@ -31,10 +32,13 @@ import android.widget.Toast;
 import com.example.adventurerun.R;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.android.gms.maps.model.LatLngBounds;
 
 import de.ur.mi.android.adventurerun.control.CreateControl;
 import de.ur.mi.android.adventurerun.helper.LocationController;
@@ -51,10 +55,15 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	private boolean createStarted = false;
 	private boolean gpsAvailable = false;
-	private boolean enoughCheckpoints = false;
+	
+	private GoogleMap map;
+	
+	private LatLng latLng;
+	
+	private ArrayList<CircleOptions> circles = new ArrayList<CircleOptions>();
 	
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	 private static final String DIALOG_ERROR = "dialog_error";
+	private static final String DIALOG_ERROR = "dialog_error";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -75,7 +84,9 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		FragmentManager fmanager = getSupportFragmentManager();
 		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
 		SupportMapFragment supportMapFragment = (SupportMapFragment) fragment;
-		GoogleMap map = supportMapFragment.getMap();
+		map = supportMapFragment.getMap();
+		map.setMyLocationEnabled(true);
+		map.animateCamera(CameraUpdateFactory.zoomTo(16));
 	}
 
 	@Override
@@ -116,7 +127,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			public void onClick(View v) {
 				if (!createStarted) {
 					startNewTrack();
-				} else if (enoughCheckpoints) {
+				} else if (control.getCheckpointNum() < 2) {
 					abortTrack();
 				} else {
 					finishTrack();
@@ -153,7 +164,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		}
 	}
 	
-	
+
 	private void confirmDelete() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.button_track_delete_title);
@@ -180,7 +191,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 				});
 
 		builder.show();
-		
 	}
 
 	private void startNewTrack() {
@@ -193,12 +203,26 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private void addCheckpoint() {
 		if (createStarted && gpsAvailable) {
 			control.addCheckpoint(currentLocation);
+			addCheckpointOnMap();
 			updateCheckpointNum();
 		}
 		
 		if (control.getCheckpointNum() > 1) {
 			buttonStartFinish.setText(R.string.button_finish_track);
 		}
+	}
+	
+	private void addCheckpointOnMap() {
+		CircleOptions circle = new CircleOptions();
+		circle.center(latLng);
+		circle.radius(currentLocation.getAccuracy());
+		
+		// ÄNDERN: in XML colors Farben abspeichern!
+		circle.fillColor(0x6024E35E);
+		circle.strokeWidth(2);
+		
+		circles.add(circle);
+		map.addCircle(circle);
 	}
 
 	private void updateCheckpointNum() {
@@ -218,7 +242,31 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 	
 	private void abortTrack() {
-		// Strecke erstellen abbrechen
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.button_track_abort_title);
+		builder.setMessage(R.string.button_track_abort_message);
+		builder.setCancelable(false);
+		
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+					}
+				});
+
+		builder.setNegativeButton(R.string.button_cancel,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+
+		builder.show();
+		
 	}
 
 	/**
@@ -299,8 +347,32 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		}
 		
 		currentLocation = location;
+		updateCamera();
 	}
 	
+	private void updateCamera() {
+		if (circles.size() < 2) {
+			double latitude = currentLocation.getLatitude();
+			double longitude = currentLocation.getLongitude();
+			latLng = new LatLng(latitude, longitude);
+			map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+		} else {
+		
+			LatLngBounds.Builder builder = new LatLngBounds.Builder();
+			for (CircleOptions circle : circles) {
+				builder.include(circle.getCenter());
+			}
+			LatLngBounds bounds = builder.build();
+			
+			// 5: Abstand in Pixeln vom Rand
+			CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 5);
+			
+			map.animateCamera(update);
+		}
+		
+		
+	}
+
 	@Override
 	public void onGPSDisabled() {
 		
@@ -404,13 +476,5 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 	
 
-	public static class MapFragment extends FragmentActivity {
-
-		
-		private void setupMap() {
-			GoogleMap map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map_fragment)).getMap();
-			map.addMarker(new MarkerOptions().position(new LatLng(0, 0)).title("Marker"));
-		}
-	}
 
 }

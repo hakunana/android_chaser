@@ -7,6 +7,7 @@ public class Checkpoint {
 	private Location location;
 	private double latitude;
 	private double longitude;
+	private float accuracy = 0;
 	
 	/**
 	 * Generates a object of type Checkpoint.
@@ -16,6 +17,7 @@ public class Checkpoint {
 		this.location = location;
 		latitude = location.getLatitude();
 		longitude = location.getLongitude();
+		accuracy = location.getAccuracy();
 	}
 	
 	/**
@@ -46,17 +48,12 @@ public class Checkpoint {
 		return longitude;
 	}
 	
-	public double getLatitude () {
+	public double getLatitude() {
 		return latitude;
 	}
 	
-	
-	/*
-	 * Die Methode getBearing ist nicht mehr nötig und ist nicht in jedem Fall funktionsfähig.
-	 */
-
-	//public float getBearing(Location dest) {
-		//return location.bearingTo(dest);
-	//}
+	public float getAccuracy() {
+		return accuracy;
+	}
 
 }

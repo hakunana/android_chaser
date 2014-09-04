@@ -54,14 +54,21 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 
 				@Override
 				public void onClick(View v) {
-					listener.onRaceViewStarted(position);
-					
+					listener.onRaceViewStarted(position);	
 				}
 				
 			});
 			
 			TextView timestamp = (TextView) v.findViewById(R.id.track_timestamp);
 			timestamp.setText(formatTimestamp(track.getTimestamp()));
+			timestamp.setOnClickListener(new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					listener.onTrackDetailViewStarted(position);
+				}
+				
+			});
 			
 			Button deleteTrack = (Button) v.findViewById(R.id.button_remove_track);
 			deleteTrack.setOnClickListener(new OnClickListener() {

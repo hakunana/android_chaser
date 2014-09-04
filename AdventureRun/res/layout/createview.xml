@@ -7,7 +7,7 @@
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="150dp" />
+        android:layout_height="250dp" />
 
     <TextView
         android:id="@+id/textView_checkpointNum"
@@ -24,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/map_fragment"
         android:textSize="@dimen/textsize_buttons"
         android:text="@string/button_start_create_track" />
 
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/map_fragment"
         android:text="@string/button_add_checkpoint"
         android:textSize="@dimen/textsize_buttons"
         android:visibility="invisible" />

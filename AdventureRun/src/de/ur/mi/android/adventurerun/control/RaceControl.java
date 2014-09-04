@@ -10,16 +10,11 @@ package de.ur.mi.android.adventurerun.control;
 
 import java.util.ArrayList;
 
-import com.google.android.gms.common.ConnectionResult;
-
 import android.content.Context;
 import android.location.Location;
-import android.webkit.WebView.FindListener;
-import android.widget.ImageView;
+import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
-import de.ur.mi.android.adventurerun.helper.LocationController;
-import de.ur.mi.android.adventurerun.helper.PositionListener;
 
 public class RaceControl {
 
@@ -27,7 +22,8 @@ public class RaceControl {
 	// als Konstante gesetzt, sollte aber - falls sich das als zu ungenau
 	// herausstellen sollte - dynamisch geändert werden, basierend auf der GPS
 	// Genauigkeit
-	private static final float MIN_DISTANCE = 8;
+	
+	private float minDistance = 8;
 	
 	private RaceListener listener;
 
@@ -65,10 +61,15 @@ public class RaceControl {
 
 			double latitudeCheckpoint = currentCheckpoint.getLatitude();
 			double longitudeCheckpoint = currentCheckpoint.getLongitude();
-			Location locationCheckpoint = new Location ("Checkpoint");
+			Location locationCheckpoint = new Location("Checkpoint");
 			locationCheckpoint.setLatitude(latitudeCheckpoint);
 			locationCheckpoint.setLongitude(longitudeCheckpoint);
-			if (locationCheckpoint.distanceTo(location) <= MIN_DISTANCE) {
+			
+			minDistance = (location.getAccuracy() + currentCheckpoint.getAccuracy()) / 2;
+			
+			Log.e("DEBUG", "minDistance: " + minDistance); 
+			
+			if (locationCheckpoint.distanceTo(location) <= minDistance) {
 				visitedCheckpoints.add(currentCheckpoint);
 				checkpoints.remove(currentCheckpoint);
 				listener.onCheckpointReached();

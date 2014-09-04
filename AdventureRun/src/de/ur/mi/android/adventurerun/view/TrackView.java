@@ -2,10 +2,14 @@ package de.ur.mi.android.adventurerun.view;
 
 import java.util.ArrayList;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.example.adventurerun.R;
@@ -37,6 +41,12 @@ public class TrackView extends Activity implements TrackListListener {
 		initList();
 	}
 	
+	@Override
+	protected void onResume() {
+		initList();
+		super.onResume();
+	}
+
 	@Override
 	protected void onDestroy() {
 		db.close();
@@ -71,7 +81,13 @@ public class TrackView extends Activity implements TrackListListener {
 		Intent intent = new Intent(context, RaceView.class);
 		intent.putExtra(Constants.KEY_INTENT_TRACKVIEW, trackIndex);
 		startActivity(intent);
-		
+	}
+
+	@Override
+	public void onTrackDetailViewStarted(int trackIndex) {
+		Intent intent = new Intent(context, TrackDetailView.class);
+		intent.putExtra(Constants.KEY_INTENT_TRACKVIEW, trackIndex);
+		startActivity(intent);
 	}
 	
 }
