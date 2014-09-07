@@ -7,7 +7,9 @@ public class Checkpoint {
 	private Location location;
 	private double latitude;
 	private double longitude;
-	private float accuracy = 0;
+	
+	// Standardm‰ﬂig - zum Testen - auf 10 gesetzt, bis in Datenbank implementiert
+	private float accuracy = 10;
 	
 	/**
 	 * Generates a object of type Checkpoint.
@@ -29,6 +31,12 @@ public class Checkpoint {
 	public Checkpoint (double latitude, double longitude) {
 		this.latitude = latitude;
 		this.longitude = longitude;
+	}
+	
+	public Checkpoint (double latitude, double longitude, double accuracy) {
+		this.latitude = latitude;
+		this.longitude = longitude;
+		this.accuracy = (float) accuracy;
 	}
 
 	/**

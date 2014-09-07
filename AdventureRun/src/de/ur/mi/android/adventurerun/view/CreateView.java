@@ -351,14 +351,15 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 	
 	private void updateCamera() {
+		double latitude = currentLocation.getLatitude();
+		double longitude = currentLocation.getLongitude();
+		latLng = new LatLng(latitude, longitude);
 		if (circles.size() < 2) {
-			double latitude = currentLocation.getLatitude();
-			double longitude = currentLocation.getLongitude();
-			latLng = new LatLng(latitude, longitude);
 			map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 		} else {
 		
 			LatLngBounds.Builder builder = new LatLngBounds.Builder();
+			builder.include(latLng);
 			for (CircleOptions circle : circles) {
 				builder.include(circle.getCenter());
 			}

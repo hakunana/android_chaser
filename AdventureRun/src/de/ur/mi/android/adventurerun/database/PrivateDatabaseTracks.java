@@ -15,6 +15,7 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 
@@ -83,8 +84,7 @@ public class PrivateDatabaseTracks {
 		String[] updateArgs = new String[] { String.valueOf(currentTrack.getTimestamp()) };
 		
 		ContentValues currentValues = new ContentValues();
-		currentValues.put(KEY_NAME, currentTrack.getName())
-		;
+		currentValues.put(KEY_NAME, currentTrack.getName());
 		privateDB.update(DB_TABLE, currentValues, updateClause, updateArgs);
 	}
 
@@ -132,20 +132,17 @@ public class PrivateDatabaseTracks {
 		ArrayList<Checkpoint> checkpointList = new ArrayList<Checkpoint>();
 		double latitude;
 		double longitude;
+		double accuracy;
 
 		try {
 			JSONArray js = new JSONArray(checkpoints);
-			int i = 0;
 
-			while (true) {
+			for (int i = 0; i<js.length(); i=i+3) {
 				latitude = js.getDouble(i);
-				i++;
-				longitude = js.getDouble(i);
+				longitude = js.getDouble(i+1);
+				accuracy = js.getDouble(i+2);
 
-				checkpointList.add(new Checkpoint(latitude, longitude));
-				if (i == (js.length() - 1)) {
-					break;
-				}
+				checkpointList.add(new Checkpoint(latitude, longitude, accuracy));
 			}
 
 		} catch (JSONException e) {

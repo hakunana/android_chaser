@@ -112,7 +112,9 @@ public class RaceControl {
 		return checkpoints.get(arrayIndex);
 	}
 	
-	
+	public ArrayList<Checkpoint> getAllCheckpoints() {
+		return checkpoints;
+	}
 	
 	
 	// Methode braucht die momentane Location (currentLocation) sowie den aktuellen Checkpoint:

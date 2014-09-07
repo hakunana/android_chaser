@@ -5,6 +5,8 @@ import java.util.Date;
 
 import org.json.JSONArray;
 
+import android.util.Log;
+
 public class Track {
 
 	private String name;
@@ -94,8 +96,10 @@ public class Track {
 		for (int i = 0; i < checkpoints.size() ; i++) {
 			double latitude = checkpoints.get(i).getLatitude();
 			double longitude = checkpoints.get(i).getLongitude();
+			double accuracy = (double) checkpoints.get(i).getAccuracy();
 			jsonArrayList.add(latitude);
 			jsonArrayList.add(longitude);
+			jsonArrayList.add(accuracy);
 		}
 		
 	}	
