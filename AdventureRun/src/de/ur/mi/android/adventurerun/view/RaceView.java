@@ -474,7 +474,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			
 			// 5: Abstand in Pixeln vom Rand
 			CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 5);
-
 			map.animateCamera(update);
 		}
 		

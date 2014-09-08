@@ -2,12 +2,15 @@ package de.ur.mi.android.adventurerun.view;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -15,12 +18,21 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.example.adventurerun.R;
+import com.google.android.gms.maps.CameraUpdate;
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CircleOptions;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 
+import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 
-public class TrackDetailView extends Activity {
+public class TrackDetailView extends FragmentActivity implements OnMapLoadedCallback {
 	
 	private PrivateDatabaseTracks db;
 	
@@ -33,6 +45,8 @@ public class TrackDetailView extends Activity {
 	private Button playTrack, renameTrack, deleteTrack;
 	
 	private TextView textviewTrackName;
+	
+	private GoogleMap map;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -64,8 +78,47 @@ public class TrackDetailView extends Activity {
 		}
 		
 		initButtons();
+		initMap();
 	}
 	
+	private void initMap() {
+		FragmentManager fmanager = getSupportFragmentManager();
+		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
+		SupportMapFragment supportMapFragment = (SupportMapFragment) fragment;
+		map = supportMapFragment.getMap();
+		map.setMyLocationEnabled(true);
+		map.animateCamera(CameraUpdateFactory.zoomTo(16));
+
+		map.setOnMapLoadedCallback(this);
+	}
+	
+	@Override
+	public void onMapLoaded() {
+		ArrayList<Checkpoint> checkpoints = track.getAllCheckpoints();
+		LatLngBounds.Builder builder = new LatLngBounds.Builder();
+		
+		for (Checkpoint c : checkpoints) {
+			CircleOptions circle = new CircleOptions();
+			LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
+			circle.center(latLng);
+			circle.radius(c.getAccuracy());
+			
+			// ÄNDERN: in XML colors Farben abspeichern!
+			circle.fillColor(0x6024E35E);
+			circle.strokeWidth(2);
+
+			map.addCircle(circle);
+			builder.include(circle.getCenter());
+		}			
+
+		LatLngBounds bounds = builder.build();
+		
+		// 5: Abstand in Pixeln vom Rand
+		CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 15);
+		map.animateCamera(update);
+		return;
+	}
+
 	@Override
 	protected void onDestroy() {
 		db.close();
