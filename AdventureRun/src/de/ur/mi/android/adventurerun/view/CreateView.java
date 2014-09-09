@@ -3,9 +3,7 @@
  * - eigener Button für Strecke zurücksetzen
  */
 
-
 package de.ur.mi.android.adventurerun.view;
-
 
 import java.util.ArrayList;
 
@@ -49,19 +47,20 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private CreateControl control;
 	private LocationController locationController;
 
-	private Button buttonStartFinish, buttonAddCheckpoint, buttonDeleteCheckpoint;
+	private Button buttonStartFinish, buttonAddCheckpoint,
+			buttonDeleteCheckpoint;
 
 	private Location currentLocation;
 
 	private boolean createStarted = false;
 	private boolean gpsAvailable = false;
-	
+
 	private GoogleMap map;
-	
+
 	private LatLng latLng;
-	
+
 	private ArrayList<CircleOptions> circles = new ArrayList<CircleOptions>();
-	
+
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	private static final String DIALOG_ERROR = "dialog_error";
 
@@ -69,14 +68,16 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
-		
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		checkForServices();
 
 		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
 
 		initButtons();
-		
+
 		setupMap();
 	}
 
@@ -94,19 +95,19 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		locationController.start();
 		super.onStart();
 	}
-	
+
 	@Override
 	public void onStop() {
 		locationController.stop();
 		super.onStop();
 	}
-	
+
 	@Override
 	public void onPause() {
 		locationController.pause();
 		super.onPause();
 	}
-	
+
 	@Override
 	public void onResume() {
 		locationController.resume();
@@ -141,36 +142,33 @@ public class CreateView extends FragmentActivity implements PositionListener {
 				addCheckpoint();
 			}
 		});
-		
+
 		buttonDeleteCheckpoint.setOnClickListener(new OnClickListener() {
-			
+
 			@Override
 			public void onClick(View v) {
 				deleteLastCheckpoint();
-				
-			}
 
+			}
 
 		});
 
 	}
-	
-	
+
 	private void deleteLastCheckpoint() {
 		if (createStarted == true && control.getCheckpointNum() > 0) {
-			
+
 			confirmDelete();
-			
+
 		}
 	}
-	
 
 	private void confirmDelete() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.button_track_delete_title);
 		builder.setMessage(R.string.button_track_delete_message);
 		builder.setCancelable(false);
-		
+
 		builder.setPositiveButton(R.string.button_ok,
 				new DialogInterface.OnClickListener() {
 
@@ -206,21 +204,21 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			addCheckpointOnMap();
 			updateCheckpointNum();
 		}
-		
+
 		if (control.getCheckpointNum() > 1) {
 			buttonStartFinish.setText(R.string.button_finish_track);
 		}
 	}
-	
+
 	private void addCheckpointOnMap() {
 		CircleOptions circle = new CircleOptions();
 		circle.center(latLng);
 		circle.radius(currentLocation.getAccuracy());
-		
+
 		// ÄNDERN: in XML colors Farben abspeichern!
 		circle.fillColor(0x6024E35E);
 		circle.strokeWidth(2);
-		
+
 		circles.add(circle);
 		map.addCircle(circle);
 	}
@@ -229,9 +227,8 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		int checkpointNum = control.getCheckpointNum();
 		Integer num = Integer.valueOf(checkpointNum);
 		String s = num.toString();
-		TextView checkpointNumView = (TextView) findViewById(R.id.textView_checkpointNum);
-		checkpointNumView.setText(R.string.textView_checkpointNum);
-		checkpointNumView.append(s);
+		TextView tv = (TextView) findViewById(R.id.textView_checkpointNumCount);
+		tv.setText(s);
 
 	}
 
@@ -240,13 +237,13 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			isTrackFinished();
 		}
 	}
-	
+
 	private void abortTrack() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.button_track_abort_title);
 		builder.setMessage(R.string.button_track_abort_message);
 		builder.setCancelable(false);
-		
+
 		builder.setPositiveButton(R.string.button_ok,
 				new DialogInterface.OnClickListener() {
 
@@ -266,7 +263,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 				});
 
 		builder.show();
-		
+
 	}
 
 	/**
@@ -324,7 +321,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 						control.setName(name);
 						control.finishTrack();
 						locationController.stopUpdates();
-						
+
 						createStarted = false;
 						gpsAvailable = false;
 
@@ -345,11 +342,11 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			gpsAvailable = true;
 			buttonAddCheckpoint.setVisibility(View.VISIBLE);
 		}
-		
+
 		currentLocation = location;
 		updateCamera();
 	}
-	
+
 	private void updateCamera() {
 		double latitude = currentLocation.getLatitude();
 		double longitude = currentLocation.getLongitude();
@@ -357,44 +354,44 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		if (circles.size() < 2) {
 			map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 		} else {
-		
+
 			LatLngBounds.Builder builder = new LatLngBounds.Builder();
 			builder.include(latLng);
 			for (CircleOptions circle : circles) {
 				builder.include(circle.getCenter());
 			}
 			LatLngBounds bounds = builder.build();
-			
+
 			// 5: Abstand in Pixeln vom Rand
-			CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 5);
-			
+			CameraUpdate update = CameraUpdateFactory
+					.newLatLngBounds(bounds, 5);
+
 			map.animateCamera(update);
 		}
-		
-		
+
 	}
 
 	@Override
 	public void onGPSDisabled() {
-		
+
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.info_gps_title);
 		builder.setMessage(R.string.info_gps_message);
 
 		builder.setCancelable(false);
-		
-		builder.setPositiveButton(R.string.button_ok, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface dialog, int which) {
-				
-			}
-		});
+
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
 		builder.show();
-		
+
 	}
 
-	
 	@Override
 	public void onConnected() {
 		Toast.makeText(this, "Connected", Toast.LENGTH_SHORT).show();
@@ -409,7 +406,8 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	public void onConnectionFailed(ConnectionResult result) {
 		if (result.hasResolution()) {
 			try {
-				result.startResolutionForResult(this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+				result.startResolutionForResult(this,
+						CONNECTION_FAILURE_RESOLUTION_REQUEST);
 			} catch (IntentSender.SendIntentException e) {
 				e.printStackTrace();
 			}
@@ -417,34 +415,35 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			showErrorDialog(result.getErrorCode());
 		}
 	}
-	
+
 	private void showErrorDialog(int errorCode) {
-        // Create a fragment for the error dialog
-        ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-        // Pass the error that should be displayed
-        Bundle args = new Bundle();
-        args.putInt(DIALOG_ERROR, errorCode);
-        dialogFragment.setArguments(args);
-        dialogFragment.show(getSupportFragmentManager(), "errordialog");
-    }
-	
+		// Create a fragment for the error dialog
+		ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
+		// Pass the error that should be displayed
+		Bundle args = new Bundle();
+		args.putInt(DIALOG_ERROR, errorCode);
+		dialogFragment.setArguments(args);
+		dialogFragment.show(getSupportFragmentManager(), "errordialog");
+	}
+
 	public static class ErrorDialogFragment extends DialogFragment {
 		private Dialog dialog;
+
 		public ErrorDialogFragment() {
 			super();
 			dialog = null;
 		}
-		
+
 		public void setDialog(Dialog dialog) {
 			this.dialog = dialog;
 		}
-		
+
 		@Override
 		public Dialog onCreateDialog(Bundle savedInstanceState) {
 			return dialog;
 		}
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		switch (requestCode) {
@@ -456,26 +455,28 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			}
 		}
 	}
-	
+
 	private boolean checkForServices() {
-		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		int resultCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
 		if (resultCode == ConnectionResult.SUCCESS) {
 			Log.e("DEBUG", "Google Play Services available");
 			return true;
 		} else {
-			ConnectionResult connectionResult = new ConnectionResult(resultCode, null);
+			ConnectionResult connectionResult = new ConnectionResult(
+					resultCode, null);
 			int errorCode = connectionResult.getErrorCode();
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-			
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
 			if (errorDialog != null) {
 				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
 				errorFragment.setDialog(errorDialog);
-				errorFragment.show(getSupportFragmentManager(), "Location Updates");
+				errorFragment.show(getSupportFragmentManager(),
+						"Location Updates");
 			}
 			return false;
 		}
 	}
-	
-
 
 }

@@ -11,6 +11,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -32,55 +33,67 @@ import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 
-public class TrackDetailView extends FragmentActivity implements OnMapLoadedCallback {
-	
+public class TrackDetailView extends FragmentActivity implements
+		OnMapLoadedCallback {
+
 	private PrivateDatabaseTracks db;
-	
+
 	private Context context;
-	
+
 	private int trackIndex;
-	
+
 	private Track track;
-	
+
 	private Button playTrack, renameTrack, deleteTrack;
-	
+
 	private TextView textviewTrackName;
-	
+
 	private GoogleMap map;
-	
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.trackdetailview);
-		
+
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+
 		this.context = this;
-		
+
 		ArrayList<Track> tracks = new ArrayList<Track>();
 		Bundle bundle = getIntent().getExtras();
-		
+
 		db = new PrivateDatabaseTracks(this);
 		db.open();
 
 		if (bundle.getInt(Constants.KEY_INTENT_TRACKVIEW) != -1) {
 			trackIndex = bundle.getInt(Constants.KEY_INTENT_TRACKVIEW);
 			tracks = db.allTracks();
-			
+
 			track = tracks.get(trackIndex);
-			
+
 			String trackName = track.getName();
 			int numberOfCheckpoints = track.countCheckpoints();
-			
+
 			textviewTrackName = (TextView) findViewById(R.id.track_name);
 			textviewTrackName.setText(trackName);
-			
+
 			TextView textviewCheckpoints = (TextView) findViewById(R.id.number_of_checkpoints);
 			textviewCheckpoints.append(" " + numberOfCheckpoints);
 		}
-		
+
 		initButtons();
 		initMap();
 	}
-	
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
+	}
+
 	private void initMap() {
 		FragmentManager fmanager = getSupportFragmentManager();
 		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
@@ -91,28 +104,28 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 
 		map.setOnMapLoadedCallback(this);
 	}
-	
+
 	@Override
 	public void onMapLoaded() {
 		ArrayList<Checkpoint> checkpoints = track.getAllCheckpoints();
 		LatLngBounds.Builder builder = new LatLngBounds.Builder();
-		
+
 		for (Checkpoint c : checkpoints) {
 			CircleOptions circle = new CircleOptions();
 			LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
 			circle.center(latLng);
 			circle.radius(c.getAccuracy());
-			
+
 			// ÄNDERN: in XML colors Farben abspeichern!
 			circle.fillColor(0x6024E35E);
 			circle.strokeWidth(2);
 
 			map.addCircle(circle);
 			builder.include(circle.getCenter());
-		}			
+		}
 
 		LatLngBounds bounds = builder.build();
-		
+
 		// 5: Abstand in Pixeln vom Rand
 		CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 15);
 		map.animateCamera(update);
@@ -124,12 +137,12 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 		db.close();
 		super.onDestroy();
 	}
-	
+
 	private void initButtons() {
 		playTrack = (Button) findViewById(R.id.play_track);
 		renameTrack = (Button) findViewById(R.id.rename_track);
 		deleteTrack = (Button) findViewById(R.id.delete_track);
-		
+
 		setOnClickListeners();
 	}
 
@@ -142,9 +155,9 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 				intent.putExtra(Constants.KEY_INTENT_TRACKVIEW, trackIndex);
 				startActivity(intent);
 			}
-			
+
 		});
-		
+
 		renameTrack.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -161,7 +174,8 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 						new DialogInterface.OnClickListener() {
 
 							@Override
-							public void onClick(DialogInterface dialog, int which) {
+							public void onClick(DialogInterface dialog,
+									int which) {
 								String name = textField.getText().toString();
 								track.setName(name);
 								db.updateName(track);
@@ -169,22 +183,22 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 							}
 
 						});
-				
+
 				builder.setNegativeButton(R.string.button_cancel,
 						new DialogInterface.OnClickListener() {
 
 							@Override
-							public void onClick(DialogInterface dialog, int which) {
+							public void onClick(DialogInterface dialog,
+									int which) {
 
 							}
 						});
-				
-				
+
 				builder.show();
 			}
-			
+
 		});
-		
+
 		deleteTrack.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -192,8 +206,8 @@ public class TrackDetailView extends FragmentActivity implements OnMapLoadedCall
 				db.deleteTrack(track);
 				finish();
 			}
-			
+
 		});
-		
+
 	}
 }

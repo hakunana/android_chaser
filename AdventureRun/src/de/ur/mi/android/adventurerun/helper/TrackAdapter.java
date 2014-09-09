@@ -70,7 +70,7 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 				
 			});
 			
-			Button deleteTrack = (Button) v.findViewById(R.id.button_remove_track);
+			View deleteTrack = v.findViewById(R.id.button_remove_track);
 			deleteTrack.setOnClickListener(new OnClickListener() {
 
 				@Override

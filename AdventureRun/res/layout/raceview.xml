@@ -21,9 +21,11 @@
     
     <Button
         android:id="@+id/button_start_run_track"
+        style="@style/adventure_run_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="8dp"
         android:layout_centerHorizontal="true"
         android:text="@string/button_start_run_track"
         android:textSize="@dimen/textsize_buttons" />

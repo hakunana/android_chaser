@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
 
     <fragment
         android:id="@+id/map_fragment"
@@ -9,42 +10,69 @@
         android:layout_width="match_parent"
         android:layout_height="250dp" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="8dp"
+        android:gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/button_start_finish_create_track"
+            style="@style/adventure_run_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="4dp"
+            android:layout_weight="1"
+            android:text="@string/button_start_create_track"
+            android:textSize="@dimen/textsize_buttons" />
+
+        <Button
+            android:id="@+id/button_add_checkpoint"
+            style="@style/adventure_run_button"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_weight="1"
+            android:text="@string/button_add_checkpoint"
+            android:textSize="@dimen/textsize_buttons"
+            android:visibility="invisible" />
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/button_delete_checkpoint"
+        style="@style/adventure_run_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:background="#FF0000"
+        android:text="@string/button_delete_checkpoint"
+        android:textSize="@dimen/textsize_buttons" />
+
     <TextView
         android:id="@+id/textView_checkpointNum"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_gravity="center_horizontal"
         android:padding="@dimen/textsize_buttons"
         android:text="@string/textView_checkpointNum"
+        android:textColor="#000000"
+        android:layout_marginTop="8dp"
+        android:textSize="16sp"
         android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button_start_finish_create_track"
+    <TextView
+        android:id="@+id/textView_checkpointNumCount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/map_fragment"
-        android:textSize="@dimen/textsize_buttons"
-        android:text="@string/button_start_create_track" />
+        android:layout_gravity="center_horizontal"
+        android:padding="@dimen/textsize_buttons"
+        android:textColor="#000000"
+        android:layout_marginTop="-16dp"
+        android:textSize="32sp"
+        android:textStyle="bold" />
 
-    <Button
-        android:id="@+id/button_add_checkpoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@id/map_fragment"
-        android:text="@string/button_add_checkpoint"
-        android:textSize="@dimen/textsize_buttons"
-        android:visibility="invisible" />
-
-    <Button
-        android:id="@+id/button_delete_checkpoint"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/textView_checkpointNum"
-        android:layout_centerHorizontal="true"
-        android:textSize="@dimen/textsize_buttons"
-        android:text="@string/button_delete_checkpoint" />
-
-</RelativeLayout>
+</LinearLayout>

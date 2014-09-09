@@ -31,6 +31,7 @@ import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -63,7 +64,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private static final int COUNTDOWN_TIME = 5000;
 	private static final int MAP_TIME_VISIBLE = 5000;
-	
+
 	private RaceControl raceControl;
 	private LocationController locationController;
 
@@ -76,15 +77,16 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private Track currentTrack;
 	private PrivateDatabaseTracks db;
 	private String trackName = "unknown";
-	private TextView textViewTrackName, textView_speed, textView_distanceToCheckpoint, textView_distance;
+	private TextView textViewTrackName, textView_speed,
+			textView_distanceToCheckpoint, textView_distance;
 	private Button buttonStart;
 	private ImageView compass;
-	
+
 	private SupportMapFragment supportMapFragment;
 	private GoogleMap map;
 
 	private Checkpoint currentCheckpoint;
-	
+
 	private ArrayList<CircleOptions> circles;
 
 	private Location currentLocation;
@@ -103,9 +105,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private float[] matrixValues;
 
 	private double deviceOrientation;
-	
+
 	private float distance = 0;
-	
+
 	private int numberOfMapViews = 0;
 
 	private static final float TEXT_SIZE_COUNTDOWN = 50;
@@ -116,7 +118,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		setContentView(R.layout.raceview);
 
 		ActionBar actionBar = getActionBar();
-		
+		actionBar.setDisplayHomeAsUpEnabled(true);
 		checkForService();
 
 		initDB();
@@ -127,8 +129,17 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		initTextViews();
 		initButtons();
 		setupMap();
-		
+
 		actionBar.setTitle(currentTrack.getName());
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
+			finish();
+		}
+		return super.onOptionsItemSelected(item);
 	}
 
 	private void setupMap() {
@@ -140,22 +151,22 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		map.animateCamera(CameraUpdateFactory.zoomTo(16));
 		updateCheckpointsOnMap();
 	}
-	
+
 	private void updateCheckpointsOnMap() {
 		map.clear();
 		ArrayList<Checkpoint> checkpoints = raceControl.getAllCheckpoints();
 		circles = new ArrayList<CircleOptions>();
-		
+
 		for (Checkpoint c : checkpoints) {
 			CircleOptions circle = new CircleOptions();
 			LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
 			circle.center(latLng);
 			circle.radius(c.getAccuracy());
-			
+
 			// ÄNDERN: in XML colors Farben abspeichern!
 			circle.fillColor(0x6024E35E);
 			circle.strokeWidth(2);
-			
+
 			circles.add(circle);
 			map.addCircle(circle);
 		}
@@ -241,8 +252,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private void initButtons() {
 		buttonStart = (Button) findViewById(R.id.button_start_run_track);
-		compass = (ImageView) findViewById(R.id.imageView_compass); 
-		
+		compass = (ImageView) findViewById(R.id.imageView_compass);
+
 		setOnClickListener();
 	}
 
@@ -283,7 +294,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 					public void onFinish() {
 						buttonStart.setText(R.string.button_abort_run_track);
 						raceControl.startRace();
-						supportMapFragment.getView().setVisibility(View.INVISIBLE);
+						supportMapFragment.getView().setVisibility(
+								View.INVISIBLE);
 						compass.setClickable(true);
 						builder.dismiss();
 
@@ -292,8 +304,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 			}
 		});
-		
-		
+
 		compass.setOnClickListener(new OnClickListener() {
 
 			@Override
@@ -303,60 +314,56 @@ public class RaceView extends FragmentActivity implements RaceListener,
 					compass.setClickable(false);
 					supportMapFragment.getView().setVisibility(View.VISIBLE);
 					new CountDownTimer(MAP_TIME_VISIBLE, 1000) {
-	
+
 						@Override
 						public void onTick(long millisUntilFinished) {
 							// TODO Auto-generated method stub
-							
+
 						}
-	
+
 						@Override
 						public void onFinish() {
-							supportMapFragment.getView().setVisibility(View.INVISIBLE);
-							if (numberOfMapViews < currentTrack.countCheckpoints()) {
+							supportMapFragment.getView().setVisibility(
+									View.INVISIBLE);
+							if (numberOfMapViews < currentTrack
+									.countCheckpoints()) {
 								compass.setClickable(true);
 							}
 						}
-						
+
 					}.start();
 				}
 			}
-			
+
 		});
-		
+
 		compass.setClickable(false);
 
 	}
 
-	private void adjustCompass () { 
-			
-			compass.setRotation(0);
-			compass.setRotation(raceControl.getBearing(currentLocation, currentCheckpoint) - (float) deviceOrientation);
-	 }
+	private void adjustCompass() {
+
+		compass.setRotation(0);
+		compass.setRotation(raceControl.getBearing(currentLocation,
+				currentCheckpoint) - (float) deviceOrientation);
+	}
 
 	/*
-	private void adjustCompass() {
-		float[] orientation = sensorManager.getOrientation(matrixR,
-				matrixValues);
-		float heading = orientation[0];
-		float bearing = raceControl.getBearing(currentLocation,
-				currentCheckpoint);
-
-		heading += geoField.getDeclination();
-		heading = (bearing -  heading) * -1;
-
-		if (heading < 0.0f || heading > 180.0f) {
-			heading = 180 + ( 180 + heading);
-		} 
-		
-		ImageView compass = (ImageView) findViewById(R.id.imageView_compass);
-			
-		Matrix matrix = new Matrix();
-		compass.setScaleType(ScaleType.MATRIX);
-		matrix.postRotate(heading, 100f, 100f);
-		compass.setImageMatrix(matrix);
-	}
-	*/
+	 * private void adjustCompass() { float[] orientation =
+	 * sensorManager.getOrientation(matrixR, matrixValues); float heading =
+	 * orientation[0]; float bearing = raceControl.getBearing(currentLocation,
+	 * currentCheckpoint);
+	 * 
+	 * heading += geoField.getDeclination(); heading = (bearing - heading) * -1;
+	 * 
+	 * if (heading < 0.0f || heading > 180.0f) { heading = 180 + ( 180 +
+	 * heading); }
+	 * 
+	 * ImageView compass = (ImageView) findViewById(R.id.imageView_compass);
+	 * 
+	 * Matrix matrix = new Matrix(); compass.setScaleType(ScaleType.MATRIX);
+	 * matrix.postRotate(heading, 100f, 100f); compass.setImageMatrix(matrix); }
+	 */
 
 	@Override
 	public void onCheckpointReached() {
@@ -424,7 +431,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	@Override
 	public void onNewLocation(Location location) {
 		currentLocation = location;
-		
+
 		if (raceStarted == true) {
 			if (currentLocation != null) {
 				distance += currentLocation.distanceTo(location);
@@ -432,10 +439,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 			textView_distance.setText("D: " + distance);
 			textView_speed.setText("S:" + location.getSpeed());
-			
+
 			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
 			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
-			
 
 			double latitudeCheckpoint = currentCheckpoint.getLatitude();
 			double longitudeCheckpoint = currentCheckpoint.getLongitude();
@@ -443,24 +449,25 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			locationCheckpoint.setLatitude(latitudeCheckpoint);
 			locationCheckpoint.setLongitude(longitudeCheckpoint);
 
-			textView_distanceToCheckpoint.setText("N: " + location.distanceTo(locationCheckpoint));
-			
+			textView_distanceToCheckpoint.setText("N: "
+					+ location.distanceTo(locationCheckpoint));
+
 			geoField = new GeomagneticField(Double.valueOf(
 					location.getLatitude()).floatValue(), Double.valueOf(
 					location.getLongitude()).floatValue(), Double.valueOf(
 					location.getAltitude()).floatValue(),
 					System.currentTimeMillis());
-			
+
 			adjustCompass();
 		}
 		updateCamera();
 	}
-		
+
 	private void updateCamera() {
 		double latitude = currentLocation.getLatitude();
 		double longitude = currentLocation.getLongitude();
 		LatLng latLng = new LatLng(latitude, longitude);
-		
+
 		if (circles.size() < 2) {
 			map.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 		} else {
@@ -468,16 +475,17 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			builder.include(latLng);
 			for (CircleOptions circle : circles) {
 				builder.include(circle.getCenter());
-				Log.e("DEBUG", "lat: " + circle.getCenter().latitude + " - long: " + circle.getCenter().longitude);
+				Log.e("DEBUG", "lat: " + circle.getCenter().latitude
+						+ " - long: " + circle.getCenter().longitude);
 			}
 			LatLngBounds bounds = builder.build();
-			
+
 			// 5: Abstand in Pixeln vom Rand
-			CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 5);
+			CameraUpdate update = CameraUpdateFactory
+					.newLatLngBounds(bounds, 5);
 			map.animateCamera(update);
 		}
-		
-		
+
 	}
 
 	@Override

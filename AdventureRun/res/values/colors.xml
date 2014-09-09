@@ -1,4 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="checkpoint">#24E35E</color>
+    <color name="gradient_bg_start">#b3d567</color>
+    <color name="gradient_bg_end">#effdd1</color>
+  
 </resources>

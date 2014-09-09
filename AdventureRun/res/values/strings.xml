@@ -70,5 +70,7 @@
     
     <string name="track_name_default">Unnamed</string>
     <string name="number_of_checkpoints">Number of checkpoints: </string>
+    <string name="action_create">Erstellen</string>
+    <string name="empty_track_list">Du hast noch keinen Track erstellt. Drücke auf das + um einen Track zu erstellen. </string>
 
 </resources>
