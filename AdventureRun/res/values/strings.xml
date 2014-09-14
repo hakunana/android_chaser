@@ -32,8 +32,11 @@
     <string name="button_open_race_view">Strecke laufen</string>
     <string name="button_open_track_view">Strecken anzeigen</string>
     
-    <string name="button_track_delete_title">Checkpoint löschen</string>
-    <string name="button_track_delete_message">Möchten Sie den letzten Checkpoint wirklich löschen?</string>
+    <string name="button_checkpoint_delete_title">Checkpoint löschen</string>
+    <string name="button_checkpoint_delete_message">Möchten Sie den letzten Checkpoint wirklich löschen?</string>
+    
+    <string name="button_track_delete_title">Strecke löschen</string>
+    <string name="button_track_delete_message">Möchten Sie diese Strecke wirklich löschen?</string>
     
     <string name="button_track_finished_title">Strecke fertig?</string>
     <string name="button_track_finished_message">Strecke fertig und abspeichern?</string>
@@ -67,6 +70,8 @@
     
     
     <string name="description_compass">This is a compass</string>
+    <string name="description_bin">This is a bin</string>
+    <string name="description_info">This is a info</string>
     
     <string name="track_name_default">Unnamed</string>
     <string name="number_of_checkpoints">Number of checkpoints: </string>

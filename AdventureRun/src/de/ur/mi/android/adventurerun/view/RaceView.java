@@ -1,8 +1,4 @@
-/* TODO
- * - LocationController vollständig implementieren (bis jetzt checkForService drin)
- * - Proximity Alerts einsetzen
- */
-//
+
 
 package de.ur.mi.android.adventurerun.view;
 

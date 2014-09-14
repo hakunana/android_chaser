@@ -3,7 +3,9 @@ package de.ur.mi.android.adventurerun.helper;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -59,9 +61,21 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 				
 			});
 			
+			
+
 			TextView timestamp = (TextView) v.findViewById(R.id.track_timestamp);
 			timestamp.setText(formatTimestamp(track.getTimestamp()));
 			timestamp.setOnClickListener(new OnClickListener() {
+				
+				@Override
+				public void onClick(View v) {
+					listener.onRaceViewStarted(position);
+					
+				}
+			});
+			
+			View infoTrack = v.findViewById(R.id.button_details_track);
+			infoTrack.setOnClickListener(new OnClickListener() {
 
 				@Override
 				public void onClick(View v) {
@@ -75,9 +89,32 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 
 				@Override
 				public void onClick(View v) {
-					db.deleteTrack(track);
-					notifyDataSetChanged();
-					listener.onTrackDeleted();
+					
+					AlertDialog.Builder builder = new AlertDialog.Builder(context);
+					builder.setTitle(R.string.button_track_delete_title);
+					builder.setMessage(R.string.button_track_delete_message);
+					builder.setCancelable(false);
+					
+					builder.setPositiveButton(R.string.button_ok, 
+							new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									db.deleteTrack(track);
+									notifyDataSetChanged();
+									listener.onTrackDeleted();
+								}
+							});
+					
+					builder.setNegativeButton(R.string.button_cancel, 
+							new DialogInterface.OnClickListener() {
+								
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									
+								}
+							});
+
 				}
 				
 			});

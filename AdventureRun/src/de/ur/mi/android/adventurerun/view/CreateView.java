@@ -165,8 +165,8 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	private void confirmDelete() {
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
-		builder.setTitle(R.string.button_track_delete_title);
-		builder.setMessage(R.string.button_track_delete_message);
+		builder.setTitle(R.string.button_checkpoint_delete_title);
+		builder.setMessage(R.string.button_checkpoint_delete_message);
 		builder.setCancelable(false);
 
 		builder.setPositiveButton(R.string.button_ok,

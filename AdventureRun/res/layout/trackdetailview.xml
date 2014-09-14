@@ -24,17 +24,18 @@
         android:text="@string/number_of_checkpoints"
         android:textSize="@dimen/textsize_normal" />
 
-    <fragment
+        <fragment
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="150dp"
         android:layout_below="@id/number_of_checkpoints" />
+
 
     <ListView
         android:id="@+id/score_list"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="100dp" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -47,25 +48,27 @@
         <Button
             android:id="@+id/play_track"
             style="@style/adventure_run_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="2dp"
+            android:layout_marginEnd="2dp"
             android:text="@string/button_play_track" />
 
         <Button
             android:id="@+id/rename_track"
             style="@style/adventure_run_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginRight="2dp"
+		    android:layout_marginEnd="2dp"
             android:text="@string/button_rename_track" />
 
         <Button
             android:id="@+id/delete_track"
             style="@style/adventure_run_button"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/button_delete_track" />
