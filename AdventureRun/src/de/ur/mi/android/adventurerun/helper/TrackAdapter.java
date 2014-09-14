@@ -115,10 +115,10 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 								}
 							});
 
+					builder.show();
 				}
 				
 			});
-			
 		}
 		
 		return v;
