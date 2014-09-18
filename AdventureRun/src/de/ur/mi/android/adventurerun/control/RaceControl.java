@@ -1,10 +1,4 @@
-/* TODO
- * - Gleicher oder ähnlicher Fehlerdialog wie im CreateView bei Verbindungsproblemen.
- * - Dynamische Anpassung des Toleranzbereiches für das Erreichen eines Checkpoints
- * - Auswahl der getBearing-Methode: In der letzten Studienleistung wurde einfach die
- * 		bearingTo-Methode verwendet, übergeben wurde die Location aus der Methode
- * 		getLastKnownLocation(). Hilfreich im Allgemeinen ist dazu das Handout bzgl. der Stud-Leistung.
- */
+
 
 package de.ur.mi.android.adventurerun.control;
 
@@ -32,6 +26,9 @@ public class RaceControl {
 	private ArrayList<Checkpoint> checkpoints, visitedCheckpoints;
 	private int checkpointNum = 0;
 	private int visited = 0;
+	private long startTime;
+	private long endTime;
+	private long timeForTrack;
 
 	private boolean running = false;
 
@@ -42,20 +39,30 @@ public class RaceControl {
 		visitedCheckpoints = new ArrayList<Checkpoint>();
 		this.checkpoints = track.getAllCheckpoints();
 		checkpointNum = checkpoints.size();
-		visited = 0;
 		
 	}
 
 	public void startRace() {
 		listener.onRaceStarted();
+		startTimer();
 		running = true;
+	}
+
+	private void startTimer() {
+		startTime = System.currentTimeMillis();
 	}
 
 	public void stopRace() {
 		listener.onRaceStopped();
+		endTimer();
 		running = false;
 	}
 
+
+	private void endTimer() {
+		endTime = System.currentTimeMillis();
+		
+	}
 
 	public void checkCheckpoint(Location location, Checkpoint currentCheckpoint) {
 
@@ -147,7 +154,10 @@ public class RaceControl {
 		//return bearing;
 	//}
 	
-	
+	public long getScore() {
+		timeForTrack = endTime - startTime;
+		return timeForTrack;
+	}
 
 
 }

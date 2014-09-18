@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.LatLngBounds;
 
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
+import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 
@@ -37,6 +38,7 @@ public class TrackDetailView extends FragmentActivity implements
 		OnMapLoadedCallback {
 
 	private PrivateDatabaseTracks db;
+	private PrivateDatabaseScores dbScores;
 
 	private Context context;
 
@@ -64,6 +66,8 @@ public class TrackDetailView extends FragmentActivity implements
 
 		db = new PrivateDatabaseTracks(this);
 		db.open();
+		dbScores = new PrivateDatabaseScores(this);
+		dbScores.open();
 
 		if (bundle.getInt(Constants.KEY_INTENT_TRACKVIEW) != -1) {
 			trackIndex = bundle.getInt(Constants.KEY_INTENT_TRACKVIEW);
@@ -135,6 +139,7 @@ public class TrackDetailView extends FragmentActivity implements
 	@Override
 	protected void onDestroy() {
 		db.close();
+		dbScores.close();
 		super.onDestroy();
 	}
 
@@ -179,6 +184,7 @@ public class TrackDetailView extends FragmentActivity implements
 								String name = textField.getText().toString();
 								track.setName(name);
 								db.updateName(track);
+								dbScores.updateName(track);
 								textviewTrackName.setText(track.getName());
 							}
 
@@ -204,6 +210,7 @@ public class TrackDetailView extends FragmentActivity implements
 			@Override
 			public void onClick(View v) {
 				db.deleteTrack(track);
+				dbScores.deleteScoreList(track);
 				finish();
 			}
 

@@ -50,6 +50,7 @@ import de.ur.mi.android.adventurerun.control.RaceControl;
 import de.ur.mi.android.adventurerun.control.RaceListener;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
+import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 import de.ur.mi.android.adventurerun.helper.LocationController;
@@ -72,6 +73,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private Track currentTrack;
 	private PrivateDatabaseTracks db;
+	private PrivateDatabaseScores dbScores;
 	private String trackName = "unknown";
 	private TextView textViewTrackName, textView_speed,
 			textView_distanceToCheckpoint, textView_distance;
@@ -116,7 +118,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
 		checkForService();
-
 		initDB();
 		initSensorData();
 		initSensor();
@@ -225,6 +226,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private void initDB() {
 		db = new PrivateDatabaseTracks(this);
 		db.open();
+		dbScores = new PrivateDatabaseScores(this);
 
 	}
 
@@ -338,7 +340,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	}
 
 	private void adjustCompass() {
-
 		compass.setRotation(0);
 		compass.setRotation(raceControl.getBearing(currentLocation,
 				currentCheckpoint) - (float) deviceOrientation);
@@ -363,9 +364,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	@Override
 	public void onCheckpointReached() {
-		// TextView information = (TextView)
-		// findViewById(R.id.textView_race_information);
-		// information.setText(R.string.textView_raceInformation_checkpointReached);
 		Toast.makeText(this, "Checkpoint erreicht!", Toast.LENGTH_SHORT).show();
 		updateCheckpointsOnMap();
 	}
@@ -373,8 +371,17 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	@Override
 	public void onRaceWon() {
 		raceStarted = false;
+		updateScoreList();
 		setWinnerView();
 
+	}
+
+	private void updateScoreList() {
+		long time = raceControl.getScore();
+		dbScores.open();
+		dbScores.updateScore(currentTrack, time);
+		dbScores.close();
+		
 	}
 
 	private void setWinnerView() {

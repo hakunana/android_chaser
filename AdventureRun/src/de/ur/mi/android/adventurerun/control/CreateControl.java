@@ -7,6 +7,7 @@ import android.location.Location;
 import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
+import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 
 public class CreateControl {
@@ -49,5 +50,10 @@ public class CreateControl {
 		db.open();
 		db.insertTrack(track);
 		db.close();
+		
+		PrivateDatabaseScores dbScores = new PrivateDatabaseScores(context);
+		dbScores.open();
+		dbScores.createNewScoreList(track);
+		dbScores.close();
 	}
 }
