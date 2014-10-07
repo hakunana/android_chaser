@@ -13,6 +13,7 @@
     </string-array>
     
     <string name="textView_checkpointNum">Gesetzte Checkpoints:</string>
+    <string name="textView_checkpointReached">Erreichte Checkpoints:</string>
     
     <string name="textView_raceInformation_checkpointReached">Checkpoint erreicht!</string>
     <string name="textView_raceInformation_raceWon">Alle Checkpoints erreicht! Gewonnen!</string>

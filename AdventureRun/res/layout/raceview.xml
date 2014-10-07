@@ -8,7 +8,6 @@
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-    
     <ImageView
         android:id="@+id/imageView_compass"
         android:layout_width="100dp"
@@ -62,5 +61,24 @@
         android:layout_centerHorizontal="true"
         android:text=""
         android:textSize="@dimen/textsize_buttons" />
+
+    <TextView
+        android:id="@+id/textView_reached_checkpoints_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/map_fragment"
+        android:layout_toRightOf="@+id/textView_reached_checkpoints"
+        android:text=""
+        android:textSize="@dimen/textsize_normal" />
+
+    <TextView
+        android:id="@+id/textView_reached_checkpoints"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/textView_reached_checkpoints_count"
+        android:layout_alignBottom="@+id/textView_reached_checkpoints_count"
+        android:layout_alignRight="@+id/button_start_run_track"
+        android:text="@string/textView_checkpointReached"
+        android:textSize="@dimen/textsize_normal" />
 
 </RelativeLayout>

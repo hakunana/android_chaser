@@ -75,7 +75,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private PrivateDatabaseTracks db;
 	private PrivateDatabaseScores dbScores;
 	private String trackName = "unknown";
-	private TextView textViewTrackName, textView_speed,
+	private TextView textViewTrackName, textView_speed, textView_reachedCheckpoints,
 			textView_distanceToCheckpoint, textView_distance;
 	private Button buttonStart;
 	private ImageView compass;
@@ -105,6 +105,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private double deviceOrientation;
 
 	private float distance = 0;
+	private int reachedCheckpoints = 0;
 
 	private int numberOfMapViews = 0;
 
@@ -366,6 +367,16 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	public void onCheckpointReached() {
 		Toast.makeText(this, "Checkpoint erreicht!", Toast.LENGTH_SHORT).show();
 		updateCheckpointsOnMap();
+		updateCheckpointsTextView();
+	}
+
+	private void updateCheckpointsTextView() {
+		reachedCheckpoints++;
+		Integer num = Integer.valueOf(reachedCheckpoints);
+		String s = num.toString();
+		textView_reachedCheckpoints = (TextView) findViewById(R.id.textView_reached_checkpoints_count);
+		textView_reachedCheckpoints.setText(s);
+		
 	}
 
 	@Override
