@@ -63,10 +63,14 @@
     <string name="button_start_run_track">Rennen starten</string>
     <string name="button_abort_run_track">Rennen abbrechen</string>
     
+    <string name="button_inform_accuracy_title">GPS-Genauigkeit zu ungenau</string>
+    <string name="button_inform_accuracy_message">Warten Sie einen Moment und versuche Sie es erneut.</string>
+    
     
     
     <string name="button_ok">OK</string>
     <string name="button_cancel">Abbrechen</string>
+    <string name="button_name_and_save">Benennen und speichern</string>
     
     
     <string name="description_compass">This is a compass</string>

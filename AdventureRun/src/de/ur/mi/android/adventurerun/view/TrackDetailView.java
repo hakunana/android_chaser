@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -209,12 +208,39 @@ public class TrackDetailView extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				db.deleteTrack(track);
-				dbScores.deleteScoreList(track);
-				finish();
-			}
+				
+				
+				AlertDialog.Builder builder = new AlertDialog.Builder(context);
+				builder.setTitle(R.string.button_track_delete_title);
+				builder.setMessage(R.string.button_track_delete_message);
+				builder.setCancelable(false);
+				
+				builder.setPositiveButton(R.string.button_ok, 
+						new DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								db.deleteTrack(track);
+								dbScores.deleteScoreList(track);
+								finish();
+							}
+						});
+				
+				builder.setNegativeButton(R.string.button_cancel, 
+						new DialogInterface.OnClickListener() {
+							
+							@Override
+							public void onClick(DialogInterface dialog, int which) {
+								
+							}
+						});
 
+				builder.show();
+			}
+			
 		});
+
+
 
 	}
 }

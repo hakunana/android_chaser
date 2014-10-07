@@ -527,13 +527,13 @@ containing a value of this type.
         public static final int main=0x7f0b0000;
     }
     public static final class string {
-        public static final int action_create=0x7f060046;
+        public static final int action_create=0x7f060049;
         public static final int action_settings=0x7f06001c;
         public static final int app_name=0x7f06001a;
         public static final int button_abort_run_track=0x7f06003e;
         public static final int button_abort_track=0x7f060024;
         public static final int button_add_checkpoint=0x7f060025;
-        public static final int button_cancel=0x7f060040;
+        public static final int button_cancel=0x7f060042;
         public static final int button_checkpoint_delete_message=0x7f06002b;
         public static final int button_checkpoint_delete_title=0x7f06002a;
         public static final int button_delete_checkpoint=0x7f060026;
@@ -541,7 +541,10 @@ containing a value of this type.
         public static final int button_finish_track=0x7f060023;
         public static final int button_get_user_name_message=0x7f06003a;
         public static final int button_get_user_name_title=0x7f060039;
-        public static final int button_ok=0x7f06003f;
+        public static final int button_inform_accuracy_message=0x7f060040;
+        public static final int button_inform_accuracy_title=0x7f06003f;
+        public static final int button_name_and_save=0x7f060043;
+        public static final int button_ok=0x7f060041;
         public static final int button_open_create_view=0x7f060027;
         public static final int button_open_race_view=0x7f060028;
         public static final int button_open_track_view=0x7f060029;
@@ -650,18 +653,18 @@ containing a value of this type.
         /**  Long form sign-in button text [CHAR LIMIT=30] 
          */
         public static final int common_signin_button_text_long=0x7f060018;
-        public static final int description_bin=0x7f060042;
-        public static final int description_compass=0x7f060041;
-        public static final int description_info=0x7f060043;
-        public static final int empty_track_list=0x7f060047;
+        public static final int description_bin=0x7f060045;
+        public static final int description_compass=0x7f060044;
+        public static final int description_info=0x7f060046;
+        public static final int empty_track_list=0x7f06004a;
         public static final int hello_world=0x7f06001b;
         public static final int info_gps_message=0x7f060021;
         public static final int info_gps_title=0x7f060020;
-        public static final int number_of_checkpoints=0x7f060045;
+        public static final int number_of_checkpoints=0x7f060048;
         public static final int textView_checkpointNum=0x7f06001d;
         public static final int textView_raceInformation_checkpointReached=0x7f06001e;
         public static final int textView_raceInformation_raceWon=0x7f06001f;
-        public static final int track_name_default=0x7f060044;
+        public static final int track_name_default=0x7f060047;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */

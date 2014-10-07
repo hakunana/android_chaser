@@ -28,6 +28,10 @@ public class CreateControl {
 		checkpoints.add(checkpoint);
 	}
 	
+	public ArrayList<Checkpoint> getAllCheckpoints() {
+		return checkpoints;
+	}
+	
 	public void deleteLastCheckpoint() {
 		checkpoints.remove(checkpoints.size() - 1);
 	}

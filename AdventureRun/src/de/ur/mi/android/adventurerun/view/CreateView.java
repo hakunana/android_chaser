@@ -44,6 +44,7 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import de.ur.mi.android.adventurerun.control.CreateControl;
+import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.helper.LocationController;
 import de.ur.mi.android.adventurerun.helper.PositionListener;
 
@@ -59,6 +60,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	private boolean createStarted = false;
 	private boolean gpsAvailable = false;
+	private static final float MIN_ACCURACY_CHECKPOINT = 20;
 
 	private GoogleMap map;
 
@@ -182,6 +184,28 @@ public class CreateView extends FragmentActivity implements PositionListener {
 					public void onClick(DialogInterface dialog, int which) {
 						control.deleteLastCheckpoint();
 						updateCheckpointNum();
+						updateMap();
+					}
+
+					private void updateMap() {
+						map.clear();
+						ArrayList<Checkpoint> checkpoints = control.getAllCheckpoints();
+						circles = new ArrayList<CircleOptions>();
+
+						for (Checkpoint c : checkpoints) {
+							CircleOptions circle = new CircleOptions();
+							LatLng latLng = new LatLng(c.getLatitude(), c.getLongitude());
+							circle.center(latLng);
+							circle.radius(c.getAccuracy());
+
+							// ÄNDERN: in XML colors Farben abspeichern!
+							circle.fillColor(0x6024E35E);
+							circle.strokeWidth(2);
+
+							circles.add(circle);
+							map.addCircle(circle);
+						}
+						
 					}
 				});
 
@@ -205,16 +229,41 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 
 	private void addCheckpoint() {
-		if (createStarted && gpsAvailable) {
-			control.addCheckpoint(currentLocation);
-			addCheckpointOnMap();
-			updateCheckpointNum();
+		if(createStarted && gpsAvailable) {
+			if (MIN_ACCURACY_CHECKPOINT > currentLocation.getAccuracy()) {
+				control.addCheckpoint(currentLocation);
+				addCheckpointOnMap();
+				updateCheckpointNum();
+			} else {
+				informAboutAccuracy();
+			}
 		}
 
 		if (control.getCheckpointNum() > 1) {
 			buttonStartFinish.setText(R.string.button_finish_track);
 		}
 	}
+
+	private void informAboutAccuracy() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.button_inform_accuracy_title);
+		builder.setMessage(R.string.button_inform_accuracy_message);
+		builder.setCancelable(false);
+
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+
+
+		builder.show();
+		
+	}
+
 
 	private void addCheckpointOnMap() {
 		CircleOptions circle = new CircleOptions();
@@ -318,7 +367,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 		builder.setCancelable(false);
 
-		builder.setPositiveButton(R.string.button_ok,
+		builder.setPositiveButton(R.string.button_name_and_save,
 				new DialogInterface.OnClickListener() {
 
 					@Override
