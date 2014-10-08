@@ -15,7 +15,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 
@@ -30,8 +29,7 @@ public class PrivateDatabaseTracks {
 	private final String KEY_NAME = "name";
 	private final String KEY_TIMESTAMP = "timestamp";
 	private final String KEY_CHECKPOINTS = "checkpoints";
-
-	private final int COLUMN_ID_INDEX = 0;
+	
 	private final int COLUMN_NAME_INDEX = 1;
 	private final int COLUMN_TIMESTAMP_INDEX = 2;
 	private final int COLUMN_CHECKPOINTS_INDEX = 3;
@@ -68,9 +66,6 @@ public class PrivateDatabaseTracks {
 		return privateDB.insert(DB_TABLE, null, currentValues);
 	}
 
-	// ID ist aus Track selbst ja nicht abrufbar - gelöscht werden
-	// muss deshalb über den Timestamp. Andere Idee? Ggf. Name UND Timestamp zur
-	// Sicherheit?
 	public void deleteTrack(Track currentTrack) {
 		String deleteClause = KEY_TIMESTAMP + "=?";
 		String[] deleteArgs = new String[] { String.valueOf(currentTrack

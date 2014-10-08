@@ -4,7 +4,6 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
@@ -47,13 +46,10 @@ public class CreateControl {
 	public void finishTrack() {
 		track = new Track(checkpoints, name, 0);
 		
-		Log.e("DEBUG", "initializing database...");
-		PrivateDatabaseTracks db = new PrivateDatabaseTracks(context);
-		
-		Log.e("DEBUG", "calling insert...");
-		db.open();
-		db.insertTrack(track);
-		db.close();
+		PrivateDatabaseTracks dbTracks = new PrivateDatabaseTracks(context);
+		dbTracks.open();
+		dbTracks.insertTrack(track);
+		dbTracks.close();
 		
 		PrivateDatabaseScores dbScores = new PrivateDatabaseScores(context);
 		dbScores.open();

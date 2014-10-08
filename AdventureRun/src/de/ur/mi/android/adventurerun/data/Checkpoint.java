@@ -4,19 +4,15 @@ import android.location.Location;
 
 public class Checkpoint {
 
-	private Location location;
 	private double latitude;
 	private double longitude;
-	
-	// Standardm‰ﬂig - zum Testen - auf 10 gesetzt, bis in Datenbank implementiert
-	private float accuracy = 10;
+	private float accuracy;
 	
 	/**
 	 * Generates a object of type Checkpoint.
 	 * @param location
 	 */
 	public Checkpoint(Location location) {
-		this.location = location;
 		latitude = location.getLatitude();
 		longitude = location.getLongitude();
 		accuracy = location.getAccuracy();
@@ -26,13 +22,8 @@ public class Checkpoint {
 	 * Generates a object of type Checkpoint. Use this constructor for DB-methods!
 	 * @param latitude
 	 * @param longitude
-	 */
-	
-	public Checkpoint (double latitude, double longitude) {
-		this.latitude = latitude;
-		this.longitude = longitude;
-	}
-	
+	 * @param accuracy
+	 */	
 	public Checkpoint (double latitude, double longitude, double accuracy) {
 		this.latitude = latitude;
 		this.longitude = longitude;
@@ -45,11 +36,12 @@ public class Checkpoint {
 	 * @param dest			the object to compare with
 	 * @return distance 	in float
 	 */
-	
-	// Methode ist deprecated und funktioniert ausschlieﬂlich, wenn der Checkpoint noch nicht abgespeichert
-	// wurde.
 	public float getDistance(Location dest) {
-		return location.distanceTo(dest);
+		Location checkpoint = new Location("checkpoint");
+		checkpoint.setLatitude(latitude);
+		checkpoint.setLongitude(longitude);
+		
+		return checkpoint.distanceTo(dest);
 	}
 	
 	public double getLongitude() {

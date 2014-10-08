@@ -5,8 +5,6 @@ import java.util.Date;
 
 import org.json.JSONArray;
 
-import android.util.Log;
-
 public class Track {
 
 	private String name;

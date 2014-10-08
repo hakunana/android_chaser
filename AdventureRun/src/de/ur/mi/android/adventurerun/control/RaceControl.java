@@ -1,14 +1,12 @@
-
-
 package de.ur.mi.android.adventurerun.control;
 
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
+import de.ur.mi.android.adventurerun.helper.RaceListener;
 
 public class RaceControl {
 
@@ -21,8 +19,6 @@ public class RaceControl {
 	
 	private RaceListener listener;
 
-	private Context context;
-	private Track track;
 	private ArrayList<Checkpoint> checkpoints, visitedCheckpoints;
 	private int checkpointNum = 0;
 	private int visited = 0;
@@ -33,9 +29,7 @@ public class RaceControl {
 	private boolean running = false;
 
 	public RaceControl(Context context, Track track, RaceListener listener) {
-		this.context = context;
 		this.listener = listener;
-		this.track = track;
 		visitedCheckpoints = new ArrayList<Checkpoint>();
 		this.checkpoints = track.getAllCheckpoints();
 		checkpointNum = checkpoints.size();
@@ -47,44 +41,38 @@ public class RaceControl {
 		startTimer();
 		running = true;
 	}
-
-	private void startTimer() {
-		startTime = System.currentTimeMillis();
-	}
-
+	
 	public void stopRace() {
 		listener.onRaceStopped();
 		endTimer();
 		running = false;
 	}
 
+	private void startTimer() {
+		startTime = System.currentTimeMillis();
+	}
 
 	private void endTimer() {
 		endTime = System.currentTimeMillis();
-		
 	}
 
 	public void checkCheckpoint(Location location, Checkpoint currentCheckpoint) {
-
-			double latitudeCheckpoint = currentCheckpoint.getLatitude();
-			double longitudeCheckpoint = currentCheckpoint.getLongitude();
-			Location locationCheckpoint = new Location("Checkpoint");
-			locationCheckpoint.setLatitude(latitudeCheckpoint);
-			locationCheckpoint.setLongitude(longitudeCheckpoint);
-			
-			minDistance = (location.getAccuracy() + currentCheckpoint.getAccuracy()) / 2;
-			
-			Log.e("DEBUG", "minDistance: " + minDistance); 
-			
-			if (locationCheckpoint.distanceTo(location) <= minDistance) {
-				visitedCheckpoints.add(currentCheckpoint);
-				checkpoints.remove(currentCheckpoint);
-				listener.onCheckpointReached();
-				visited++;
-				checkIfWon();
-			}
+		double latitudeCheckpoint = currentCheckpoint.getLatitude();
+		double longitudeCheckpoint = currentCheckpoint.getLongitude();
 		
+		Location locationCheckpoint = new Location("Checkpoint");
+		locationCheckpoint.setLatitude(latitudeCheckpoint);
+		locationCheckpoint.setLongitude(longitudeCheckpoint);
 		
+		minDistance = (location.getAccuracy() + currentCheckpoint.getAccuracy()) / 2;
+		
+		if (locationCheckpoint.distanceTo(location) <= minDistance) {
+			visitedCheckpoints.add(currentCheckpoint);
+			checkpoints.remove(currentCheckpoint);
+			listener.onCheckpointReached();
+			visited++;
+			checkIfWon();
+		}
 	}
 	
 	private void checkIfWon() {
@@ -98,7 +86,7 @@ public class RaceControl {
 	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
 	public Checkpoint getNextCheckpoint (Location currentLocation) {
 		Checkpoint nextCheckpoint;
-		Location end = new Location ("end");
+		Location end = new Location("end");
 		
 		float lastDistance = 100000;
 		float currentDistance = 0;

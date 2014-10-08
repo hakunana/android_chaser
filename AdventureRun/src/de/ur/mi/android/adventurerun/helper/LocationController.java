@@ -6,7 +6,6 @@ import android.content.SharedPreferences.Editor;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -18,11 +17,7 @@ public class LocationController implements LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
 
-	// UPDATE_TIME und UPDATE_DISTANCE werden als Konstanten gespeichert - man
-	// muss schauen, ob es später vielleicht sinnvoller wäre, die Werte ändern
-	// zu können
 	private static final long UPDATE_TIME = 2000;
-	private static final float UPDATE_DISTANCE = 3;
 	private static final int FASTEST_INTERVAL = 1000;
 
 	private Context context;
@@ -78,12 +73,10 @@ public class LocationController implements LocationListener,
 	}
 	
 	public void start() {
-		Log.e("DEBUG", "Connecting client");
 		locationClient.connect();
 	}
 	
 	public void stop() {
-		Log.e("DEBUG", "Sopping client");
 		if (locationClient.isConnected()) {
 			stopPeriodicUpdates();
 		}
@@ -91,13 +84,11 @@ public class LocationController implements LocationListener,
 	}
 	
 	public void pause() {
-		Log.e("DEBUG", "Paused");
 		editor.putBoolean("KEY_UPDATES_ON", isActive);
 		editor.commit();
 	}
 	
 	public void resume() {
-		Log.e("DEBUG", "onResume aufgerufen");
 		if (prefs.contains("KEY_UPDATES_ON")) {
 			isActive = prefs.getBoolean("KEY_UPDATES_ON", false);
 		} else {
@@ -107,27 +98,21 @@ public class LocationController implements LocationListener,
 	}
 
 	public Location getLastKnownLocation() {
-		Log.e("DEBUG", "Returning last location");
 		return locationClient.getLastLocation();
 	}
 	
 	public void startPeriodicUpdates() {
-		Log.e("DEBUG", "Periodic Updates started");
 		locationClient.requestLocationUpdates(locationRequest, this);
 	}
 	
 	public void stopPeriodicUpdates() {
-		Log.e("DEBUG", "Periodic Updates stopped");
 		locationClient.removeLocationUpdates(this);
 	}
 
 	@Override
 	public void onLocationChanged(Location newLocation) {
 		location = newLocation;
-		
 		positionListener.onNewLocation(location);
-		
-		Log.e("DEBUG", "Location retrieved: " + location.getLatitude() + " - " + location.getLongitude());
 	}
 
 	@Override
@@ -135,7 +120,6 @@ public class LocationController implements LocationListener,
 		// Called by Location Services if the attempt to Location Services
 		// fails.
 		positionListener.onConnectionFailed(result);
-		Log.e("DEBUG", "Connection failed");
 
 	}
 
@@ -143,7 +127,6 @@ public class LocationController implements LocationListener,
 	@Override
 	public void onConnected(Bundle connectionHint) {
 		positionListener.onConnected();
-		Log.e("DEBUG", "Connected");
 		startPeriodicUpdates();
 	}
 
@@ -151,7 +134,6 @@ public class LocationController implements LocationListener,
 	public void onDisconnected() {
 		// Aufgerufen, wenn Verbindung zu Location Client einen Error ausgibt
 		positionListener.onDisconnected();
-		Log.e("DEBUG", "Disconnected");
 	}
 
 }

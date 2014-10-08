@@ -24,7 +24,6 @@ public class PrivateDatabaseScores {
 	private final String KEY_FOURTH_SCORE = "fourthScore";
 	private final String KEY_FIFTH_SCORE = "fifthScore";
 
-	private final int COLUMN_ID_INDEX = 0;
 	private final int COLUMN_NAME_INDEX = 1;
 	private final int COLUMN_TIMESTAMP_INDEX = 2;
 	private final int COLUMN_FIRST_SCORE_INDEX = 3;

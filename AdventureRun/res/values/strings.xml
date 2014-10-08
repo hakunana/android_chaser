@@ -54,10 +54,7 @@
     
     <string name="button_rename_track_title">Strecke umbenennen</string>
     <string name="button_rename_track_message">Bitte gib den neuen Namen der Strecke ein:</string>
-    
-    <string name="button_get_user_name_title">Profilname</string>
-    <string name="button_get_user_name_message">Gib einen Namen für dein Profil ein:</string>
-    
+        
     <string name="button_track_started_dialog_title">Achtung, fertig, los!</string>
     <string name="button_track_started_dialog_message">Bereithalten! Rennen startet in 10 Sekunden.</string>
     
@@ -66,14 +63,11 @@
     
     <string name="button_inform_accuracy_title">GPS-Genauigkeit zu ungenau</string>
     <string name="button_inform_accuracy_message">Warten Sie einen Moment und versuche Sie es erneut.</string>
-    
-    
-    
+
     <string name="button_ok">OK</string>
     <string name="button_cancel">Abbrechen</string>
     <string name="button_name_and_save">Benennen und speichern</string>
-    
-    
+
     <string name="description_compass">This is a compass</string>
     <string name="description_bin">This is a bin</string>
     <string name="description_info">This is a info</string>

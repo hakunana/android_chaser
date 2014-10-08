@@ -1,5 +1,3 @@
-
-
 package de.ur.mi.android.adventurerun.view;
 
 import java.util.ArrayList;
@@ -47,7 +45,6 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 
 import de.ur.mi.android.adventurerun.control.RaceControl;
-import de.ur.mi.android.adventurerun.control.RaceListener;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
@@ -55,6 +52,7 @@ import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 import de.ur.mi.android.adventurerun.helper.LocationController;
 import de.ur.mi.android.adventurerun.helper.PositionListener;
+import de.ur.mi.android.adventurerun.helper.RaceListener;
 
 public class RaceView extends FragmentActivity implements RaceListener,
 		PositionListener, SensorEventListener {
@@ -74,8 +72,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private Track currentTrack;
 	private PrivateDatabaseTracks db;
 	private PrivateDatabaseScores dbScores;
-	private String trackName = "unknown";
-	private TextView textViewTrackName, textView_speed, textView_reachedCheckpoints,
+	private TextView textView_speed, textView_reachedCheckpoints,
 			textView_distanceToCheckpoint, textView_distance;
 	private Button buttonStart;
 	private ImageView compass;
@@ -239,7 +236,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			int trackIndex = bundle.getInt(Constants.KEY_INTENT_TRACKVIEW);
 			tracks = db.allTracks();
 			currentTrack = tracks.get(trackIndex);
-			trackName = currentTrack.getName();
 		}
 
 	}
@@ -316,8 +312,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 						@Override
 						public void onTick(long millisUntilFinished) {
-							// TODO Auto-generated method stub
-
 						}
 
 						@Override
@@ -376,7 +370,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		String s = num.toString();
 		textView_reachedCheckpoints = (TextView) findViewById(R.id.textView_reached_checkpoints_count);
 		textView_reachedCheckpoints.setText(s);
-		
+
 	}
 
 	@Override
@@ -392,7 +386,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		dbScores.open();
 		dbScores.updateScore(currentTrack, time);
 		dbScores.close();
-		
+
 	}
 
 	private void setWinnerView() {

@@ -1,4 +1,4 @@
-package de.ur.mi.android.adventurerun.control;
+package de.ur.mi.android.adventurerun.helper;
 
 public interface RaceListener {
 	public void onCheckpointReached();
