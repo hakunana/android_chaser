@@ -343,10 +343,13 @@ containing a value of this type.
         public static final int common_signin_btn_light_text_disabled=0x7f050006;
         public static final int common_signin_btn_light_text_focused=0x7f050007;
         public static final int common_signin_btn_light_text_pressed=0x7f050005;
-        public static final int common_signin_btn_text_dark=0x7f05001a;
-        public static final int common_signin_btn_text_light=0x7f05001b;
+        public static final int common_signin_btn_text_dark=0x7f05001d;
+        public static final int common_signin_btn_text_light=0x7f05001e;
         public static final int gradient_bg_end=0x7f050019;
         public static final int gradient_bg_start=0x7f050018;
+        public static final int text_color=0x7f05001a;
+        public static final int text_color_detail=0x7f05001b;
+        public static final int text_color_highlight=0x7f05001c;
         public static final int wallet_bright_foreground_disabled_holo_light=0x7f05000f;
         /** 
          Wallet colors to support consistent Wallet fragment holo dark UI in client application
@@ -365,8 +368,8 @@ containing a value of this type.
         public static final int wallet_hint_foreground_holo_light=0x7f050011;
         public static final int wallet_holo_blue_light=0x7f050015;
         public static final int wallet_link_text_light=0x7f050016;
-        public static final int wallet_primary_text_holo_light=0x7f05001c;
-        public static final int wallet_secondary_text_holo_dark=0x7f05001d;
+        public static final int wallet_primary_text_holo_light=0x7f05001f;
+        public static final int wallet_secondary_text_holo_dark=0x7f050020;
     }
     public static final class dimen {
         /**  Default screen margins, per the Android Design guidelines. 
@@ -379,6 +382,7 @@ containing a value of this type.
         public static final int activity_horizontal_margin=0x7f090000;
         public static final int activity_vertical_margin=0x7f090001;
         public static final int textsize_buttons=0x7f090002;
+        public static final int textsize_detail=0x7f090005;
         public static final int textsize_heading=0x7f090003;
         public static final int textsize_normal=0x7f090004;
     }
@@ -457,59 +461,63 @@ containing a value of this type.
         public static final int tab_unselected_pressed_adventure_run=0x7f020047;
     }
     public static final class id {
-        public static final int action_create=0x7f070034;
-        public static final int action_settings=0x7f070035;
+        public static final int action_create=0x7f070038;
+        public static final int action_settings=0x7f070039;
         public static final int book_now=0x7f070010;
         public static final int button_add_checkpoint=0x7f070019;
         public static final int button_delete_checkpoint=0x7f07001a;
-        public static final int button_details_track=0x7f070028;
-        public static final int button_remove_track=0x7f070029;
+        public static final int button_details_track=0x7f07002c;
+        public static final int button_remove_track=0x7f07002d;
         public static final int button_start_finish_create_track=0x7f070018;
-        public static final int button_start_run_track=0x7f07001f;
+        public static final int button_start_run_track=0x7f070021;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
         public static final int classic=0x7f070011;
         public static final int content_layout=0x7f070016;
-        public static final int delete_track=0x7f07002d;
-        public static final int drawer_layout=0x7f070030;
-        public static final int emptyView=0x7f070031;
+        public static final int delete_track=0x7f070031;
+        public static final int drawer_layout=0x7f070034;
+        public static final int emptyView=0x7f070035;
         public static final int grayscale=0x7f070012;
         public static final int holo_dark=0x7f070005;
         public static final int holo_light=0x7f070006;
         public static final int hybrid=0x7f070004;
-        public static final int imageView_compass=0x7f07001d;
-        public static final int left_drawer=0x7f070033;
-        public static final int linearLayout1=0x7f07002a;
-        public static final int list_track_item=0x7f070025;
+        public static final int imageView_compass=0x7f07001f;
+        public static final int left_drawer=0x7f070037;
+        public static final int linearLayout1=0x7f07002e;
+        public static final int list_track_item=0x7f070029;
         public static final int map_fragment=0x7f070017;
         public static final int match_parent=0x7f07000c;
         public static final int monochrome=0x7f070013;
         public static final int none=0x7f070000;
         public static final int normal=0x7f070001;
-        public static final int number_of_checkpoints=0x7f07002e;
+        public static final int number_of_checkpoints=0x7f070032;
         public static final int open_create_view=0x7f070014;
         public static final int open_track_view=0x7f070015;
-        public static final int play_track=0x7f07002c;
+        public static final int play_track=0x7f070030;
         public static final int production=0x7f070007;
-        public static final int rename_track=0x7f07002b;
+        public static final int remaining_map_views=0x7f07001e;
+        public static final int rename_track=0x7f07002f;
         public static final int sandbox=0x7f070008;
         public static final int satellite=0x7f070002;
-        public static final int score_list=0x7f07002f;
+        public static final int score=0x7f070028;
+        public static final int score_item=0x7f070027;
+        public static final int score_list=0x7f070033;
         public static final int selectionDetails=0x7f07000b;
         public static final int strict_sandbox=0x7f070009;
         public static final int terrain=0x7f070003;
         public static final int textView_checkpointNum=0x7f07001b;
         public static final int textView_checkpointNumCount=0x7f07001c;
-        public static final int textView_distance=0x7f070022;
-        public static final int textView_distance_to_checkpoint=0x7f07001e;
-        public static final int textView_race_information=0x7f070021;
-        public static final int textView_reached_checkpoints=0x7f070024;
-        public static final int textView_reached_checkpoints_count=0x7f070023;
-        public static final int textView_speed=0x7f070020;
-        public static final int track_list=0x7f070032;
-        public static final int track_name=0x7f070026;
-        public static final int track_timestamp=0x7f070027;
+        public static final int textView_distance=0x7f070024;
+        public static final int textView_distance_to_checkpoint=0x7f070020;
+        public static final int textView_race_information=0x7f070023;
+        public static final int textView_reached_checkpoints=0x7f070026;
+        public static final int textView_reached_checkpoints_count=0x7f070025;
+        public static final int textView_speed=0x7f070022;
+        public static final int track_list=0x7f070036;
+        public static final int track_name=0x7f07002a;
+        public static final int track_timestamp=0x7f07002b;
+        public static final int view_map_info=0x7f07001d;
         public static final int wrap_content=0x7f07000d;
     }
     public static final class integer {
@@ -521,9 +529,10 @@ containing a value of this type.
         public static final int drawer_list_item=0x7f030002;
         public static final int fragment_main=0x7f030003;
         public static final int raceview=0x7f030004;
-        public static final int track_item=0x7f030005;
-        public static final int trackdetailview=0x7f030006;
-        public static final int trackview=0x7f030007;
+        public static final int score_item=0x7f030005;
+        public static final int track_item=0x7f030006;
+        public static final int trackdetailview=0x7f030007;
+        public static final int trackview=0x7f030008;
     }
     public static final class menu {
         public static final int main=0x7f0b0000;
@@ -660,12 +669,15 @@ containing a value of this type.
         public static final int hello_world=0x7f06001b;
         public static final int info_gps_message=0x7f060022;
         public static final int info_gps_title=0x7f060021;
+        public static final int no_remaining_map_views=0x7f06004c;
         public static final int number_of_checkpoints=0x7f060047;
+        public static final int remaining_map_views=0x7f06004b;
         public static final int textView_checkpointNum=0x7f06001d;
         public static final int textView_checkpointReached=0x7f06001e;
         public static final int textView_raceInformation_checkpointReached=0x7f06001f;
         public static final int textView_raceInformation_raceWon=0x7f060020;
         public static final int track_name_default=0x7f060046;
+        public static final int view_map_info=0x7f06004a;
         /**  Text on a placeholder buy button when Google Play services is not
          available or up-to-date 
          */

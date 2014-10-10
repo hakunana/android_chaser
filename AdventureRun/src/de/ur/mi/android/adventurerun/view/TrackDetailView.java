@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.adventurerun.R;
@@ -32,6 +33,7 @@ import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseScores;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
+import de.ur.mi.android.adventurerun.helper.ScoreAdapter;
 
 public class TrackDetailView extends FragmentActivity implements
 		OnMapLoadedCallback {
@@ -44,10 +46,14 @@ public class TrackDetailView extends FragmentActivity implements
 	private int trackIndex;
 
 	private Track track;
+	
+	private Long[] scores;
 
 	private Button playTrack, renameTrack, deleteTrack;
 
 	private TextView textviewTrackName;
+	
+	private ScoreAdapter scoreAdapter;
 
 	private GoogleMap map;
 
@@ -63,15 +69,11 @@ public class TrackDetailView extends FragmentActivity implements
 		ArrayList<Track> tracks = new ArrayList<Track>();
 		Bundle bundle = getIntent().getExtras();
 
-		db = new PrivateDatabaseTracks(this);
-		db.open();
-		dbScores = new PrivateDatabaseScores(this);
-		dbScores.open();
+		initDB();
 
 		if (bundle.getInt(Constants.KEY_INTENT_TRACKVIEW) != -1) {
 			trackIndex = bundle.getInt(Constants.KEY_INTENT_TRACKVIEW);
 			tracks = db.allTracks();
-
 			track = tracks.get(trackIndex);
 
 			String trackName = track.getName();
@@ -86,6 +88,28 @@ public class TrackDetailView extends FragmentActivity implements
 
 		initButtons();
 		initMap();
+		initScores();
+	}
+	
+	protected void onResume() {
+		super.onResume();
+		scores = dbScores.getScoreList(track);
+		scoreAdapter.notifyDataSetChanged();
+	}
+
+	private void initScores() {
+		scores = dbScores.getScoreList(track);
+		ListView scoreList = (ListView) findViewById(R.id.score_list);
+		scoreAdapter = new ScoreAdapter(this, scores);
+		scoreList.setAdapter(scoreAdapter);
+		scoreAdapter.notifyDataSetChanged();
+	}
+
+	private void initDB() {
+		db = new PrivateDatabaseTracks(this);
+		db.open();
+		dbScores = new PrivateDatabaseScores(this);
+		dbScores.open();
 	}
 
 	@Override
@@ -129,12 +153,11 @@ public class TrackDetailView extends FragmentActivity implements
 
 		LatLngBounds bounds = builder.build();
 
-		// 5: Abstand in Pixeln vom Rand
 		CameraUpdate update = CameraUpdateFactory.newLatLngBounds(bounds, 15);
 		map.animateCamera(update);
 		return;
 	}
-
+	
 	@Override
 	protected void onDestroy() {
 		db.close();

@@ -3,11 +3,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <TextView 
+        android:id="@+id/view_map_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_normal"
+        android:textColor="@color/text_color_highlight"
+        android:layout_marginTop="80dp"
+        android:gravity="center"
+        android:text="@string/view_map_info"/>
+    
+    <TextView
+        android:id="@+id/remaining_map_views"
+        android:layout_below="@id/view_map_info"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_normal"
+        android:textColor="@color/text_color_highlight"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/remaining_map_views"/>
+    
     <fragment
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
+    
     <ImageView
         android:id="@+id/imageView_compass"
         android:layout_width="100dp"

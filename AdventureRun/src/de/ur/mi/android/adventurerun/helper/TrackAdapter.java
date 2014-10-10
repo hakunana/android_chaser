@@ -60,8 +60,6 @@ public class TrackAdapter extends ArrayAdapter<Track> {
 				
 			});
 			
-			
-
 			TextView timestamp = (TextView) v.findViewById(R.id.track_timestamp);
 			timestamp.setText(formatTimestamp(track.getTimestamp()));
 			timestamp.setOnClickListener(new OnClickListener() {

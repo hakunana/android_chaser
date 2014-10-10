@@ -75,6 +75,10 @@
     <string name="track_name_default">Unnamed</string>
     <string name="number_of_checkpoints">Number of checkpoints: </string>
     <string name="action_create">Erstellen</string>
-    <string name="empty_track_list">Du hast noch keinen Track erstellt. Drücke auf das + um einen Track zu erstellen. </string>
+    <string name="empty_track_list">Du hast noch keinen Track erstellt. Drücke auf das + um einen Track zu erstellen.</string>
+    
+    <string name="view_map_info">Tippe auf den Kompass, um kurz die Karte anzuzeigen.</string>
+    <string name="remaining_map_views">Verbleibende Kartenaufrufe: </string>
+    <string name="no_remaining_map_views">Du kannst die Karte in diesem Spiel nicht mehr anzeigen lassen.</string>
 
 </resources>

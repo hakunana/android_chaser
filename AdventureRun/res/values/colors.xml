@@ -3,5 +3,7 @@
     <color name="checkpoint">#24E35E</color>
     <color name="gradient_bg_start">#b3d567</color>
     <color name="gradient_bg_end">#effdd1</color>
-  
+    <color name="text_color">#555555</color>
+ 	<color name="text_color_detail">#888888</color>
+ 	<color name="text_color_highlight">#00aeef</color>
 </resources>

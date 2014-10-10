@@ -73,7 +73,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private PrivateDatabaseTracks db;
 	private PrivateDatabaseScores dbScores;
 	private TextView textView_speed, textView_reachedCheckpoints,
-			textView_distanceToCheckpoint, textView_distance;
+			textView_distanceToCheckpoint, textView_distance,
+			textView_remainingMapViews;
 	private Button buttonStart;
 	private ImageView compass;
 
@@ -104,7 +105,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private float distance = 0;
 	private int reachedCheckpoints = 0;
 
-	private int numberOfMapViews = 0;
+	private int remainingMapViews = 0;
 
 	private static final float TEXT_SIZE_COUNTDOWN = 50;
 
@@ -120,10 +121,13 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		initSensorData();
 		initSensor();
 		getTrack();
+		
+		remainingMapViews = currentTrack.countCheckpoints();
+		
 		initController();
-		initTextViews();
 		initButtons();
 		setupMap();
+		initTextViews();
 
 		actionBar.setTitle(currentTrack.getName());
 	}
@@ -171,6 +175,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		textView_speed = (TextView) findViewById(R.id.textView_speed);
 		textView_distanceToCheckpoint = (TextView) findViewById(R.id.textView_distance_to_checkpoint);
 		textView_distance = (TextView) findViewById(R.id.textView_distance);
+		textView_remainingMapViews = (TextView) findViewById(R.id.remaining_map_views);
+		
+		textView_remainingMapViews.append("" + remainingMapViews);
 	}
 
 	private void initSensorData() {
@@ -304,8 +311,10 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 			@Override
 			public void onClick(View v) {
-				if (numberOfMapViews < currentTrack.countCheckpoints()) {
-					numberOfMapViews++;
+				if (remainingMapViews > 0) {
+					remainingMapViews--;
+					textView_remainingMapViews.setText(R.string.remaining_map_views);
+					textView_remainingMapViews.append("" + remainingMapViews);
 					compass.setClickable(false);
 					supportMapFragment.getView().setVisibility(View.VISIBLE);
 					new CountDownTimer(MAP_TIME_VISIBLE, 1000) {
@@ -318,9 +327,12 @@ public class RaceView extends FragmentActivity implements RaceListener,
 						public void onFinish() {
 							supportMapFragment.getView().setVisibility(
 									View.INVISIBLE);
-							if (numberOfMapViews < currentTrack
-									.countCheckpoints()) {
+							if (remainingMapViews > 0) {
 								compass.setClickable(true);
+							} else {
+								textView_remainingMapViews.setVisibility(View.INVISIBLE);
+								TextView viewMapInfo = (TextView) findViewById(R.id.view_map_info);
+								viewMapInfo.setText(R.string.no_remaining_map_views);
 							}
 						}
 
@@ -493,7 +505,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 					.newLatLngBounds(bounds, 5);
 			map.animateCamera(update);
 		}
-
 	}
 
 	@Override

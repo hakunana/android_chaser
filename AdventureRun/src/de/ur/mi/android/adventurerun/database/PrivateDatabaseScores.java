@@ -127,8 +127,8 @@ public class PrivateDatabaseScores {
 	}
 
 
-	public long[] getScoreList(Track currentTrack) {
-		long [] scoreList = new long[5];
+	public Long[] getScoreList(Track currentTrack) {
+		Long[] scoreList = new Long[5];
 		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_TIMESTAMP,
 				KEY_FIRST_SCORE, KEY_SECOND_SCORE, KEY_THIRD_SCORE, KEY_FOURTH_SCORE, KEY_FIFTH_SCORE
 				}, null, null, null, null, null);
