@@ -1,6 +1,8 @@
 package de.ur.mi.android.adventurerun.view;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.app.ActionBar;
 import android.app.Activity;
@@ -74,14 +76,13 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private PrivateDatabaseScores dbScores;
 	private TextView textView_speed, textView_reachedCheckpoints,
 			textView_distanceToCheckpoint, textView_distance,
-			textView_remainingMapViews;
+			textView_remainingMapViews, textView_time;
 	private Button buttonStart;
 	private ImageView compass;
 
 	private SupportMapFragment supportMapFragment;
 	private GoogleMap map;
-	
-	private boolean allowCompassAdjustment = true;
+
 	private long lastUpdate;
 
 	private Checkpoint currentCheckpoint;
@@ -109,6 +110,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private int reachedCheckpoints = 0;
 
 	private int remainingMapViews = 0;
+	
+	private long startTime;
 
 	private static final float TEXT_SIZE_COUNTDOWN = 50;
 
@@ -179,6 +182,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		textView_distanceToCheckpoint = (TextView) findViewById(R.id.textView_distance_to_checkpoint);
 		textView_distance = (TextView) findViewById(R.id.textView_distance);
 		textView_remainingMapViews = (TextView) findViewById(R.id.remaining_map_views);
+		textView_time = (TextView) findViewById(R.id.textView_time);
 
 		textView_remainingMapViews.append("" + remainingMapViews);
 	}
@@ -302,6 +306,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 						supportMapFragment.getView().setVisibility(
 								View.INVISIBLE);
 						compass.setClickable(true);
+						startTime = System.currentTimeMillis();
 						builder.dismiss();
 
 					}
@@ -613,6 +618,10 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	@Override
 	public void onSensorChanged(SensorEvent event) {
+		if (raceStarted) {
+			String time = new SimpleDateFormat("mm:ss").format(new Date(System.currentTimeMillis() - startTime));
+			textView_time.setText(time);
+		}
 
 		switch (event.sensor.getType()) {
 		case Sensor.TYPE_ACCELEROMETER:

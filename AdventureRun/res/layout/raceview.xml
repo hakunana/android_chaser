@@ -39,7 +39,6 @@
         android:contentDescription="@string/description_compass"
         android:src="@drawable/compass" />
 
-    
     <Button
         android:id="@+id/button_start_run_track"
         style="@style/adventure_run_button"
@@ -101,6 +100,14 @@
         android:layout_alignBottom="@+id/textView_reached_checkpoints_count"
         android:layout_alignRight="@+id/button_start_run_track"
         android:text="@string/textView_checkpointReached"
+        android:textSize="@dimen/textsize_normal" />
+    
+    <TextView
+        android:id="@+id/textView_time"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/textView_reached_checkpoints"
+        android:gravity="center"
         android:textSize="@dimen/textsize_normal" />
 
 </RelativeLayout>
