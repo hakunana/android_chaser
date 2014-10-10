@@ -17,8 +17,8 @@ public class LocationController implements LocationListener,
 		GooglePlayServicesClient.ConnectionCallbacks,
 		GooglePlayServicesClient.OnConnectionFailedListener {
 
-	private static final long UPDATE_TIME = 2000;
-	private static final int FASTEST_INTERVAL = 1000;
+	private static final long UPDATE_TIME = 1500;
+	private static final int FASTEST_INTERVAL = 800;
 
 	private Context context;
 	private Location location;

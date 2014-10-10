@@ -120,9 +120,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		initSensorData();
 		initSensor();
 		getTrack();
-		
+
 		remainingMapViews = currentTrack.countCheckpoints();
-		
+
 		initController();
 		initButtons();
 		setupMap();
@@ -175,7 +175,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		textView_distanceToCheckpoint = (TextView) findViewById(R.id.textView_distance_to_checkpoint);
 		textView_distance = (TextView) findViewById(R.id.textView_distance);
 		textView_remainingMapViews = (TextView) findViewById(R.id.remaining_map_views);
-		
+
 		textView_remainingMapViews.append("" + remainingMapViews);
 	}
 
@@ -312,7 +312,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			public void onClick(View v) {
 				if (remainingMapViews > 0) {
 					remainingMapViews--;
-					textView_remainingMapViews.setText(R.string.remaining_map_views);
+					textView_remainingMapViews
+							.setText(R.string.remaining_map_views);
 					textView_remainingMapViews.append("" + remainingMapViews);
 					compass.setClickable(false);
 					supportMapFragment.getView().setVisibility(View.VISIBLE);
@@ -329,9 +330,11 @@ public class RaceView extends FragmentActivity implements RaceListener,
 							if (remainingMapViews > 0) {
 								compass.setClickable(true);
 							} else {
-								textView_remainingMapViews.setVisibility(View.INVISIBLE);
+								textView_remainingMapViews
+										.setVisibility(View.INVISIBLE);
 								TextView viewMapInfo = (TextView) findViewById(R.id.view_map_info);
-								viewMapInfo.setText(R.string.no_remaining_map_views);
+								viewMapInfo
+										.setText(R.string.no_remaining_map_views);
 							}
 						}
 
@@ -450,14 +453,17 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	public void onNewLocation(Location location) {
 		previousLocation = currentLocation;
 		currentLocation = location;
-		
+
 		if (raceStarted == true) {
 			if (currentLocation != null) {
 				distance += previousLocation.distanceTo(location);
 			}
 
-			textView_distance.setText("D: " + String.format("%.0f", distance) + "m");
-			textView_speed.setText("S:" + String.format("%.1f", location.getSpeed()*3.6) + " km/h");
+			textView_distance.setText("D: " + String.format("%.0f", distance)
+					+ "m");
+			textView_speed.setText("S:"
+					+ String.format("%.1f", location.getSpeed() * 3.6)
+					+ " km/h");
 
 			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
 			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
@@ -469,7 +475,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			locationCheckpoint.setLongitude(longitudeCheckpoint);
 
 			textView_distanceToCheckpoint.setText("N: "
-					+ String.format("%.0f", location.distanceTo(locationCheckpoint)) + "m");
+					+ String.format("%.0f",
+							location.distanceTo(locationCheckpoint)) + "m");
 
 			geoField = new GeomagneticField(Double.valueOf(
 					location.getLatitude()).floatValue(), Double.valueOf(
@@ -619,6 +626,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			deviceOrientation = Math.toDegrees(matrixValues[0]);
 
 		}
+
+		adjustCompass();
 	}
 
 	@Override
