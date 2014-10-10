@@ -23,7 +23,6 @@ import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.MenuItem;
 import android.view.View;
@@ -428,7 +427,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		int resultCode = GooglePlayServicesUtil
 				.isGooglePlayServicesAvailable(this);
 		if (resultCode == ConnectionResult.SUCCESS) {
-			Log.e("DEBUG", "Google Play Services available");
 			return true;
 		} else {
 			ConnectionResult connectionResult = new ConnectionResult(
@@ -458,8 +456,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 				distance += previousLocation.distanceTo(location);
 			}
 
-			textView_distance.setText("D: " + distance);
-			textView_speed.setText("S:" + location.getSpeed());
+			textView_distance.setText("D: " + String.format("%.0f", distance) + "m");
+			textView_speed.setText("S:" + String.format("%.1f", location.getSpeed()*3.6) + " km/h");
 
 			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
 			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
@@ -471,7 +469,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			locationCheckpoint.setLongitude(longitudeCheckpoint);
 
 			textView_distanceToCheckpoint.setText("N: "
-					+ location.distanceTo(locationCheckpoint));
+					+ String.format("%.0f", location.distanceTo(locationCheckpoint)) + "m");
 
 			geoField = new GeomagneticField(Double.valueOf(
 					location.getLatitude()).floatValue(), Double.valueOf(
@@ -496,8 +494,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			builder.include(latLng);
 			for (CircleOptions circle : circles) {
 				builder.include(circle.getCenter());
-				Log.e("DEBUG", "lat: " + circle.getCenter().latitude
-						+ " - long: " + circle.getCenter().longitude);
 			}
 			LatLngBounds bounds = builder.build();
 
