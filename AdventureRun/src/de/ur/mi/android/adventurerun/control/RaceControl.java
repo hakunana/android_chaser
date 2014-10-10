@@ -76,7 +76,7 @@ public class RaceControl {
 	}
 	
 	private void checkIfWon() {
-		if (visited >= checkpointNum - 1) {
+		if (visited >= checkpointNum) {
 			listener.onRaceWon();
 			stopRace();
 		}

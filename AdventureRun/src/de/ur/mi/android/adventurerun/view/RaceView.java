@@ -85,7 +85,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private ArrayList<CircleOptions> circles;
 
-	private Location currentLocation;
+	private Location currentLocation, previousLocation;
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
 	private static final String DIALOG_ERROR = "dialog_error";
@@ -450,11 +450,12 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	@Override
 	public void onNewLocation(Location location) {
+		previousLocation = currentLocation;
 		currentLocation = location;
-
+		
 		if (raceStarted == true) {
 			if (currentLocation != null) {
-				distance += currentLocation.distanceTo(location);
+				distance += previousLocation.distanceTo(location);
 			}
 
 			textView_distance.setText("D: " + distance);
