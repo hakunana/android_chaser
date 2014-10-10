@@ -349,6 +349,12 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	}
 
 	private void adjustCompass() {
+		geoField = new GeomagneticField(Double.valueOf(
+				currentLocation.getLatitude()).floatValue(), Double.valueOf(
+				currentLocation.getLongitude()).floatValue(), Double.valueOf(
+				currentLocation.getAltitude()).floatValue(),
+				System.currentTimeMillis());
+
 		compass.setRotation(0);
 		compass.setRotation(raceControl.getBearing(currentLocation,
 				currentCheckpoint) - (float) deviceOrientation);
@@ -455,38 +461,38 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		currentLocation = location;
 
 		if (raceStarted == true) {
-			if (currentLocation != null) {
-				distance += previousLocation.distanceTo(location);
-			}
-
-			textView_distance.setText("D: " + String.format("%.0f", distance)
-					+ "m");
-			textView_speed.setText("S:"
-					+ String.format("%.1f", location.getSpeed() * 3.6)
-					+ " km/h");
-
 			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
+			
 			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
 
-			double latitudeCheckpoint = currentCheckpoint.getLatitude();
-			double longitudeCheckpoint = currentCheckpoint.getLongitude();
-			Location locationCheckpoint = new Location("Checkpoint");
-			locationCheckpoint.setLatitude(latitudeCheckpoint);
-			locationCheckpoint.setLongitude(longitudeCheckpoint);
+			updateStatistics();
 
-			textView_distanceToCheckpoint.setText("N: "
-					+ String.format("%.0f",
-							location.distanceTo(locationCheckpoint)) + "m");
-
-			geoField = new GeomagneticField(Double.valueOf(
-					location.getLatitude()).floatValue(), Double.valueOf(
-					location.getLongitude()).floatValue(), Double.valueOf(
-					location.getAltitude()).floatValue(),
-					System.currentTimeMillis());
+			
 
 			adjustCompass();
 		}
 		updateCamera();
+	}
+
+	private void updateStatistics() {
+		double latitudeCheckpoint = currentCheckpoint.getLatitude();
+		double longitudeCheckpoint = currentCheckpoint.getLongitude();
+		Location locationCheckpoint = new Location("Checkpoint");
+		locationCheckpoint.setLatitude(latitudeCheckpoint);
+		locationCheckpoint.setLongitude(longitudeCheckpoint);
+
+		if (currentLocation != null) {
+			distance += previousLocation.distanceTo(currentLocation);
+		}
+
+		textView_distance
+				.setText("D: " + String.format("%.0f", distance) + "m");
+		textView_speed.setText("S:"
+				+ String.format("%.1f", currentLocation.getSpeed() * 3.6)
+				+ " km/h");
+		textView_distanceToCheckpoint.setText("N: "
+				+ String.format("%.0f",
+						currentLocation.distanceTo(locationCheckpoint)) + "m");
 	}
 
 	private void updateCamera() {
@@ -627,7 +633,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 		}
 
-		adjustCompass();
+		if (currentLocation != null && currentCheckpoint != null) {
+			adjustCompass();
+		}
 	}
 
 	@Override
