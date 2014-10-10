@@ -143,7 +143,6 @@ int drawable tab_unselected_adventure_run 0x7f020045
 int drawable tab_unselected_focused_adventure_run 0x7f020046
 int drawable tab_unselected_pressed_adventure_run 0x7f020047
 int id action_create 0x7f070038
-int id action_settings 0x7f070039
 int id book_now 0x7f070010
 int id button_add_checkpoint 0x7f070019
 int id button_delete_checkpoint 0x7f07001a

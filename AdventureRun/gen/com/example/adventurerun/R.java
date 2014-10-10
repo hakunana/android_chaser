@@ -462,7 +462,6 @@ containing a value of this type.
     }
     public static final class id {
         public static final int action_create=0x7f070038;
-        public static final int action_settings=0x7f070039;
         public static final int book_now=0x7f070010;
         public static final int button_add_checkpoint=0x7f070019;
         public static final int button_delete_checkpoint=0x7f07001a;
