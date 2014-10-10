@@ -58,6 +58,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private static final int COUNTDOWN_TIME = 5000;
 	private static final int MAP_TIME_VISIBLE = 5000;
+	private static final int COMPASS_UPDATE_TIME = 250;
 
 	private RaceControl raceControl;
 	private LocationController locationController;
@@ -79,6 +80,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	private SupportMapFragment supportMapFragment;
 	private GoogleMap map;
+	
+	private boolean allowCompassAdjustment = true;
+	private long lastUpdate;
 
 	private Checkpoint currentCheckpoint;
 
@@ -349,15 +353,18 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	}
 
 	private void adjustCompass() {
-		geoField = new GeomagneticField(Double.valueOf(
-				currentLocation.getLatitude()).floatValue(), Double.valueOf(
-				currentLocation.getLongitude()).floatValue(), Double.valueOf(
-				currentLocation.getAltitude()).floatValue(),
-				System.currentTimeMillis());
-
-		compass.setRotation(0);
-		compass.setRotation(raceControl.getBearing(currentLocation,
-				currentCheckpoint) - (float) deviceOrientation);
+		if ((System.currentTimeMillis() - lastUpdate) >= COMPASS_UPDATE_TIME) {
+			lastUpdate = System.currentTimeMillis();
+			geoField = new GeomagneticField(Double.valueOf(
+					currentLocation.getLatitude()).floatValue(), Double.valueOf(
+					currentLocation.getLongitude()).floatValue(), Double.valueOf(
+					currentLocation.getAltitude()).floatValue(),
+					System.currentTimeMillis());
+			
+			compass.setRotation(0);
+			compass.setRotation(raceControl.getBearing(currentLocation,
+					currentCheckpoint) - (float) deviceOrientation);
+		}
 	}
 
 	/*
