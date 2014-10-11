@@ -147,6 +147,10 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		return super.onOptionsItemSelected(item);
 	}
 
+	
+	/**
+	 * This method setups a Google Map with the Checkpoints of the current track.
+	 */
 	private void setupMap() {
 		FragmentManager fmanager = getSupportFragmentManager();
 		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
@@ -441,7 +445,27 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	public void onRaceStopped() {
 		raceStarted = false;
 		buttonStart.setText(R.string.button_start_run_track);
+		informAboutRaceAborted();
 
+	}
+
+	private void informAboutRaceAborted() {
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.info_race_aborted_title);
+		builder.setMessage(R.string.info_race_aborted_message);
+
+		builder.setCancelable(false);
+
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
+
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+
+					}
+				});
+		builder.show();
+		
 	}
 
 	private boolean checkForService() {

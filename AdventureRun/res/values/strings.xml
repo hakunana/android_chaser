@@ -22,6 +22,9 @@
     <string name="info_gps_message">GPS ist entweder ausgeschaltet oder es gibt (noch) kein
         gültiges Signal. Bitte schalten Sie Ihr GPS an und starten Sie die Anwendung
         in fünf Minuten erneut.</string>
+    <string name="info_race_aborted_title">Abbruch</string>
+    <string name="info_race_aborted_message">Das Rennen wurde abgebrochen. Timer und Checkpoints
+        wurden zurückgesetzt.</string>
     
     <string name="button_start_create_track">Strecke beginnen</string>
     <string name="button_finish_track">Strecke fertig</string>

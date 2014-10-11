@@ -66,6 +66,7 @@ public class PrivateDatabaseScores {
 	}
 	
 	public void updateScore(Track currentTrack, long time) {
+		long savedTime;
 		Cursor cursor = privateDB.query(DB_TABLE, new String [] { KEY_ID, KEY_NAME, KEY_TIMESTAMP,
 				KEY_FIRST_SCORE, KEY_SECOND_SCORE, KEY_THIRD_SCORE, KEY_FOURTH_SCORE, KEY_FIFTH_SCORE
 				}, null, null, null, null, null);
@@ -79,14 +80,26 @@ public class PrivateDatabaseScores {
 				if (name.equals(currentTrack.getName()) && timestamp == currentTrack.getTimestamp()) {
 					
 					if (time < cursor.getLong(COLUMN_FIRST_SCORE_INDEX)) {
+						savedTime = cursor.getLong(COLUMN_FIRST_SCORE_INDEX);
 						insertNewScore(KEY_FIRST_SCORE, time, currentTrack);
-					} else if (time < cursor.getLong(COLUMN_SECOND_SCORE_INDEX)) {
+						time = savedTime;
+					}
+					if (time < cursor.getLong(COLUMN_SECOND_SCORE_INDEX)) {
+						savedTime = cursor.getLong(COLUMN_SECOND_SCORE_INDEX);
 						insertNewScore(KEY_SECOND_SCORE, time, currentTrack);
-					} else if (time < cursor.getLong(COLUMN_THIRD_SCORE_INDEX)) {
+						time = savedTime;
+					}
+					if (time < cursor.getLong(COLUMN_THIRD_SCORE_INDEX)) {
+						savedTime = cursor.getLong(COLUMN_THIRD_SCORE_INDEX);
 						insertNewScore(KEY_THIRD_SCORE, time, currentTrack);
-					} else if (time < cursor.getLong(COLUMN_FOURTH_SCORE_INDEX)) {
+						time = savedTime;
+					}
+					if (time < cursor.getLong(COLUMN_FOURTH_SCORE_INDEX)) {
+						savedTime = cursor.getLong(COLUMN_FOURTH_SCORE_INDEX);
 						insertNewScore(KEY_FOURTH_SCORE, time, currentTrack);
-					} else if (time < cursor.getLong(COLUMN_FIFTH_SCORE_INDEX)) {
+						time = savedTime;
+					}
+					if (time < cursor.getLong(COLUMN_FIFTH_SCORE_INDEX)) {
 						insertNewScore(KEY_FIFTH_SCORE, time, currentTrack);
 					}
 					break;

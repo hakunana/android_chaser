@@ -126,25 +126,7 @@ public class RaceControl {
 		return currentLocation.bearingTo(destination);
 	}
 
-	// ALTERNATIVE zur Methode darüber:
-	// public double getBearing (Location currentLocation, Checkpoint
-	// currentCheckpoint) {
-	// double bearing = 0;
-
-	// double latLocation = Math.toRadians(currentLocation.getLatitude());
-	// double latCheckpoint = Math.toRadians(currentCheckpoint.getLatitude());
-	// double longLocation = currentLocation.getLongitude();
-	// double longCheckpoint = currentCheckpoint.getLongitude();
-
-	// double longDifference = Math.toRadians(longCheckpoint - longLocation);
-	// double y = Math.sin(longDifference) * Math.cos(latCheckpoint);
-	// double x = Math.cos(latLocation) * Math.sin(latCheckpoint) -
-	// Math.sin(latLocation) * Math.cos(latCheckpoint) *
-	// Math.cos(longDifference);
-	// bearing = (Math.toDegrees(Math.atan2(y, x)) + 360 ) % 360;
-
-	// return bearing;
-	// }
+	
 
 	public long getScore() {
 		timeForTrack = endTime - startTime;
