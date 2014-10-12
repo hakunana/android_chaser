@@ -11,13 +11,15 @@
       android:layout_width="match_parent"
       android:id="@+id/tutorial_activity_pager"/>
 
- <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
-      android:layout_margin="16dp"
-      android:background="#02A4EB"
-      android:textColor="#FFFFFF"
-      android:text="weiter"
-      android:textSize="14sp"
-      android:layout_gravity="center_horizontal"
-      android:id="@+id/tutorial_activity_go_on"/>
+ <Button
+     android:id="@+id/tutorial_activity_go_on"
+     android:layout_width="100dp"
+     android:layout_height="wrap_content"
+     android:layout_gravity="center_horizontal"
+     android:layout_margin="16dp"
+     android:background="#02A4EB"
+     android:text="weiter"
+     android:textColor="#FFFFFF"
+     android:textSize="14sp" />
 
 </LinearLayout>

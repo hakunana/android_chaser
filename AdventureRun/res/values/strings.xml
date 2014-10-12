@@ -101,5 +101,7 @@
     <string name="tutorial_headline5">Abenteuer!</string>
     <string name="tutorial_message5">Wenn Du Dich für eine der Strecken entschieden hast, steht Deinem Abenteuer nichts mehr im Weg!
 Im unteren Bereich siehst Du einen Kompass, der dich zu deinem nächsten Checkpoint führt, sowie Informationen zu Distanz, Geschwindigkeit und Zeit. </string>
-
+	<string name ="raceview_distance">Distance \n </string>
+	<string name="raceview_speed">Speed</string>
+	<string name="raceview_distance_cp">Distance to CP</string>
 </resources>
