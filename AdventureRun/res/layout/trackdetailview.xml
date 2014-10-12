@@ -56,7 +56,8 @@
         android:layout_alignRight="@+id/rename_track"
         android:text="@string/track_name_default"
         android:textSize="@dimen/textsize_heading"
-        android:textStyle="bold" />
+        android:textStyle="bold" 
+         android:textColor="@color/text_color_detail"/>
 
     <TextView
         android:id="@+id/number_of_checkpoints"
@@ -66,7 +67,8 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="@string/number_of_checkpoints"
-        android:textSize="@dimen/textsize_normal" />
+        android:textSize="@dimen/textsize_normal"
+         android:textColor="@color/text_color_detail" />
 
     <fragment
         android:id="@+id/map_fragment"

@@ -4,6 +4,9 @@
     <color name="gradient_bg_start">#b3d567</color>
     <color name="gradient_bg_end">#effdd1</color>
     <color name="text_color">#555555</color>
- 	<color name="text_color_detail">#888888</color>
- 	<color name="text_color_highlight">#00aeef</color>
+ 	<color name="text_color_detail">#BABABA</color>
+ 	<color name="text_color_highlight">#00cced</color>
+ 	<color name="white">#ffffff</color>
+ 	<color name="blue">#27ABE2</color>
+ 	<color name="text">#3d3d3d</color>
 </resources>
