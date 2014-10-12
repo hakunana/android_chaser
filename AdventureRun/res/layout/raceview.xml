@@ -78,6 +78,7 @@
         android:gravity="center"
         android:padding="4dp"
         android:background="@drawable/circle"
+        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_circle" />
 
     <TextView
