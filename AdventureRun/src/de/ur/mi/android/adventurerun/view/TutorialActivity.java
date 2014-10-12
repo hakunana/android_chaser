@@ -40,16 +40,16 @@ public class TutorialActivity extends FragmentActivity {
 	          goOn.setText("Fertig");
 	          goOn.setOnClickListener(new View.OnClickListener() {
 	            @Override public void onClick(View view) {
-	              pager.setCurrentItem(i + 1, true);
+	            	Intent intent = new Intent (TutorialActivity.this, MainActivity.class);
+					startActivity (intent);
+					finish();
 	            }
 	          });
 	        } else {
 	          goOn.setText("Weiter");
 	          goOn.setOnClickListener(new View.OnClickListener() {
 	            @Override public void onClick(View view) {
-	            	Intent intent = new Intent (TutorialActivity.this, MainActivity.class);
-					startActivity (intent);
-					finish();
+	            	pager.setCurrentItem(i + 1, true);
 	            }
 	          });
 	        }
