@@ -7,5 +7,10 @@
         android:icon="@drawable/plus"
         android:title="@string/action_create"
         />
+    
+    <item android:id="@+id/action_tutorial"
+        android:showAsAction="ifRoom"
+        android:icon="@drawable/tutorial"
+        android:title="@string/action_tutorial"/>
 
 </menu>

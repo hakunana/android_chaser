@@ -3,7 +3,6 @@
 
     <string name="app_name">Adventure Run</string>
     <string name="hello_world">Hello world!</string>
-    <string name="action_settings">Settings</string>
     
     <string name="tutorial_next">weiter</string>
     
@@ -79,7 +78,10 @@
     
     <string name="track_name_default">Unnamed</string>
     <string name="number_of_checkpoints">Number of checkpoints: </string>
+    
     <string name="action_create">Erstellen</string>
+    <string name="action_tutorial">Tutorial</string>
+    
     <string name="empty_track_list">Du hast noch keinen Track erstellt. Drücke auf das + um einen Track zu erstellen.</string>
     
     <string name="view_map_info">Tippe auf den Kompass, um kurz die Karte anzuzeigen.</string>

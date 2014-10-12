@@ -127,6 +127,11 @@ public class MainActivity extends Activity implements TrackListListener {
 			startActivity(i);
 			break;
 		}
+		case R.id.action_tutorial: {
+			Intent i = new Intent(MainActivity.this, TutorialActivity.class);
+			startActivity(i);
+			break;
+		}
 		}
 		return super.onOptionsItemSelected(item);
 	}
