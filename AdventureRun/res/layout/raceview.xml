@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
+<RelativeLayout
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" >
 
     <TextView
         android:id="@+id/view_map_info"
@@ -38,7 +41,7 @@
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/description_compass"
         android:src="@drawable/compass"
-        android:layout_margin="10dp" />
+        android:layout_margin="6dp" />
 
    
 
@@ -116,8 +119,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_reached_checkpoints"
+        android:layout_gravity="center"
         android:gravity="center"
-        android:textColor="@color/text_color_detail"
+        android:textColor="@color/text_color_highlight"
         android:textSize="@dimen/textsize_normal" />
      <Button
         android:id="@+id/button_start_run_track"
@@ -126,10 +130,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
+        android:layout_marginBottom="4dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:text="@string/button_start_run_track"
         android:textSize="@dimen/textsize_buttons" />
 
 </RelativeLayout>
+</ScrollView>
