@@ -18,7 +18,7 @@
      android:layout_gravity="center_horizontal"
      android:layout_margin="16dp"
      android:background="#02A4EB"
-     android:text="weiter"
+     android:text="Weiter"
      android:textColor="#FFFFFF"
      android:textSize="14sp" />
 
