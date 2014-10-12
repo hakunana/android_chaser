@@ -3,6 +3,7 @@ package de.ur.mi.android.adventurerun.view;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -46,7 +47,9 @@ public class TutorialActivity extends FragmentActivity {
 	          goOn.setText("Weiter");
 	          goOn.setOnClickListener(new View.OnClickListener() {
 	            @Override public void onClick(View view) {
-	              // TODO start home activity
+	            	Intent intent = new Intent (TutorialActivity.this, MainActivity.class);
+					startActivity (intent);
+					finish();
 	            }
 	          });
 	        }
