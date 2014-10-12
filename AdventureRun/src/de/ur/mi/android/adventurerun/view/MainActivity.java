@@ -44,11 +44,11 @@ public class MainActivity extends Activity implements TrackListListener {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState);		
+		setContentView(R.layout.trackview);
 		
 		openTutorialActivity();
 		
-		setContentView(R.layout.trackview);
 		initNavigationDrawer();
 		this.context = this;
 		tracks = new ArrayList<Track>();
@@ -70,7 +70,6 @@ public class MainActivity extends Activity implements TrackListListener {
 	        editor.commit();
 	        
 			startActivity(intent);
-			finish();
 		}
 	}
 

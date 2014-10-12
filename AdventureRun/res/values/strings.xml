@@ -4,7 +4,8 @@
     <string name="app_name">Adventure Run</string>
     <string name="hello_world">Hello world!</string>
     
-    <string name="tutorial_next">weiter</string>
+    <string name="tutorial_next">Weiter</string>
+    <string name="tutorial_finish">Fertig</string>
     
     <string-array name="drawer_items">
         <item>Track erstellen</item>

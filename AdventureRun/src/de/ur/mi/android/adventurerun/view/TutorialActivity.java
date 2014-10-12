@@ -29,6 +29,13 @@ public class TutorialActivity extends FragmentActivity {
 	    setContentView(R.layout.tutorial_activity);
 	    pager = (ViewPager) findViewById(R.id.tutorial_activity_pager);
 	    goOn = (Button) findViewById(R.id.tutorial_activity_go_on);
+	    
+	    goOn.setText(R.string.tutorial_next);
+        goOn.setOnClickListener(new View.OnClickListener() {
+          @Override public void onClick(View view) {
+          	pager.setCurrentItem(1, true);
+          }
+        });
 
 	    pager.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
 	      @Override public void onPageScrolled(int i, float v, int i2) {
@@ -37,16 +44,14 @@ public class TutorialActivity extends FragmentActivity {
 
 	      @Override public void onPageSelected(final int i) {
 	        if (adapter.getCount() - 1 == i) {
-	          goOn.setText("Fertig");
+	          goOn.setText(R.string.tutorial_finish);
 	          goOn.setOnClickListener(new View.OnClickListener() {
 	            @Override public void onClick(View view) {
-	            	Intent intent = new Intent (TutorialActivity.this, MainActivity.class);
-					startActivity (intent);
 					finish();
 	            }
 	          });
 	        } else {
-	          goOn.setText("Weiter");
+	          goOn.setText(R.string.tutorial_next);
 	          goOn.setOnClickListener(new View.OnClickListener() {
 	            @Override public void onClick(View view) {
 	            	pager.setCurrentItem(i + 1, true);
