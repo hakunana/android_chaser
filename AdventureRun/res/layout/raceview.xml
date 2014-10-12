@@ -62,7 +62,7 @@
         android:background="@drawable/circle"
         android:padding="10dp"
         android:textColor="@color/text_color_detail"
-        android:textSize="@dimen/textsize_normal" />
+        android:textSize="@dimen/textsize_circle" />
 
     <TextView
         android:id="@+id/textView_distance_to_checkpoint"
@@ -73,7 +73,7 @@
         android:padding="10dp"
         android:background="@drawable/circle"
         android:textColor="@color/text_color_detail"
-        android:textSize="@dimen/textsize_normal" />
+        android:textSize="@dimen/textsize_circle" />
 
     <TextView
         android:id="@+id/textView_distance"
@@ -83,7 +83,7 @@
         android:layout_alignParentRight="true"
         android:padding="10dp"
         android:background="@drawable/circle"
-        android:textSize="@dimen/textsize_normal" />
+        android:textSize="@dimen/textsize_circle" />
 
     <TextView
         android:id="@+id/textView_race_information"

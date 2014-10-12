@@ -8,5 +8,6 @@
 	<dimen name="textsize_heading">24dp</dimen>
     <dimen name="textsize_normal">18dp</dimen>
     <dimen name="textsize_detail">14dp</dimen>
+    <dimen name="textsize_circle">12dp</dimen>
     
 </resources>
