@@ -3,6 +3,7 @@ package de.ur.mi.android.adventurerun.view;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -18,6 +19,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.example.adventurerun.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
@@ -40,7 +43,9 @@ public class MainActivity extends Activity implements TrackListListener {
 	private final String tutorialScreenShownPref = "tutorialScreenShown";
 	private SharedPreferences prefs;
 	
-	Context context;
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	
+	private Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,6 +53,8 @@ public class MainActivity extends Activity implements TrackListListener {
 		setContentView(R.layout.trackview);
 		
 		openTutorialActivity();
+		
+		checkForServices();
 		
 		initNavigationDrawer();
 		this.context = this;
@@ -58,6 +65,24 @@ public class MainActivity extends Activity implements TrackListListener {
 		initList();
 	}
 
+	private boolean checkForServices() {
+		int resultCode = GooglePlayServicesUtil.isGooglePlayServicesAvailable(this);
+		if (resultCode == ConnectionResult.SUCCESS) {
+			return true;
+		} else {
+			ConnectionResult connectionResult = new ConnectionResult(
+					resultCode, null);
+			int errorCode = connectionResult.getErrorCode();
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+			if (errorDialog != null) {
+				errorDialog.show();
+			}
+			return false;
+		}
+	}
+	
 	private void openTutorialActivity() {
 		prefs = PreferenceManager.getDefaultSharedPreferences(this);
 		boolean tutorialScreenShown = prefs.getBoolean(tutorialScreenShownPref,  false);
@@ -75,7 +100,7 @@ public class MainActivity extends Activity implements TrackListListener {
 
 	private void initNavigationDrawer() {
 		navigationTitles = getResources().getStringArray(R.array.drawer_items);
-		navigationDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+		DrawerLayout navigationDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
 		navigationList = (ListView) findViewById(R.id.left_drawer);
 		
 		navigationList.setAdapter(new ArrayAdapter<String>(this, R.layout.drawer_list_item,

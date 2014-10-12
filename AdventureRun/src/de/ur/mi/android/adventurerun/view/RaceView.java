@@ -7,7 +7,6 @@ import java.util.Date;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -21,7 +20,6 @@ import android.hardware.SensorManager;
 import android.location.Location;
 import android.os.Bundle;
 import android.os.CountDownTimer;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
@@ -36,11 +34,9 @@ import android.widget.Toast;
 
 import com.example.adventurerun.R;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -93,7 +89,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private Location currentLocation, previousLocation;
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	private static final String DIALOG_ERROR = "dialog_error";
 
 	private boolean raceStarted = false;
 	private boolean gpsAvailable = false;
@@ -111,7 +106,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	private int reachedCheckpoints = 0;
 
 	private int remainingMapViews = 0;
-	
+
 	private long startTime;
 
 	private static final float TEXT_SIZE_COUNTDOWN = 50;
@@ -123,7 +118,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 		ActionBar actionBar = getActionBar();
 		actionBar.setDisplayHomeAsUpEnabled(true);
-		checkForService();
+
 		initDB();
 		initSensorData();
 		initSensor();
@@ -148,9 +143,9 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		return super.onOptionsItemSelected(item);
 	}
 
-	
 	/**
-	 * This method setups a Google Map with the Checkpoints of the current track.
+	 * This method setups a Google Map with the Checkpoints of the current
+	 * track.
 	 */
 	private void setupMap() {
 		FragmentManager fmanager = getSupportFragmentManager();
@@ -160,7 +155,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		map.setMyLocationEnabled(true);
 		map.animateCamera(CameraUpdateFactory.zoomTo(16));
 		updateCheckpointsOnMap();
-	}	
+	}
 
 	private void updateCheckpointsOnMap() {
 		map.clear();
@@ -173,7 +168,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			circle.center(latLng);
 			circle.radius(c.getAccuracy());
 
-			// ÄNDERN: in XML colors Farben abspeichern!
 			circle.fillColor(0x6024E35E);
 			circle.strokeWidth(2);
 
@@ -303,7 +297,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 						text.setText("" + (millisUntilFinished / 1000));
 					}
 
-					// Ein Piepton o.Ä. wäre an der Stelle super! ;)
 					@Override
 					public void onFinish() {
 						buttonStart.setText(R.string.button_abort_run_track);
@@ -366,33 +359,16 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		if ((System.currentTimeMillis() - lastUpdate) >= COMPASS_UPDATE_TIME) {
 			lastUpdate = System.currentTimeMillis();
 			geoField = new GeomagneticField(Double.valueOf(
-					currentLocation.getLatitude()).floatValue(), Double.valueOf(
-					currentLocation.getLongitude()).floatValue(), Double.valueOf(
-					currentLocation.getAltitude()).floatValue(),
+					currentLocation.getLatitude()).floatValue(), Double
+					.valueOf(currentLocation.getLongitude()).floatValue(),
+					Double.valueOf(currentLocation.getAltitude()).floatValue(),
 					System.currentTimeMillis());
-			
+
 			compass.setRotation(0);
 			compass.setRotation(raceControl.getBearing(currentLocation,
 					currentCheckpoint) - (float) deviceOrientation);
 		}
 	}
-
-	/*
-	 * private void adjustCompass() { float[] orientation =
-	 * sensorManager.getOrientation(matrixR, matrixValues); float heading =
-	 * orientation[0]; float bearing = raceControl.getBearing(currentLocation,
-	 * currentCheckpoint);
-	 * 
-	 * heading += geoField.getDeclination(); heading = (bearing - heading) * -1;
-	 * 
-	 * if (heading < 0.0f || heading > 180.0f) { heading = 180 + ( 180 +
-	 * heading); }
-	 * 
-	 * ImageView compass = (ImageView) findViewById(R.id.imageView_compass);
-	 * 
-	 * Matrix matrix = new Matrix(); compass.setScaleType(ScaleType.MATRIX);
-	 * matrix.postRotate(heading, 100f, 100f); compass.setImageMatrix(matrix); }
-	 */
 
 	@Override
 	public void onCheckpointReached() {
@@ -466,29 +442,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 					}
 				});
 		builder.show();
-		
-	}
-
-	private boolean checkForService() {
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (resultCode == ConnectionResult.SUCCESS) {
-			return true;
-		} else {
-			ConnectionResult connectionResult = new ConnectionResult(
-					resultCode, null);
-			int errorCode = connectionResult.getErrorCode();
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-
-			if (errorDialog != null) {
-				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-				errorFragment.setDialog(errorDialog);
-				errorFragment.show(getSupportFragmentManager(),
-						"Location Updates");
-			}
-			return false;
-		}
 
 	}
 
@@ -499,12 +452,10 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 		if (raceStarted == true) {
 			currentCheckpoint = raceControl.getNextCheckpoint(currentLocation);
-			
+
 			raceControl.checkCheckpoint(currentLocation, currentCheckpoint);
 
 			updateStatistics();
-
-			
 
 			adjustCompass();
 		}
@@ -522,14 +473,16 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			distance += previousLocation.distanceTo(currentLocation);
 		}
 
-		textView_distance
-				.setText(getString(R.string.raceview_distance) + String.format("%.0f", distance) + "m");
+		textView_distance.setText(getString(R.string.raceview_distance)
+				+ String.format("%.0f", distance) + "m");
 		textView_speed.setText(getString(R.string.raceview_speed)
 				+ String.format("%.1f", currentLocation.getSpeed() * 3.6)
 				+ " km/h");
-		textView_distanceToCheckpoint.setText(getString(R.string.raceview_distance_cp)
-				+ String.format("%.0f",
-						currentLocation.distanceTo(locationCheckpoint)) + "m");
+		textView_distanceToCheckpoint
+				.setText(getString(R.string.raceview_distance_cp)
+						+ String.format("%.0f",
+								currentLocation.distanceTo(locationCheckpoint))
+						+ "m");
 	}
 
 	private void updateCamera() {
@@ -547,7 +500,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 			}
 			LatLngBounds bounds = builder.build();
 
-			// 5: Abstand in Pixeln vom Rand
 			CameraUpdate update = CameraUpdateFactory
 					.newLatLngBounds(bounds, 5);
 			map.animateCamera(update);
@@ -582,31 +534,21 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	}
 
 	private void showErrorDialog(int errorCode) {
-		// Create a fragment for the error dialog
-		ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-		// Pass the error that should be displayed
-		Bundle args = new Bundle();
-		args.putInt(DIALOG_ERROR, errorCode);
-		dialogFragment.setArguments(args);
-		dialogFragment.show(getSupportFragmentManager(), "errordialog");
-	}
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dialog_error_title);
+		builder.setMessage(R.string.dialog_error_message + errorCode);
 
-	public static class ErrorDialogFragment extends DialogFragment {
-		private Dialog dialog;
+		builder.setCancelable(false);
 
-		public ErrorDialogFragment() {
-			super();
-			dialog = null;
-		}
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
 
-		public void setDialog(Dialog dialog) {
-			this.dialog = dialog;
-		}
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
 
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			return dialog;
-		}
+					}
+				});
+		builder.show();
 	}
 
 	@Override
@@ -615,7 +557,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
 			switch (resultCode) {
 			case Activity.RESULT_OK:
-				// TRY REQUEST AGAIN
 				break;
 			}
 		}
@@ -644,7 +585,8 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	@Override
 	public void onSensorChanged(SensorEvent event) {
 		if (raceStarted) {
-			String time = new SimpleDateFormat("mm:ss").format(new Date(System.currentTimeMillis() - startTime));
+			String time = new SimpleDateFormat("mm:ss").format(new Date(System
+					.currentTimeMillis() - startTime));
 			textView_time.setText(time);
 		}
 
@@ -681,7 +623,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 
 	@Override
 	public void onAccuracyChanged(Sensor sensor, int accuracy) {
-		// TODO Auto-generated method stub
 
 	}
 

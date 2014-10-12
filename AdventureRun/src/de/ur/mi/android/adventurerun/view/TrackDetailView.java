@@ -46,13 +46,13 @@ public class TrackDetailView extends FragmentActivity implements
 	private int trackIndex;
 
 	private Track track;
-	
+
 	private Long[] scores;
 
 	private Button playTrack, renameTrack, deleteTrack;
 
 	private TextView textviewTrackName;
-	
+
 	private ScoreAdapter scoreAdapter;
 
 	private GoogleMap map;
@@ -90,7 +90,7 @@ public class TrackDetailView extends FragmentActivity implements
 		initMap();
 		initScores();
 	}
-	
+
 	protected void onResume() {
 		super.onResume();
 		scores = dbScores.getScoreList(track);
@@ -142,7 +142,6 @@ public class TrackDetailView extends FragmentActivity implements
 			circle.center(latLng);
 			circle.radius(c.getAccuracy());
 
-			// ÄNDERN: in XML colors Farben abspeichern!
 			circle.fillColor(0x6024E35E);
 			circle.strokeWidth(2);
 
@@ -156,7 +155,7 @@ public class TrackDetailView extends FragmentActivity implements
 		map.animateCamera(update);
 		return;
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		db.close();
@@ -230,39 +229,38 @@ public class TrackDetailView extends FragmentActivity implements
 
 			@Override
 			public void onClick(View v) {
-				
-				
+
 				AlertDialog.Builder builder = new AlertDialog.Builder(context);
 				builder.setTitle(R.string.button_track_delete_title);
 				builder.setMessage(R.string.button_track_delete_message);
 				builder.setCancelable(false);
-				
-				builder.setPositiveButton(R.string.button_ok, 
+
+				builder.setPositiveButton(R.string.button_ok,
 						new DialogInterface.OnClickListener() {
-							
+
 							@Override
-							public void onClick(DialogInterface dialog, int which) {
+							public void onClick(DialogInterface dialog,
+									int which) {
 								db.deleteTrack(track);
 								dbScores.deleteScoreList(track);
 								finish();
 							}
 						});
-				
-				builder.setNegativeButton(R.string.button_cancel, 
+
+				builder.setNegativeButton(R.string.button_cancel,
 						new DialogInterface.OnClickListener() {
-							
+
 							@Override
-							public void onClick(DialogInterface dialog, int which) {
-								
+							public void onClick(DialogInterface dialog,
+									int which) {
+
 							}
 						});
 
 				builder.show();
 			}
-			
+
 		});
-
-
 
 	}
 }

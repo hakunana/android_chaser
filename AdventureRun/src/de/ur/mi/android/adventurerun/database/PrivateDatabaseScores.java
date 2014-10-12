@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Track;
 
 public class PrivateDatabaseScores {
@@ -78,39 +77,29 @@ public class PrivateDatabaseScores {
 				String name = cursor.getString (COLUMN_NAME_INDEX);
 				long timestamp = cursor.getLong (COLUMN_TIMESTAMP_INDEX);
 				
-				Log.e("DEBUG", "trying to insert...");
-				
-				if (name.equals(currentTrack.getName()) && timestamp == currentTrack.getTimestamp()) {
-					
-					Log.e("DEBUG", "correct track!");
-					
+				if (name.equals(currentTrack.getName()) && timestamp == currentTrack.getTimestamp()) {					
 					
 					if (time < cursor.getLong(COLUMN_FIRST_SCORE_INDEX) || (cursor.getLong(COLUMN_FIRST_SCORE_INDEX) == 0)) {
-						Log.e("DEBUG", "insterting " + time + " on 1");
 						savedTime = cursor.getLong(COLUMN_FIRST_SCORE_INDEX);
 						insertNewScore(KEY_FIRST_SCORE, time, currentTrack);
 						time = savedTime;
 					}
 					if (time < cursor.getLong(COLUMN_SECOND_SCORE_INDEX)|| (cursor.getLong(COLUMN_SECOND_SCORE_INDEX) == 0)) {
-						Log.e("DEBUG", "insterting " + time + " on 2");
 						savedTime = cursor.getLong(COLUMN_SECOND_SCORE_INDEX);
 						insertNewScore(KEY_SECOND_SCORE, time, currentTrack);
 						time = savedTime;
 					}
 					if (time < cursor.getLong(COLUMN_THIRD_SCORE_INDEX)|| (cursor.getLong(COLUMN_THIRD_SCORE_INDEX) == 0)) {
-						Log.e("DEBUG", "insterting " + time + " on 3");
 						savedTime = cursor.getLong(COLUMN_THIRD_SCORE_INDEX);
 						insertNewScore(KEY_THIRD_SCORE, time, currentTrack);
 						time = savedTime;
 					}
 					if (time < cursor.getLong(COLUMN_FOURTH_SCORE_INDEX)|| (cursor.getLong(COLUMN_FOURTH_SCORE_INDEX) == 0)) {
-						Log.e("DEBUG", "insterting " + time + " on 4");
 						savedTime = cursor.getLong(COLUMN_FOURTH_SCORE_INDEX);
 						insertNewScore(KEY_FOURTH_SCORE, time, currentTrack);
 						time = savedTime;
 					}
 					if (time < cursor.getLong(COLUMN_FIFTH_SCORE_INDEX)|| (cursor.getLong(COLUMN_FIFTH_SCORE_INDEX) == 0)) {
-						Log.e("DEBUG", "insterting " + time + " on 5");
 						insertNewScore(KEY_FIFTH_SCORE, time, currentTrack);
 					}
 					break;
@@ -164,7 +153,6 @@ public class PrivateDatabaseScores {
 
 				if (name.equals(currentTrack.getName()) && timestamp == currentTrack.getTimestamp()) {
 					scoreList [0] = cursor.getLong(COLUMN_FIRST_SCORE_INDEX);
-					Log.e("DEBUG", "long: " + scoreList[0]);
 					scoreList [1] = cursor.getLong(COLUMN_SECOND_SCORE_INDEX);
 					scoreList [2] = cursor.getLong(COLUMN_THIRD_SCORE_INDEX);
 					scoreList [3] = cursor.getLong(COLUMN_FOURTH_SCORE_INDEX);

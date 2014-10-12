@@ -1,7 +1,3 @@
-/* TODO
- * - accuracy in Checkpoints mit abspeichern und auslesen
- */
-
 package de.ur.mi.android.adventurerun.database;
 
 import java.util.ArrayList;
@@ -29,7 +25,7 @@ public class PrivateDatabaseTracks {
 	private final String KEY_NAME = "name";
 	private final String KEY_TIMESTAMP = "timestamp";
 	private final String KEY_CHECKPOINTS = "checkpoints";
-	
+
 	private final int COLUMN_NAME_INDEX = 1;
 	private final int COLUMN_TIMESTAMP_INDEX = 2;
 	private final int COLUMN_CHECKPOINTS_INDEX = 3;
@@ -55,14 +51,14 @@ public class PrivateDatabaseTracks {
 	}
 
 	public long insertTrack(Track currentTrack) {
-		
+
 		ContentValues currentValues = new ContentValues();
 
 		currentValues.put(KEY_NAME, currentTrack.getName());
 		currentValues.put(KEY_TIMESTAMP, currentTrack.getTimestamp());
 		currentValues
 				.put(KEY_CHECKPOINTS, currentTrack.getAllCheckpointsJSON());
-		
+
 		return privateDB.insert(DB_TABLE, null, currentValues);
 	}
 
@@ -73,11 +69,12 @@ public class PrivateDatabaseTracks {
 
 		privateDB.delete(DB_TABLE, deleteClause, deleteArgs);
 	}
-	
+
 	public void updateName(Track currentTrack) {
 		String updateClause = KEY_TIMESTAMP + "=?";
-		String[] updateArgs = new String[] { String.valueOf(currentTrack.getTimestamp()) };
-		
+		String[] updateArgs = new String[] { String.valueOf(currentTrack
+				.getTimestamp()) };
+
 		ContentValues currentValues = new ContentValues();
 		currentValues.put(KEY_NAME, currentTrack.getName());
 		privateDB.update(DB_TABLE, currentValues, updateClause, updateArgs);
@@ -132,12 +129,13 @@ public class PrivateDatabaseTracks {
 		try {
 			JSONArray js = new JSONArray(checkpoints);
 
-			for (int i = 0; i<js.length(); i=i+3) {
+			for (int i = 0; i < js.length(); i = i + 3) {
 				latitude = js.getDouble(i);
-				longitude = js.getDouble(i+1);
-				accuracy = js.getDouble(i+2);
+				longitude = js.getDouble(i + 1);
+				accuracy = js.getDouble(i + 2);
 
-				checkpointList.add(new Checkpoint(latitude, longitude, accuracy));
+				checkpointList
+						.add(new Checkpoint(latitude, longitude, accuracy));
 			}
 
 		} catch (JSONException e) {

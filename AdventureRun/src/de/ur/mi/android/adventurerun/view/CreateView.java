@@ -1,25 +1,17 @@
-/* TODO
- * - Statistiken --> September
- * - eigener Button für Strecke zurücksetzen
- */
-
 package de.ur.mi.android.adventurerun.view;
 
 import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentSender;
 import android.location.Location;
 import android.os.Bundle;
-import android.support.v4.app.DialogFragment;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -29,11 +21,9 @@ import android.widget.Toast;
 
 import com.example.adventurerun.R;
 import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
-import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -65,16 +55,13 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	private ArrayList<CircleOptions> circles = new ArrayList<CircleOptions>();
 
 	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
-	private static final String DIALOG_ERROR = "dialog_error";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.createview);
 		
-		//getActionBar().setDisplayHomeAsUpEnabled(true);
-
-		checkForServices();
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 
 		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
@@ -194,7 +181,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 							circle.center(latLng);
 							circle.radius(c.getAccuracy());
 
-							// ÄNDERN: in XML colors Farben abspeichern!
 							circle.fillColor(0x6024E35E);
 							circle.strokeWidth(2);
 
@@ -219,7 +205,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	private void startNewTrack() {
 		createStarted = true;
-		Log.e("DEBUG", "Setting text to " + R.string.button_abort_track);
 		buttonStartFinish.setText(R.string.button_abort_track);
 		locationController.startUpdates();
 	}
@@ -266,7 +251,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		circle.center(latLng);
 		circle.radius(currentLocation.getAccuracy());
 
-		// ÄNDERN: in XML colors Farben abspeichern!
 		circle.fillColor(0x6024E35E);
 		circle.strokeWidth(2);
 
@@ -413,7 +397,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 			}
 			LatLngBounds bounds = builder.build();
 
-			// 5: Abstand in Pixeln vom Rand
 			CameraUpdate update = CameraUpdateFactory
 					.newLatLngBounds(bounds, 5);
 
@@ -424,7 +407,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	@Override
 	public void onGPSDisabled() {
-
 		AlertDialog.Builder builder = new AlertDialog.Builder(this);
 		builder.setTitle(R.string.info_gps_title);
 		builder.setMessage(R.string.info_gps_message);
@@ -468,31 +450,21 @@ public class CreateView extends FragmentActivity implements PositionListener {
 	}
 
 	private void showErrorDialog(int errorCode) {
-		// Create a fragment for the error dialog
-		ErrorDialogFragment dialogFragment = new ErrorDialogFragment();
-		// Pass the error that should be displayed
-		Bundle args = new Bundle();
-		args.putInt(DIALOG_ERROR, errorCode);
-		dialogFragment.setArguments(args);
-		dialogFragment.show(getSupportFragmentManager(), "errordialog");
-	}
+		AlertDialog.Builder builder = new AlertDialog.Builder(this);
+		builder.setTitle(R.string.dialog_error_title);
+		builder.setMessage(R.string.dialog_error_message + errorCode);
 
-	public static class ErrorDialogFragment extends DialogFragment {
-		private Dialog dialog;
+		builder.setCancelable(false);
 
-		public ErrorDialogFragment() {
-			super();
-			dialog = null;
-		}
+		builder.setPositiveButton(R.string.button_ok,
+				new DialogInterface.OnClickListener() {
 
-		public void setDialog(Dialog dialog) {
-			this.dialog = dialog;
-		}
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
 
-		@Override
-		public Dialog onCreateDialog(Bundle savedInstanceState) {
-			return dialog;
-		}
+					}
+				});
+		builder.show();
 	}
 
 	@Override
@@ -501,32 +473,8 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		case CONNECTION_FAILURE_RESOLUTION_REQUEST:
 			switch (resultCode) {
 			case Activity.RESULT_OK:
-				// TRY REQUEST AGAIN
 				break;
 			}
-		}
-	}
-
-	private boolean checkForServices() {
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (resultCode == ConnectionResult.SUCCESS) {
-			Log.e("DEBUG", "Google Play Services available");
-			return true;
-		} else {
-			ConnectionResult connectionResult = new ConnectionResult(
-					resultCode, null);
-			int errorCode = connectionResult.getErrorCode();
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-
-			if (errorDialog != null) {
-				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-				errorFragment.setDialog(errorDialog);
-				errorFragment.show(getSupportFragmentManager(),
-						"Location Updates");
-			}
-			return false;
 		}
 	}
 

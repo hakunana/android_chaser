@@ -4,17 +4,11 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.location.Location;
-import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.helper.RaceListener;
 
 public class RaceControl {
-
-	// Distanz in Metern, ab der ein Checkpoint als erreicht gewertet wird. Wird
-	// als Konstante gesetzt, sollte aber - falls sich das als zu ungenau
-	// herausstellen sollte - dynamisch geändert werden, basierend auf der GPS
-	// Genauigkeit
 
 	private float minDistance = 8;
 
@@ -82,8 +76,6 @@ public class RaceControl {
 		}
 	}
 
-	// Methode braucht die momentane Location (currentLocation):
-	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
 	public Checkpoint getNextCheckpoint(Location currentLocation) {
 		Checkpoint nextCheckpoint;
 		Location end = new Location("end");
@@ -111,12 +103,7 @@ public class RaceControl {
 		return checkpoints;
 	}
 
-	// Methode braucht die momentane Location (currentLocation) sowie den
-	// aktuellen Checkpoint:
-	// Entweder übergeben oder per Listener in regelmäßigen Abständen liefern.
-	// !!! Sollte die Funktion nichts taugen, können wir es auch mit der
-	// bearingTo-Methode
-	// versuchen. (Siehe weiter unten)
+
 	public float getBearing(Location currentLocation,
 			Checkpoint currentCheckpoint) {
 		Location destination = new Location("destination");
@@ -130,7 +117,6 @@ public class RaceControl {
 	public long getScore() {
 		endTimer();
 		timeForTrack = endTime - startTime;
-		Log.e("DEBUG", "returning: " + timeForTrack);
 		return timeForTrack;
 	}
 

@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Adventure Run</string>
-    <string name="hello_world">Hello world!</string>
     
     <string name="tutorial_next">Weiter</string>
     <string name="tutorial_finish">Fertig</string>
@@ -16,6 +15,9 @@
     
     <string name="textView_checkpointNum">Gesetzte Checkpoints:</string>
     <string name="textView_checkpointReached">Erreichte Checkpoints: </string>
+    
+    <string name="dialog_error_title">Error</string>
+    <string name="dialog_error_message">Ein Fehler ist aufgetreten: </string>
     
     <string name="textView_raceInformation_checkpointReached">Checkpoint erreicht!</string>
     <string name="textView_raceInformation_raceWon">Alle Checkpoints erreicht! Gewonnen!</string>
