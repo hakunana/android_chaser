@@ -479,7 +479,7 @@ containing a value of this type.
         public static final int button_details_track=0x7f07002d;
         public static final int button_remove_track=0x7f07002e;
         public static final int button_start_finish_create_track=0x7f070018;
-        public static final int button_start_run_track=0x7f070023;
+        public static final int button_start_run_track=0x7f070021;
         public static final int buyButton=0x7f07000a;
         public static final int buy_now=0x7f07000f;
         public static final int buy_with_google=0x7f07000e;
@@ -520,10 +520,10 @@ containing a value of this type.
         public static final int textView_checkpointNumCount=0x7f07001c;
         public static final int textView_distance=0x7f070024;
         public static final int textView_distance_to_checkpoint=0x7f070020;
-        public static final int textView_race_information=0x7f070022;
+        public static final int textView_race_information=0x7f070023;
         public static final int textView_reached_checkpoints=0x7f070026;
         public static final int textView_reached_checkpoints_count=0x7f070025;
-        public static final int textView_speed=0x7f070021;
+        public static final int textView_speed=0x7f070022;
         public static final int textView_time=0x7f070027;
         public static final int track_list=0x7f070037;
         public static final int track_name=0x7f07002b;
@@ -712,16 +712,6 @@ containing a value of this type.
         public static final int textView_raceInformation_checkpointReached=0x7f050029;
         public static final int textView_raceInformation_raceWon=0x7f05002a;
         public static final int track_name_default=0x7f050052;
-        public static final int tutorial_headline1=0x7f050059;
-        public static final int tutorial_headline2=0x7f05005b;
-        public static final int tutorial_headline3=0x7f05005d;
-        public static final int tutorial_headline4=0x7f05005f;
-        public static final int tutorial_headline5=0x7f050061;
-        public static final int tutorial_message1=0x7f05005a;
-        public static final int tutorial_message2=0x7f05005c;
-        public static final int tutorial_message3=0x7f05005e;
-        public static final int tutorial_message4=0x7f050060;
-        public static final int tutorial_message5=0x7f050062;
         public static final int tutorial_next=0x7f050026;
         public static final int view_map_info=0x7f050056;
         /**  Text on a placeholder buy button when Google Play services is not
