@@ -523,11 +523,11 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		}
 
 		textView_distance
-				.setText("D: " + String.format("%.0f", distance) + "m");
-		textView_speed.setText("S:"
+				.setText("Distance " + String.format("%.0f", distance) + "m");
+		textView_speed.setText("Speed "
 				+ String.format("%.1f", currentLocation.getSpeed() * 3.6)
 				+ " km/h");
-		textView_distanceToCheckpoint.setText("N: "
+		textView_distanceToCheckpoint.setText("Next CP "
 				+ String.format("%.0f",
 						currentLocation.distanceTo(locationCheckpoint)) + "m");
 	}
