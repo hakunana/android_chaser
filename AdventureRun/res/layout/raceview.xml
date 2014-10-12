@@ -28,7 +28,7 @@
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
-        android:layout_height="200dp" />
+        android:layout_height="180dp" />
 
     <ImageView
         android:id="@+id/imageView_compass"
@@ -37,20 +37,10 @@
         android:layout_above="@+id/textView_distance_to_checkpoint"
         android:layout_centerHorizontal="true"
         android:contentDescription="@string/description_compass"
-        android:src="@drawable/compass" />
+        android:src="@drawable/compass"
+        android:layout_margin="10dp" />
 
-    <Button
-        android:id="@+id/button_start_run_track"
-        style="@style/adventure_run_button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dp"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
-        android:text="@string/button_start_run_track"
-        android:textSize="@dimen/textsize_buttons" />
+   
 
     <TextView
         android:id="@+id/textView_speed"
@@ -60,7 +50,8 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/button_start_run_track"
         android:background="@drawable/circle"
-        android:padding="10dp"
+        android:gravity="center"
+        android:padding="6dp"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_circle" />
 
@@ -70,7 +61,8 @@
         android:layout_height="80dp"
         android:layout_above="@+id/textView_race_information"
         android:layout_centerHorizontal="true"
-        android:padding="10dp"
+        android:gravity="center"
+        android:padding="6dp"
         android:background="@drawable/circle"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_circle" />
@@ -81,7 +73,8 @@
         android:layout_height="90dp"
         android:layout_above="@+id/textView_race_information"
         android:layout_alignParentRight="true"
-        android:padding="10dp"
+        android:gravity="center"
+        android:padding="6dp"
         android:background="@drawable/circle"
         android:textSize="@dimen/textsize_circle" />
 
@@ -112,6 +105,8 @@
         android:layout_alignBaseline="@+id/textView_reached_checkpoints_count"
         android:layout_alignBottom="@+id/textView_reached_checkpoints_count"
         android:layout_alignRight="@+id/button_start_run_track"
+        android:layout_marginTop="60dp"
+        android:gravity="center|bottom"
         android:text="@string/textView_checkpointReached"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
@@ -124,5 +119,17 @@
         android:gravity="center"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
+     <Button
+        android:id="@+id/button_start_run_track"
+        style="@style/adventure_run_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:text="@string/button_start_run_track"
+        android:textSize="@dimen/textsize_buttons" />
 
 </RelativeLayout>
