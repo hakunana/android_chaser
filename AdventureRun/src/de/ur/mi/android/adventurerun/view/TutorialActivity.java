@@ -62,12 +62,11 @@ public class TutorialActivity extends FragmentActivity {
 
 	    // TODO add correct items
 
-	    adapter.addItem(new TutorialItem(R.drawable.ic_launcher, "text",
-	        "headline")); // correct drawable id and text (R.drawable.tutorial1)
-	    adapter.addItem(new TutorialItem(R.drawable.ic_launcher, "text",
-	        "headline")); // correct drawable id and text
-	    adapter.addItem(new TutorialItem(-1, "text", "headline")); // correct drawable id and text
-	    adapter.addItem(new TutorialItem(-1, "text", "headline")); // correct drawable id and text
+	    adapter.addItem(new TutorialItem(R.drawable.tutorial_logo, getString(R.string.tutorial_message1), getString(R.string.tutorial_headline1))); // correct drawable id and text (R.drawable.tutorial1)
+	    adapter.addItem(new TutorialItem(R.drawable.tutorial_start, getString(R.string.tutorial_message2), getString(R.string.tutorial_headline2)));
+	    adapter.addItem(new TutorialItem(R.drawable.tutorial_create, getString(R.string.tutorial_message3), getString(R.string.tutorial_headline3)));
+	    adapter.addItem(new TutorialItem(R.drawable.tutorial_listview, getString(R.string.tutorial_message4), getString(R.string.tutorial_headline4)));
+	    adapter.addItem(new TutorialItem(R.drawable.tutorial_run, getString(R.string.tutorial_message5), getString(R.string.tutorial_headline5)));
 
 	    adapter.notifyDataSetChanged();
 	  }

@@ -85,5 +85,21 @@
     <string name="view_map_info">Tippe auf den Kompass, um kurz die Karte anzuzeigen.</string>
     <string name="remaining_map_views">Verbleibende Kartenaufrufe: </string>
     <string name="no_remaining_map_views">Du kannst die Karte in diesem Spiel nicht mehr anzeigen lassen.</string>
+    
+    <string name="tutorial_headline1">Herzlich Willkommen</string>
+    <string name="tutorial_message1">Mit adventureRun hast Du mehr Spaß beim Laufen! Nachfolgendes Tutorial zeigt Dir, wie du das Beste aus der App holen kannst.</string>
+    
+    <string name="tutorial_headline2">Zu Beginn…</string>
+    <string name="tutorial_message2">…kannst du mit dem “+” Button eine Strecke erstellen und gerätst damit in eine neue Ansicht der App.</string>
+    
+    <string name="tutorial_headline3">Los geht’s!</string>
+    <string name="tutorial_message3">Damit es losgehen kann, klicke auf “Strecke beginnen”(1). Während du Läufst kannst du besondere Ziele, die du später wieder  anlaufen möchtest, als “Checkpoint” setzen (2). </string>
+    
+    <string name="tutorial_headline4">Erstellte Strecken!</string>
+    <string name="tutorial_message4">Hast Du bereits Strecken gespeichert, siehst Du dies in der Liste der Strecken wenn Du die App startest. Dann kannst Du aus Deiner Liste eine der gespeicherten Strecken auswählen und das Abenteuer kann beginnen!</string>
+    
+    <string name="tutorial_headline5">Abenteuer!</string>
+    <string name="tutorial_message5">Wenn Du Dich für eine der Strecken entschieden hast, steht Deinem Abenteuer nichts mehr im Weg!
+Im unteren Bereich siehst Du einen Kompass, der dich zu deinem nächsten Checkpoint führt, sowie Informationen zu Distanz, Geschwindigkeit und Zeit. </string>
 
 </resources>
