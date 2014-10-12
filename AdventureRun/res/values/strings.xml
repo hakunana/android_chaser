@@ -5,6 +5,8 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     
+    <string name="tutorial_next">weiter</string>
+    
     <string-array name="drawer_items">
         <item>Track erstellen</item>
         <item>Track laufen</item>

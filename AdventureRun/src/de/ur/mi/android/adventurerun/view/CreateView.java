@@ -33,6 +33,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -92,7 +93,7 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		map.setMyLocationEnabled(true);
 		map.animateCamera(CameraUpdateFactory.zoomTo(16));
 	}
-
+	
 	@Override
 	public void onStart() {
 		locationController.start();

@@ -126,10 +126,9 @@ public class TrackDetailView extends FragmentActivity implements
 		Fragment fragment = fmanager.findFragmentById(R.id.map_fragment);
 		SupportMapFragment supportMapFragment = (SupportMapFragment) fragment;
 		map = supportMapFragment.getMap();
+		map.setOnMapLoadedCallback(this);
 		map.setMyLocationEnabled(true);
 		map.animateCamera(CameraUpdateFactory.zoomTo(16));
-
-		map.setOnMapLoadedCallback(this);
 	}
 
 	@Override

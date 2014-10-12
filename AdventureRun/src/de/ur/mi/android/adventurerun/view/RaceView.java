@@ -40,6 +40,7 @@ import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.GoogleMap.OnMapLoadedCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.CircleOptions;
 import com.google.android.gms.maps.model.LatLng;
@@ -159,7 +160,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		map.setMyLocationEnabled(true);
 		map.animateCamera(CameraUpdateFactory.zoomTo(16));
 		updateCheckpointsOnMap();
-	}
+	}	
 
 	private void updateCheckpointsOnMap() {
 		map.clear();
