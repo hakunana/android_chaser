@@ -167,6 +167,9 @@ public class CreateView extends FragmentActivity implements PositionListener {
 					public void onClick(DialogInterface dialog, int which) {
 						control.deleteLastCheckpoint();
 						updateCheckpointNum();
+						if (control.getCheckpointNum() < 2) {
+							buttonStartFinish.setText(R.string.button_abort_track);
+						}
 						updateMap();
 					}
 
@@ -260,11 +263,9 @@ public class CreateView extends FragmentActivity implements PositionListener {
 
 	private void updateCheckpointNum() {
 		int checkpointNum = control.getCheckpointNum();
-		Integer num = Integer.valueOf(checkpointNum);
-		String s = num.toString();
-		TextView tv = (TextView) findViewById(R.id.textView_checkpointNumCount);
-		tv.setText(s);
-
+		TextView tv = (TextView) findViewById(R.id.textView_checkpointNum);
+		tv.setText(R.string.textView_checkpointNum);
+		tv.append("" + checkpointNum);
 	}
 
 	private void finishTrack() {

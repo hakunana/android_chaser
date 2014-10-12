@@ -273,6 +273,7 @@ public class RaceView extends FragmentActivity implements RaceListener,
 				if (raceStarted == false) {
 					startCountdown();
 				} else {
+					informAboutRaceAborted();
 					raceControl.stopRace();
 				}
 
@@ -391,7 +392,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 		raceStarted = false;
 		updateScoreList();
 		setWinnerView();
-
 	}
 
 	private void updateScoreList() {
@@ -422,8 +422,6 @@ public class RaceView extends FragmentActivity implements RaceListener,
 	public void onRaceStopped() {
 		raceStarted = false;
 		buttonStart.setText(R.string.button_start_run_track);
-		informAboutRaceAborted();
-
 	}
 
 	private void informAboutRaceAborted() {
