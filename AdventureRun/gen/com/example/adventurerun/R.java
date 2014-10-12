@@ -383,6 +383,7 @@ containing a value of this type.
         public static final int activity_horizontal_margin=0x7f090000;
         public static final int activity_vertical_margin=0x7f090001;
         public static final int textsize_buttons=0x7f090002;
+        public static final int textsize_circle=0x7f090006;
         public static final int textsize_detail=0x7f090005;
         public static final int textsize_heading=0x7f090003;
         public static final int textsize_normal=0x7f090004;

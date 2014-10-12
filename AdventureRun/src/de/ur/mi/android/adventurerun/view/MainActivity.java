@@ -64,6 +64,11 @@ public class MainActivity extends Activity implements TrackListListener {
 		
 		if (!tutorialScreenShown) {
 			Intent intent = new Intent (MainActivity.this, TutorialActivity.class);
+			
+			SharedPreferences.Editor editor = prefs.edit();
+	        editor.putBoolean(tutorialScreenShownPref, true);
+	        editor.commit();
+	        
 			startActivity(intent);
 			finish();
 		}

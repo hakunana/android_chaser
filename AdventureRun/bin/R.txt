@@ -68,6 +68,7 @@ int color wallet_secondary_text_holo_dark 0x7f060021
 int dimen activity_horizontal_margin 0x7f090000
 int dimen activity_vertical_margin 0x7f090001
 int dimen textsize_buttons 0x7f090002
+int dimen textsize_circle 0x7f090006
 int dimen textsize_detail 0x7f090005
 int dimen textsize_heading 0x7f090003
 int dimen textsize_normal 0x7f090004
