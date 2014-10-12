@@ -464,6 +464,11 @@ containing a value of this type.
         public static final int tab_unselected_adventure_run=0x7f020049;
         public static final int tab_unselected_focused_adventure_run=0x7f02004a;
         public static final int tab_unselected_pressed_adventure_run=0x7f02004b;
+        public static final int tutorial_create=0x7f02004c;
+        public static final int tutorial_listview=0x7f02004d;
+        public static final int tutorial_logo=0x7f02004e;
+        public static final int tutorial_run=0x7f02004f;
+        public static final int tutorial_start=0x7f020050;
     }
     public static final class id {
         public static final int action_create=0x7f07003e;

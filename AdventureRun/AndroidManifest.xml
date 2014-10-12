@@ -53,8 +53,15 @@
             </intent-filter>
         </activity>
         
-       
-        
+        <activity
+            android:name="de.ur.mi.android.adventurerun.view.TutorialActivity"
+            android:label="@string/app_name" 
+            android:screenOrientation="portrait">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+            </intent-filter>
+        </activity>
+          
         <activity
             android:name="de.ur.mi.android.adventurerun.view.TrackDetailView"
             android:label="@string/app_name" 

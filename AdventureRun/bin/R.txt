@@ -147,6 +147,11 @@ int drawable tab_selected_pressed_adventure_run 0x7f020048
 int drawable tab_unselected_adventure_run 0x7f020049
 int drawable tab_unselected_focused_adventure_run 0x7f02004a
 int drawable tab_unselected_pressed_adventure_run 0x7f02004b
+int drawable tutorial_create 0x7f02004c
+int drawable tutorial_listview 0x7f02004d
+int drawable tutorial_logo 0x7f02004e
+int drawable tutorial_run 0x7f02004f
+int drawable tutorial_start 0x7f020050
 int id action_create 0x7f07003e
 int id book_now 0x7f070010
 int id button_add_checkpoint 0x7f070019

@@ -5,15 +5,17 @@ import java.util.ArrayList;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.widget.DrawerLayout;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.adventurerun.R;
 
@@ -35,11 +37,17 @@ public class MainActivity extends Activity implements TrackListListener {
 	private DrawerLayout navigationDrawerLayout;
 	private ListView navigationList;
 	
+	private final String tutorialScreenShownPref = "tutorialScreenShown";
+	private SharedPreferences prefs;
+	
 	Context context;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		
+		openTutorialActivity();
+		
 		setContentView(R.layout.trackview);
 		initNavigationDrawer();
 		this.context = this;
@@ -48,6 +56,17 @@ public class MainActivity extends Activity implements TrackListListener {
 		initDB();
 		initUI();
 		initList();
+	}
+
+	private void openTutorialActivity() {
+		prefs = PreferenceManager.getDefaultSharedPreferences(this);
+		boolean tutorialScreenShown = prefs.getBoolean(tutorialScreenShownPref,  false);
+		
+		if (!tutorialScreenShown) {
+			Intent intent = new Intent (MainActivity.this, TutorialActivity.class);
+			startActivity(intent);
+			finish();
+		}
 	}
 
 	private void initNavigationDrawer() {
