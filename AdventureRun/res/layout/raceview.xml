@@ -3,39 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <TextView
+    <TextView 
         android:id="@+id/view_map_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/textsize_normal"
+        android:textColor="@color/text_color_highlight"
         android:layout_marginTop="80dp"
         android:gravity="center"
-        android:text="@string/view_map_info"
-        android:textColor="@color/text_color_highlight"
-        android:textSize="@dimen/textsize_normal" />
-
+        android:text="@string/view_map_info"/>
+    
     <TextView
         android:id="@+id/remaining_map_views"
+        android:layout_below="@id/view_map_info"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/view_map_info"
-        android:gravity="center"
-        android:text="@string/remaining_map_views"
-        android:textColor="@color/text_color_highlight"
         android:textSize="@dimen/textsize_normal"
-        android:textStyle="bold" />
-
+        android:textColor="@color/text_color_highlight"
+        android:textStyle="bold"
+        android:gravity="center"
+        android:text="@string/remaining_map_views"/>
+    
     <fragment
         android:id="@+id/map_fragment"
         android:name="com.google.android.gms.maps.SupportMapFragment"
         android:layout_width="match_parent"
         android:layout_height="200dp" />
-
+    
     <ImageView
         android:id="@+id/imageView_compass"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_above="@+id/textView_distance_to_checkpoint"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_centerHorizontal="true"
+        android:layout_above="@+id/textView_distance_to_checkpoint"
         android:contentDescription="@string/description_compass"
         android:src="@drawable/compass" />
 
@@ -45,44 +45,35 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dp"
-        android:background="@drawable/shadow"
-        android:paddingLeft="16dp"
-        android:paddingRight="16dp"
+        android:layout_centerHorizontal="true"
         android:text="@string/button_start_run_track"
         android:textSize="@dimen/textsize_buttons" />
 
     <TextView
         android:id="@+id/textView_speed"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textView_race_information"
-        android:layout_alignParentLeft="true"
-        android:layout_toLeftOf="@+id/button_start_run_track"
-        android:background="@drawable/circle"
-        android:textColor="@color/text_color_detail"
+		android:layout_alignParentLeft="true"
         android:textSize="@dimen/textsize_normal" />
-
+    
     <TextView
         android:id="@+id/textView_distance_to_checkpoint"
-        android:layout_width="90dp"
-        android:layout_height="80dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textView_race_information"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/circle"
-        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
-
+    
     <TextView
         android:id="@+id/textView_distance"
-        android:layout_width="90dp"
-        android:layout_height="90dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_above="@+id/textView_race_information"
         android:layout_alignParentRight="true"
-        android:background="@drawable/circle"
         android:textSize="@dimen/textsize_normal" />
-
+    
     <TextView
         android:id="@+id/textView_race_information"
         android:layout_width="wrap_content"
@@ -90,7 +81,6 @@
         android:layout_above="@+id/button_start_run_track"
         android:layout_centerHorizontal="true"
         android:text=""
-        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_buttons" />
 
     <TextView
@@ -100,7 +90,6 @@
         android:layout_below="@+id/map_fragment"
         android:layout_toRightOf="@+id/textView_reached_checkpoints"
         android:text=""
-        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
 
     <TextView
@@ -111,16 +100,14 @@
         android:layout_alignBottom="@+id/textView_reached_checkpoints_count"
         android:layout_alignRight="@+id/button_start_run_track"
         android:text="@string/textView_checkpointReached"
-        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
-
+    
     <TextView
         android:id="@+id/textView_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/textView_reached_checkpoints"
         android:gravity="center"
-        android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
 
 </RelativeLayout>
