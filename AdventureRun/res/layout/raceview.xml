@@ -60,6 +60,7 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/button_start_run_track"
         android:background="@drawable/circle"
+        android:padding="10dp"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
 
@@ -69,6 +70,7 @@
         android:layout_height="80dp"
         android:layout_above="@+id/textView_race_information"
         android:layout_centerHorizontal="true"
+        android:padding="10dp"
         android:background="@drawable/circle"
         android:textColor="@color/text_color_detail"
         android:textSize="@dimen/textsize_normal" />
@@ -79,6 +81,7 @@
         android:layout_height="90dp"
         android:layout_above="@+id/textView_race_information"
         android:layout_alignParentRight="true"
+        android:padding="10dp"
         android:background="@drawable/circle"
         android:textSize="@dimen/textsize_normal" />
 
