@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.content.Context;
 import android.location.Location;
+import android.util.Log;
 import de.ur.mi.android.adventurerun.data.Checkpoint;
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.helper.RaceListener;
@@ -37,15 +38,14 @@ public class RaceControl {
 	}
 
 	public void startRace() {
-		listener.onRaceStarted();
-		startTimer();
 		running = true;
+		startTimer();
+		listener.onRaceStarted();
 	}
 
 	public void stopRace() {
-		listener.onRaceStopped();
-		endTimer();
 		running = false;
+		listener.onRaceStopped();
 	}
 
 	private void startTimer() {
@@ -126,10 +126,11 @@ public class RaceControl {
 		return currentLocation.bearingTo(destination);
 	}
 
-	
 
 	public long getScore() {
+		endTimer();
 		timeForTrack = endTime - startTime;
+		Log.e("DEBUG", "returning: " + timeForTrack);
 		return timeForTrack;
 	}
 
