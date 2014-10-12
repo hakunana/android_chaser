@@ -73,8 +73,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		
 		//getActionBar().setDisplayHomeAsUpEnabled(true);
 
-		checkForServices();
-
 		control = new CreateControl(this);
 		locationController = new LocationController(this, this);
 
@@ -506,27 +504,6 @@ public class CreateView extends FragmentActivity implements PositionListener {
 		}
 	}
 
-	private boolean checkForServices() {
-		int resultCode = GooglePlayServicesUtil
-				.isGooglePlayServicesAvailable(this);
-		if (resultCode == ConnectionResult.SUCCESS) {
-			Log.e("DEBUG", "Google Play Services available");
-			return true;
-		} else {
-			ConnectionResult connectionResult = new ConnectionResult(
-					resultCode, null);
-			int errorCode = connectionResult.getErrorCode();
-			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
-					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
-
-			if (errorDialog != null) {
-				ErrorDialogFragment errorFragment = new ErrorDialogFragment();
-				errorFragment.setDialog(errorDialog);
-				errorFragment.show(getSupportFragmentManager(),
-						"Location Updates");
-			}
-			return false;
-		}
-	}
+	
 
 }

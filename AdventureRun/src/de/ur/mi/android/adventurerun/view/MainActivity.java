@@ -3,10 +3,12 @@ package de.ur.mi.android.adventurerun.view;
 import java.util.ArrayList;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.DrawerLayout;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,12 +18,15 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 import com.example.adventurerun.R;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GooglePlayServicesUtil;
 
 import de.ur.mi.android.adventurerun.data.Track;
 import de.ur.mi.android.adventurerun.database.PrivateDatabaseTracks;
 import de.ur.mi.android.adventurerun.helper.Constants;
 import de.ur.mi.android.adventurerun.helper.TrackAdapter;
 import de.ur.mi.android.adventurerun.helper.TrackListListener;
+import de.ur.mi.android.adventurerun.view.CreateView.ErrorDialogFragment;
 
 public class MainActivity extends Activity implements TrackListListener {
 
@@ -35,6 +40,9 @@ public class MainActivity extends Activity implements TrackListListener {
 	private DrawerLayout navigationDrawerLayout;
 	private ListView navigationList;
 	
+	private final static int CONNECTION_FAILURE_RESOLUTION_REQUEST = 9000;
+	private static final String DIALOG_ERROR = "dialog_error";
+	
 	Context context;
 
 	@Override
@@ -44,10 +52,44 @@ public class MainActivity extends Activity implements TrackListListener {
 		initNavigationDrawer();
 		this.context = this;
 		tracks = new ArrayList<Track>();
+
+		checkForServices();
 		
 		initDB();
 		initUI();
 		initList();
+	}
+	
+	@Override
+	protected void onResume() {
+		initList();
+		super.onResume();
+	}
+
+	@Override
+	protected void onDestroy() {
+		db.close();
+		super.onDestroy();
+	}
+	
+	private boolean checkForServices() {
+		int resultCode = GooglePlayServicesUtil
+				.isGooglePlayServicesAvailable(this);
+		if (resultCode == ConnectionResult.SUCCESS) {
+			Log.e("DEBUG", "Google Play Services available");
+			return true;
+		} else {
+			ConnectionResult connectionResult = new ConnectionResult(
+					resultCode, null);
+			int errorCode = connectionResult.getErrorCode();
+			Dialog errorDialog = GooglePlayServicesUtil.getErrorDialog(
+					errorCode, this, CONNECTION_FAILURE_RESOLUTION_REQUEST);
+
+			if (errorDialog != null) {
+				errorDialog.show();
+			}
+			return false;
+		}
 	}
 
 	private void initNavigationDrawer() {
@@ -105,18 +147,6 @@ public class MainActivity extends Activity implements TrackListListener {
 		}
 		}
 		return super.onOptionsItemSelected(item);
-	}
-
-	@Override
-	protected void onResume() {
-		initList();
-		super.onResume();
-	}
-
-	@Override
-	protected void onDestroy() {
-		db.close();
-		super.onDestroy();
 	}
 
 	private void initDB() {
