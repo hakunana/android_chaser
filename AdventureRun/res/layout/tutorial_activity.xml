@@ -11,15 +11,13 @@
       android:layout_width="match_parent"
       android:id="@+id/tutorial_activity_pager"/>
 
-  <Button
-      android:id="@+id/tutorial_activity_go_on"
-      android:layout_width="101dp"
-      android:layout_height="wrap_content"
-      android:layout_gravity="center_horizontal"
+ <Button android:layout_width="wrap_content" android:layout_height="wrap_content"
       android:layout_margin="16dp"
       android:background="#02A4EB"
-      android:text=""
       android:textColor="#FFFFFF"
-      android:textSize="14sp" />
+      android:text="weiter"
+      android:textSize="14sp"
+      android:layout_gravity="center_horizontal"
+      android:id="@+id/tutorial_activity_go_on"/>
 
 </LinearLayout>
