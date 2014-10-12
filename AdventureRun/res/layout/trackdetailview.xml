@@ -31,6 +31,7 @@
         style="@style/adventure_run_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
         android:layout_alignParentBottom="true"
         android:layout_marginEnd="2dp"
         android:layout_marginRight="2dp"
@@ -40,10 +41,11 @@
 
     <Button
         android:id="@+id/delete_track"
-        style="@style/adventure_run_button"
+        style="@style/adventure_run_button_red"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/linearLayout1"
         android:layout_toRightOf="@+id/rename_track"
         android:layout_weight="1"
         android:text="@string/button_delete_track" />
