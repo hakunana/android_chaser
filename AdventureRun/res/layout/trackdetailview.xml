@@ -55,7 +55,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_alignRight="@+id/rename_track"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
         android:text="@string/track_name_default"
         android:textSize="@dimen/textsize_heading"
         android:textStyle="bold" />

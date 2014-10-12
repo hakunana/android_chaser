@@ -93,8 +93,7 @@ public class TrackDetailView extends FragmentActivity implements
 
 	protected void onResume() {
 		super.onResume();
-		scores = dbScores.getScoreList(track);
-		scoreAdapter.notifyDataSetChanged();
+		initScores();
 	}
 
 	private void initScores() {
